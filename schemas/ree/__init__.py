@@ -40,24 +40,66 @@ from schemas.ree.ignorance import (
     IgnoranceStatus,
     IgnoranceType,
 )
+from schemas.ree.ontology import (
+    ConclusionInvariance,
+    CounterfactualWorld,
+    ExperimentCandidate,
+    OntologyFrame,
+    SensitivityResult,
+)
+from schemas.ree.self_model import (
+    CalibrationPoint,
+    CapabilityEstimate,
+    EpisodeRecord,
+)
+from schemas.ree.social import (
+    EvidenceProvenance,
+    StakeholderModel,
+    TribunalRole,
+    TribunalSubmission,
+    TribunalVerdict,
+)
+from schemas.ree.memory import (
+    ConsolidationEvent,
+    MemoryRecord,
+    MemoryRecordStatus,
+    MemoryStore,
+)
+from schemas.ree.value_model import (
+    NormConflict,
+    ValuePrinciple,
+)
 
 __all__ = [
     "ActionType",
     "Assumption",
     "BeliefSnapshot",
     "BudgetState",
+    "CalibrationPoint",
+    "CapabilityEstimate",
+    "ConclusionInvariance",
+    "ConsolidationEvent",
     "Contradiction",
+    "CounterfactualWorld",
     "EpistemicAction",
     "EpistemicActionBid",
     "EpistemicDecision",
     "EpistemicEvent",
     "EpistemicState",
+    "EpisodeRecord",
+    "EvidenceProvenance",
+    "ExperimentCandidate",
     "Falsifier",
     "Hypothesis",
     "HypothesisStatus",
     "IgnoranceItem",
     "IgnoranceStatus",
     "IgnoranceType",
+    "MemoryRecord",
+    "MemoryRecordStatus",
+    "MemoryStore",
+    "NormConflict",
+    "OntologyFrame",
     "OperatorOutcome",
     "OperatorResult",
     "Prediction",
@@ -67,6 +109,12 @@ __all__ = [
     "ResearchNode",
     "ResearchNodeType",
     "ResourceCost",
+    "SensitivityResult",
+    "StakeholderModel",
+    "TribunalRole",
+    "TribunalSubmission",
+    "TribunalVerdict",
+    "ValuePrinciple",
     "WorkspaceSlot",
     "WorkspaceState",
 ]

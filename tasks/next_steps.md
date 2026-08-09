@@ -44,3 +44,30 @@ Steps 1–2 are independent. Steps 3–8 depend only on `common` + schemas and a
 - Full benchmark suite or ablation framework
 
 See [v0-canonical-architecture.md § What is Postponed](../docs/architecture/v0-canonical-architecture.md#10-what-is-postponed-and-why) for rationale.
+
+---
+
+## ASAR-REE Implementation Status
+
+All REE phases (0–9) are **completed**. The architecture is implemented, tested, and documented.
+
+| Phase | Description | Status |
+|-------|-------------|--------|
+| 0 | Forensic Baseline + V2 Architecture Contract | completed |
+| 1 | Epistemic State + Event Sourcing + Workspace + Operator Kernel | completed |
+| 2 | World Model + Hypothesis Ecology + Ignorance + Research Graph | completed |
+| 3 | Ontology Evolution + Counterfactual Lab + Active Experiment Design | completed |
+| 4 | Empirical Self Model + Metacognition + Calibration | completed |
+| 5 | Dissonance Tribunal + Social Epistemology + Other Model | completed |
+| 6 | Epistemic Market + Full Metacognitive Control + Stopping | completed |
+| 7 | Federated Memory + Consolidation + Replay Learning | completed |
+| 8 | Value Model + Reflective Equilibrium + Full Integration | completed |
+| 9 | Scientific Evaluation Suite + Ablations + Release Candidate | completed |
+
+### REE Next Steps
+
+- Wire REE controller to live LLM and search providers for end-to-end real episodes
+- Run controlled experiments on benchmark tasks (H-REE-01 through H-REE-10)
+- Train Level 2 learned scheduler from trajectory data
+- Implement offline "sleep" replay consolidation
+- Build Tier 2/3 evaluation benchmarks with adversarial scenarios
