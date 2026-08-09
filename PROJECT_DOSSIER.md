@@ -272,15 +272,20 @@ Things we are explicitly NOT doing. If a proposed change serves one of these goa
 
 These must hold across **all** future changes. Violating any invariant requires explicit justification recorded in [docs/architecture/decision-log.md](docs/architecture/decision-log.md) before implementation.
 
-| # | Name | Rule | Enforcement |
-|---|------|------|-------------|
-| 1 | **Grounded output** | Every claim in final output traces to an `EvidenceItem`. No ungrounded assertions. | `verification` checks; schema requires `supporting_evidence_ids` on every `Claim` |
-| 2 | **Typed boundaries** | All inter-layer communication uses Pydantic models from `schemas/`. No raw string passing. | Protocol signatures; code review |
-| 3 | **Reproducible experiments** | Config + seed + data = same result. | `ExperimentRecord` schema captures all inputs; see [§12](#12-experimental-methodology) |
-| 4 | **Separate generation from verification** | The module that produces a claim (`deliberation`) must not be the sole module that checks it. | Architectural separation of `deliberation` and `verification` layers |
-| 5 | **Explicit memory tiers** | What is in working memory vs. compressed vs. evicted is always queryable. No hidden state. | `MemoryProtocol` interface |
-| 6 | **Swappable modules** | Any layer implementation can be replaced without changing adjacent layers if the protocol contract holds. | Protocol-based dispatch in `orchestration`; no cross-layer imports |
-| 7 | **Orchestration-only routing** | Layers do not import or call each other directly. All inter-layer communication goes through `orchestration`. | Import discipline (see [§6](#6-system-layers)); code review |
+Each invariant is scoped to a runtime: `legacy` (v0 sequential pipeline), `ree` (Reflexive Epistemic Ecology), or `both`. See [ADR-005](docs/architecture/decision-log.md) and [ADR-006](docs/architecture/decision-log.md) for the rationale.
+
+| # | Name | Scope | Rule | Enforcement |
+|---|------|-------|------|-------------|
+| 1 | **Grounded output** | both | Every claim in final output traces to an `EvidenceItem`. No ungrounded assertions. | `verification` checks; schema requires `supporting_evidence_ids` on every `Claim` |
+| 2 | **Typed boundaries** | both | All inter-layer/inter-component communication uses Pydantic models from `schemas/`. No raw string passing. | Protocol signatures; code review |
+| 3 | **Reproducible experiments** | both | Config + seed + data = same result. | `ExperimentRecord` schema captures all inputs; REE adds event-sourced replay |
+| 4 | **Separate generation from verification** | both | The module/operator that produces a claim must not be the sole module/operator that checks it. | Architectural separation; separate operators in REE |
+| 5 | **Explicit memory tiers** | legacy | What is in working memory vs. compressed vs. evicted is always queryable. No hidden state. | `MemoryProtocol` interface |
+| 5r | **Queryable memory stores** | ree | Every record's functional store and temporal state are always queryable. | `FederatedMemoryProtocol`; each store exposes provenance and temporal queries |
+| 6 | **Swappable modules** | both | Any layer/operator implementation can be replaced without changing adjacent components if the protocol contract holds. | Protocol-based dispatch; no cross-component imports |
+| 7 | **Orchestration-only routing** | legacy | Layers do not import or call each other directly. All inter-layer communication goes through `orchestration`. | Import discipline (see [§6](#6-system-layers)); code review |
+| 7r | **Reducer-only mutation** | ree | Operators return typed `OperatorResult`s; only the state reducer mutates `EpistemicState`. No operator imports or invokes another operator. | Typed operator protocol; immutable state; code review |
+| 8 | **Append-only history** | ree | Epistemic events are never overwritten. Historical belief versions remain queryable. | Append-only event store |
 
 ---
 
@@ -442,6 +447,21 @@ Supported development/runtime baseline for this phase: Python 3.11+. Any validat
 - Ablation framework
 - Error analysis tooling
 - Experiment dashboard
+
+### ASAR-REE Phases `[v2]`
+
+The following phases implement the Reflexive Epistemic Ecology architecture. See [docs/architecture/ree-architecture.md](docs/architecture/ree-architecture.md) for the full specification and [ADR-005](docs/architecture/decision-log.md) for the migration strategy.
+
+- **REE Phase 0** — Forensic baseline, ADRs, scoped invariants, config flags, research hypotheses H-REE-01 through H-REE-10
+- **REE Phase 1** — Epistemic state, event sourcing, workspace, cognitive operator kernel, first REE loop
+- **REE Phase 2** — World model, hypothesis ecology, ignorance ledger, research graph
+- **REE Phase 3** — Ontology evolution, counterfactual laboratory, active experiment design
+- **REE Phase 4** — Empirical self model, metacognition, calibration
+- **REE Phase 5** — Dissonance tribunal, social epistemology, other model
+- **REE Phase 6** — Epistemic market, full metacognitive control, stopping policy
+- **REE Phase 7** — Federated memory, consolidation, replay learning
+- **REE Phase 8** — Value model, reflective equilibrium, full integration of all five persistent models
+- **REE Phase 9** — Scientific evaluation suite, ablations, epistemic benchmarks, release candidate
 
 Immediate priorities: [tasks/next_steps.md](tasks/next_steps.md).
 Full backlog: [tasks/backlog.md](tasks/backlog.md).

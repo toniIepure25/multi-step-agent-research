@@ -1,6 +1,9 @@
 # Pipeline feature toggles
 # Use these to enable/disable layers during development and experiments
 
+[runtime]
+mode = "legacy"  # "legacy" = frozen v0 sequential pipeline, "ree" = Reflexive Epistemic Ecology
+
 [layers]
 planning = true
 execution = true

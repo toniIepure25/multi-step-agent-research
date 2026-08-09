@@ -72,3 +72,42 @@ Record all non-trivial architectural decisions here. **Any change to schemas, pr
 **Decision:** Add a shared schema timestamp type that rejects naive datetimes and normalizes aware datetimes to UTC for all typed timestamp fields.
 **Consequences:** All serialized artifacts store timestamps consistently in UTC. Callers must provide timezone-aware datetimes when overriding timestamps. Existing UTC defaults continue to work unchanged.
 **Invariants affected:** Reinforces invariant #2 (typed boundaries) and invariant #3 (reproducible experiments).
+
+## ADR-005: ASAR-REE Architecture — Scoped Invariants and Migration
+
+**Date:** 2026-08-09
+**Status:** accepted
+**Context:** ASAR-REE (Reflexive Epistemic Ecology) replaces the fixed sequential pipeline with an event-sourced, metacognitively controlled architecture. The fundamental unit becomes an epistemic state transition loop: `E_t -> action -> observation -> E_(t+1)`. This conflicts with invariant #7 ("orchestration is the only router") and the frozen canonical layer list, because REE uses a dynamic epistemic controller selecting from swappable cognitive operators rather than routing through a central orchestrator.
+
+**Options considered:**
+1. Modify existing invariants globally — risks breaking the working v0 baseline and makes the invariants incoherent (they would try to serve two contradictory architectures simultaneously).
+2. Scope invariants by runtime — each invariant specifies whether it applies to `legacy`, `ree`, or `both`. The legacy v0 runtime continues to enforce its invariants exactly as before. REE defines equivalent invariants suited to its architecture. Both runtimes coexist via a config flag.
+
+**Decision:** Option 2 — scope invariants by runtime. Specifically:
+
+- Invariant #7 ("orchestration-only routing") is scoped to `legacy`. The REE equivalent is: *"Operators return typed `OperatorResult`s; only the state reducer mutates `EpistemicState`; the epistemic controller selects operations. No operator directly imports or invokes another operator."*
+- Invariants #1 (grounded output), #2 (typed boundaries), #3 (reproducible experiments), #4 (generation ≠ verification), #6 (swappable modules) apply to `both` runtimes. REE strengthens #1 and #3 via event sourcing and provenance graphs.
+- The canonical 8-layer names remain valid for the legacy runtime. REE introduces additional modules (`epistemic`, `operators`, `metacognition`, `social`, `world_model`, `ontology`, `self_model`, `value_model`, `ignorance`, `memory_federation`) without renaming existing layers.
+- A `runtime` configuration key in `config/pipeline.toml` selects which runtime is active. Default: `legacy`.
+- `SequentialOrchestrator` moves to `asar/orchestration/legacy/` with backward-compatible re-exports.
+- Legacy components are never deleted until: (a) REE reaches functional parity, (b) tests prove migration safety, (c) an ADR records the retirement decision, (d) historical experiments remain reproducible.
+
+**Consequences:** The codebase supports two runtime modes. All new REE code lives in new modules; existing v0 code is not modified. Test suites run both runtimes. The `schemas/` directory gains a `ree/` subdirectory for REE-specific schemas; existing schemas are preserved unchanged.
+
+**Invariants affected:** #7 (scoped to legacy; REE equivalent defined). Adds REE-specific invariants.
+
+## ADR-006: Federated Memory Replaces Three-Tier Memory Model in REE
+
+**Date:** 2026-08-09
+**Status:** accepted
+**Context:** The legacy memory model defines three tiers: working, compressed, evicted. REE requires functionally distinct memory stores: working, episodic, semantic/belief, procedural, self-model, prospective, and ignorance — each with different access patterns, provenance requirements, and lifecycle semantics (consolidation, reconsolidation, forgetting).
+
+**Options considered:**
+1. Extend the three-tier model with sub-tiers — conceptually simpler but forces unrelated concerns (e.g., procedural strategy memory and episodic event memory) into the same abstraction.
+2. Federate memory into distinct functional stores — each store has its own protocol, schema, and lifecycle. The working/compressed/evicted tier concept can still exist within individual stores if needed.
+
+**Decision:** Option 2 — federated memory for REE. The legacy `MemoryProtocol` with `store()/retrieve()/compress()` continues to work for the v0 runtime. REE defines a `FederatedMemoryProtocol` with typed access to each functional store. RAG/vector retrieval may serve as a backend for individual stores but is not the architectural foundation.
+
+**Consequences:** Invariant #5 is scoped: legacy retains "working/compressed/evicted always queryable"; REE uses "every record's functional store and temporal state are always queryable". Memory consolidation, reconsolidation, and forgetting become explicit operations with event-sourced provenance.
+
+**Invariants affected:** #5 (scoped to legacy; REE equivalent defined).

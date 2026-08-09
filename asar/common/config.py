@@ -63,6 +63,12 @@ class ModelsSettings(BaseModel):
         return self.default
 
 
+class RuntimeSettings(BaseModel):
+    """Runtime mode selection: legacy v0 pipeline or REE architecture."""
+
+    mode: Literal["legacy", "ree"] = "legacy"
+
+
 class PipelineLayerSettings(BaseModel):
     """Per-layer feature toggles."""
 
@@ -104,6 +110,7 @@ class PipelineSettings(BaseModel):
 
     model_config = ConfigDict(extra="ignore")
 
+    runtime: RuntimeSettings = Field(default_factory=RuntimeSettings)
     layers: PipelineLayerSettings
     execution: ExecutionSettings
     memory: MemorySettings
