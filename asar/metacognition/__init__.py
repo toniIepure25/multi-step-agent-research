@@ -10,5 +10,7 @@ valuable action given the current state and remaining budget.
 
 from asar.metacognition.controller import EpistemicController
 from asar.metacognition.market import EpistemicMarket
+from asar.metacognition.stopping import StoppingPolicy
+from asar.metacognition.trajectory import TrajectoryDataset
 
-__all__ = ["EpistemicController", "EpistemicMarket"]
+__all__ = ["EpistemicController", "EpistemicMarket", "StoppingPolicy", "TrajectoryDataset"]
