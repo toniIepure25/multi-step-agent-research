@@ -1,0 +1,122 @@
+{
+  "matrix": {
+    "retrieve->retrieve": {
+      "mean_complementarity": -0.0018,
+      "mean_quality": 0.0482,
+      "relation": "redundancy",
+      "state_dependent": true,
+      "std": 0.0065
+    },
+    "retrieve->generate_hypothesis": {
+      "mean_complementarity": 0.0784,
+      "mean_quality": 0.2401,
+      "relation": "synergy",
+      "state_dependent": true,
+      "std": 0.1451
+    },
+    "retrieve->attack_hypothesis": {
+      "mean_complementarity": 0.025,
+      "mean_quality": 0.05,
+      "relation": "redundancy",
+      "state_dependent": false,
+      "std": 0.0
+    },
+    "retrieve->reason": {
+      "mean_complementarity": 0.025,
+      "mean_quality": 0.05,
+      "relation": "redundancy",
+      "state_dependent": false,
+      "std": 0.0
+    },
+    "generate_hypothesis->retrieve": {
+      "mean_complementarity": 0.1617,
+      "mean_quality": 0.3234,
+      "relation": "synergy",
+      "state_dependent": true,
+      "std": 0.1009
+    },
+    "generate_hypothesis->generate_hypothesis": {
+      "mean_complementarity": -0.0503,
+      "mean_quality": 0.2231,
+      "relation": "interference",
+      "state_dependent": true,
+      "std": 0.3271
+    },
+    "generate_hypothesis->attack_hypothesis": {
+      "mean_complementarity": 0.1367,
+      "mean_quality": 0.2734,
+      "relation": "synergy",
+      "state_dependent": true,
+      "std": 0.1009
+    },
+    "generate_hypothesis->reason": {
+      "mean_complementarity": 0.1367,
+      "mean_quality": 0.2734,
+      "relation": "synergy",
+      "state_dependent": true,
+      "std": 0.1009
+    },
+    "attack_hypothesis->retrieve": {
+      "mean_complementarity": 0.025,
+      "mean_quality": 0.05,
+      "relation": "redundancy",
+      "state_dependent": false,
+      "std": 0.0
+    },
+    "attack_hypothesis->generate_hypothesis": {
+      "mean_complementarity": 0.1367,
+      "mean_quality": 0.2734,
+      "relation": "synergy",
+      "state_dependent": true,
+      "std": 0.1009
+    },
+    "attack_hypothesis->attack_hypothesis": {
+      "mean_complementarity": 0.0,
+      "mean_quality": 0.0,
+      "relation": "redundancy",
+      "state_dependent": false,
+      "std": 0.0
+    },
+    "attack_hypothesis->reason": {
+      "mean_complementarity": 0.0,
+      "mean_quality": 0.0,
+      "relation": "redundancy",
+      "state_dependent": false,
+      "std": 0.0
+    },
+    "reason->retrieve": {
+      "mean_complementarity": 0.025,
+      "mean_quality": 0.05,
+      "relation": "redundancy",
+      "state_dependent": false,
+      "std": 0.0
+    },
+    "reason->generate_hypothesis": {
+      "mean_complementarity": 0.1367,
+      "mean_quality": 0.2734,
+      "relation": "synergy",
+      "state_dependent": true,
+      "std": 0.1009
+    },
+    "reason->attack_hypothesis": {
+      "mean_complementarity": 0.0,
+      "mean_quality": 0.0,
+      "relation": "redundancy",
+      "state_dependent": false,
+      "std": 0.0
+    },
+    "reason->reason": {
+      "mean_complementarity": 0.0,
+      "mean_quality": 0.0,
+      "relation": "redundancy",
+      "state_dependent": false,
+      "std": 0.0
+    }
+  },
+  "single_means": {
+    "retrieve": 0.05,
+    "generate_hypothesis": 0.2734,
+    "attack_hypothesis": 0.0,
+    "reason": 0.0
+  }
+}

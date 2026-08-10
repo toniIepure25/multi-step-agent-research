@@ -1,0 +1,250 @@
+{
+  "best_global_name": "B1_extended",
+  "best_global_quality": 0.5266,
+  "oracle_quality": 0.6221,
+  "adaptivity_gap": 0.0955,
+  "oracle_sequence_distribution": {
+    "explore_first": 9,
+    "B1_extended": 37,
+    "full_explore": 7,
+    "B1_full": 3
+  },
+  "dominant_sequence_pct": 66.1,
+  "global_means": {
+    "B1_extended": 0.5266,
+    "full_explore": 0.5176,
+    "B1_full": 0.435,
+    "discriminate": 0.435,
+    "atk_late": 0.435,
+    "explore_first": 0.3792,
+    "attack_then_reason": 0.2579,
+    "integrate_only": 0.2579,
+    "evidence_heavy": 0.0479
+  },
+  "oracle_per_world": {
+    "regime_a_271828_0": {
+      "best_sequence": "explore_first",
+      "quality": 0.14
+    },
+    "regime_a_271829_1": {
+      "best_sequence": "explore_first",
+      "quality": 0.14
+    },
+    "regime_a_271830_2": {
+      "best_sequence": "explore_first",
+      "quality": 0.14
+    },
+    "regime_a_271831_3": {
+      "best_sequence": "explore_first",
+      "quality": 0.14
+    },
+    "regime_a_271832_4": {
+      "best_sequence": "explore_first",
+      "quality": 0.14
+    },
+    "regime_a_271833_5": {
+      "best_sequence": "explore_first",
+      "quality": 0.14
+    },
+    "regime_a_271834_6": {
+      "best_sequence": "explore_first",
+      "quality": 0.14
+    },
+    "regime_b_271828_0": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_b_271829_1": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_b_271830_2": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_b_271831_3": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_b_271832_4": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_b_271833_5": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_b_271834_6": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_c_271828_0": {
+      "best_sequence": "full_explore",
+      "quality": 0.7000000000000001
+    },
+    "regime_c_271829_1": {
+      "best_sequence": "full_explore",
+      "quality": 0.7000000000000001
+    },
+    "regime_c_271830_2": {
+      "best_sequence": "full_explore",
+      "quality": 0.7000000000000001
+    },
+    "regime_c_271831_3": {
+      "best_sequence": "full_explore",
+      "quality": 0.7000000000000001
+    },
+    "regime_c_271832_4": {
+      "best_sequence": "full_explore",
+      "quality": 0.7000000000000001
+    },
+    "regime_c_271833_5": {
+      "best_sequence": "full_explore",
+      "quality": 0.7000000000000001
+    },
+    "regime_c_271834_6": {
+      "best_sequence": "full_explore",
+      "quality": 0.7000000000000001
+    },
+    "regime_d_271828_0": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_d_271829_1": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_d_271830_2": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_d_271831_3": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_d_271832_4": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_d_271833_5": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_d_271834_6": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_e_271828_0": {
+      "best_sequence": "explore_first",
+      "quality": 0.5125000000000001
+    },
+    "regime_e_271829_1": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_e_271830_2": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_e_271831_3": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_e_271832_4": {
+      "best_sequence": "explore_first",
+      "quality": 0.5125000000000001
+    },
+    "regime_e_271833_5": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_e_271834_6": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_f_271828_0": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_f_271829_1": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_f_271830_2": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_f_271831_3": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_f_271832_4": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_f_271833_5": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_f_271834_6": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_g_271828_0": {
+      "best_sequence": "B1_extended",
+      "quality": 0.6833333333333333
+    },
+    "regime_g_271829_1": {
+      "best_sequence": "B1_full",
+      "quality": 0.7000000000000001
+    },
+    "regime_g_271830_2": {
+      "best_sequence": "B1_full",
+      "quality": 0.7000000000000001
+    },
+    "regime_g_271831_3": {
+      "best_sequence": "B1_full",
+      "quality": 0.7000000000000001
+    },
+    "regime_g_271832_4": {
+      "best_sequence": "B1_extended",
+      "quality": 0.6833333333333333
+    },
+    "regime_g_271833_5": {
+      "best_sequence": "B1_extended",
+      "quality": 0.6833333333333333
+    },
+    "regime_g_271834_6": {
+      "best_sequence": "B1_extended",
+      "quality": 0.6833333333333333
+    },
+    "regime_h_271828_0": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_h_271829_1": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_h_271830_2": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_h_271831_3": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_h_271832_4": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_h_271833_5": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    },
+    "regime_h_271834_6": {
+      "best_sequence": "B1_extended",
+      "quality": 0.7000000000000001
+    }
+  }
+}

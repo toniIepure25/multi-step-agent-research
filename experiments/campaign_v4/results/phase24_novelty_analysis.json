@@ -1,0 +1,37 @@
+{
+  "A_temporal_complementarity": {
+    "description": "Cognitive operations exhibit measurable non-additive order-dependent value",
+    "prior_concept_exists": true,
+    "same_mechanism": false,
+    "novel_experimental_finding": true,
+    "strength": "MODERATE \u2014 the specific quantification of gen_hyp+reason synergy (+0.228) in an epistemic domain with controlled measurement is novel"
+  },
+  "B_greedy_failure": {
+    "description": "Greedy primitive-level scheduling fails when operations are temporally complementary",
+    "prior_concept_exists": true,
+    "same_mechanism": true,
+    "novel_experimental_finding": false,
+    "strength": "WEAK \u2014 this is known from options/hierarchical RL literature"
+  },
+  "C_state_dependent_motifs": {
+    "description": "Epistemic state predicts which cognitive motif is most valuable",
+    "prior_concept_exists": true,
+    "same_mechanism": false,
+    "novel_experimental_finding": true,
+    "strength": "MODERATE \u2014 applying option selection to epistemic research is novel"
+  },
+  "D_epistemic_benchmark": {
+    "description": "Controlled benchmark for counterfactual cognitive sequence evaluation",
+    "prior_concept_exists": false,
+    "same_mechanism": false,
+    "novel_experimental_finding": true,
+    "strength": "STRONG \u2014 EpistemicWorldSimulator with counterfactual forking, regime diversity, and sequence-level evaluation is a novel benchmark contribution"
+  },
+  "E_minimal_architecture": {
+    "description": "Empirically derived minimal architecture outperforms complex reflexive agent",
+    "prior_concept_exists": true,
+    "same_mechanism": false,
+    "novel_experimental_finding": true,
+    "strength": "MODERATE \u2014 the specific finding that B1_extended beats Full REE is a meaningful negative result"
+  }
+}

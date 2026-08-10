@@ -1,0 +1,56 @@
+[
+  {
+    "op_a": "retrieve",
+    "op_b": "generate_hypothesis",
+    "mean_ab": 0.2401,
+    "mean_ba": 0.3234,
+    "order_effect": -0.0833,
+    "reversal_pct": 21.4,
+    "category": "weak_order_effect"
+  },
+  {
+    "op_a": "retrieve",
+    "op_b": "attack_hypothesis",
+    "mean_ab": 0.05,
+    "mean_ba": 0.05,
+    "order_effect": 0.0,
+    "reversal_pct": 0.0,
+    "category": "near_commutative"
+  },
+  {
+    "op_a": "retrieve",
+    "op_b": "reason",
+    "mean_ab": 0.05,
+    "mean_ba": 0.05,
+    "order_effect": 0.0,
+    "reversal_pct": 0.0,
+    "category": "near_commutative"
+  },
+  {
+    "op_a": "generate_hypothesis",
+    "op_b": "attack_hypothesis",
+    "mean_ab": 0.2734,
+    "mean_ba": 0.2734,
+    "order_effect": 0.0,
+    "reversal_pct": 0.0,
+    "category": "near_commutative"
+  },
+  {
+    "op_a": "generate_hypothesis",
+    "op_b": "reason",
+    "mean_ab": 0.2734,
+    "mean_ba": 0.2734,
+    "order_effect": 0.0,
+    "reversal_pct": 0.0,
+    "category": "near_commutative"
+  },
+  {
+    "op_a": "attack_hypothesis",
+    "op_b": "reason",
+    "mean_ab": 0.0,
+    "mean_ba": 0.0,
+    "order_effect": 0.0,
+    "reversal_pct": 0.0,
+    "category": "near_commutative"
+  }
+]

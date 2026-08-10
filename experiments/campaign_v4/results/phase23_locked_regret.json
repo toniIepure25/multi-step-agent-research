@@ -1,0 +1,15 @@
+{
+  "best_global_motif": "FULL_EXPLORE",
+  "mean_oracle_quality": 0.5844,
+  "mean_fixed_quality": 0.5101,
+  "mean_policy_quality": 0.3234,
+  "mean_fixed_regret": 0.0743,
+  "mean_policy_regret": 0.2609,
+  "policy_selection_distribution": {
+    "EXPLORE": 35,
+    "DISCRIMINATE": 5
+  },
+  "selection_entropy": 0.3768,
+  "n_distinct_trajectories": 2,
+  "policy_beats_fixed": false
+}

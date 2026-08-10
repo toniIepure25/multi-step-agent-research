@@ -128,3 +128,20 @@ Record all non-trivial architectural decisions here. **Any change to schemas, pr
 **Consequences:** The minimal effective REE configuration requires only evidence retrieval, hypothesis generation (at least 2), and consistency reasoning in a fixed temporal order. Persistent EpistemicState, market scheduling, self-model, and stopping policy are not required. Attack is conditionally useful late in episodes.
 
 **Invariants affected:** None changed. REE modularity (swappable components) is preserved — B1_extended is a specific operator sequence, not a change to the protocol system.
+
+## ADR-008: Adaptive Motif Selection Not Supported — Fixed Sequences Retained
+
+**Date:** 2026-08-10
+**Status:** accepted
+**Context:** Campaign V4 (Phases 21-24) tested whether adaptive cognitive control is necessary and achievable. Phase 21 established adaptive necessity (AdaptivityGap = 0.096 across 8 heterogeneous epistemic regimes). Phase 23 trained a transparent rule-based motif policy on state features, but it dramatically underperformed the best fixed strategy (quality 0.323 vs 0.518, regret 0.264 vs 0.070). All 4 GO criteria for adaptive metacognition failed. Sequence motifs categorically beat primitive actions (100% win rate), confirming the motif concept is correct even though adaptive selection fails.
+
+**Options considered:**
+1. Retain adaptive motif selection and iterate on feature engineering or model class — higher complexity without demonstrated benefit.
+2. Accept the negative result and retain fixed sequences — the empirically supported approach.
+3. Build a nonlinear selector (tree/neural) — potentially useful but untested.
+
+**Decision:** Option 2 — accept the negative result transparently. The best fixed sequence (FULL_EXPLORE or B1_extended) is the recommended architecture. Adaptive selection is a valid future research direction but NOT supported by current evidence.
+
+**Consequences:** ASAR-REE's minimal effective architecture remains a fixed cognitive sequence. The Epistemic Market, hypothesis ecology management, self-model, and stopping policy remain non-essential. Future work should focus on LLM-in-the-loop validation and richer state representations before re-attempting adaptive control.
+
+**Invariants affected:** None. Fixed sequences satisfy all existing invariants.

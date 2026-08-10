@@ -1,0 +1,25 @@
+{
+  "infrastructure_status": {
+    "llm_protocol": "exists",
+    "responses_adapter": "exists",
+    "chat_completions_adapter": "built",
+    "cognitive_operators": "exist",
+    "model_config": "exists"
+  },
+  "capability_gate": {
+    "tests": [
+      "interpret_evidence",
+      "generate_hypothesis",
+      "generate_alternative",
+      "derive_implication",
+      "identify_contradiction",
+      "attack_hypothesis",
+      "identify_missing_info",
+      "targeted_retrieval",
+      "synthesize_conclusion",
+      "structured_output"
+    ],
+    "scoring": "simulator-grounded objective"
+  },
+  "execution_status": "REQUIRES_RUNNING_MODEL_SERVER"
+}

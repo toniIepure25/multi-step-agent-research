@@ -1,0 +1,11 @@
+{
+  "controlled_paper_justified": true,
+  "stronger_paper_justified": false,
+  "conference_paper_justified": false,
+  "missing_for_stronger": [
+    "llm_in_loop_replication",
+    "state_motif_beats_fixed",
+    "external_validation"
+  ],
+  "central_claim_recommendation": "D"
+}

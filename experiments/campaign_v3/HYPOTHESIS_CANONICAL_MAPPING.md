@@ -27,8 +27,18 @@ This mapping resolves the inconsistency permanently.
 
 ## New Hypotheses (Campaign V3)
 
-| ID | Statement | Status |
+| ID | Statement | V3 Verdict | V4 Verdict |
+|---|---|---|---|
+| H-REE-11 | Cognitive operations exhibit temporal complementarity: sequence value ≠ sum of primitive values | **SUPPORTED** (+0.228 gen_hyp+reason) | **SUPPORTED** (replicates at +0.137) |
+| H-REE-12 | Hypothesis ecology improves quality across architectures (not only within Full REE) | NOT_SUPPORTED | NOT_SUPPORTED |
+| H-REE-13 | Greedy primitive-action scheduling fails because it cannot capture cognitive sequence structure | **SUPPORTED** | **SUPPORTED** |
+
+## New Hypotheses (Campaign V4)
+
+| ID | Statement | V4 Verdict |
 |---|---|---|
-| H-REE-11 | Cognitive operations exhibit temporal complementarity: sequence value ≠ sum of primitive values | UNTESTED |
-| H-REE-12 | Hypothesis ecology improves quality across architectures (not only within Full REE) | UNTESTED |
-| H-REE-13 | Greedy primitive-action scheduling fails because it cannot capture cognitive sequence structure | UNTESTED |
+| H-REE-14 | In heterogeneous epistemic regimes, the state-conditioned sequence oracle exceeds the best global fixed cognitive sequence | **SUPPORTED** (gap=0.096) |
+| H-REE-15 | Temporal complementarity between cognitive operations persists when operations are executed by an actual LLM | UNTESTED |
+| H-REE-16 | Epistemic-state features predict the downstream value of temporally extended cognitive motifs better than primitive actions | **PARTIALLY_SUPPORTED** (motifs > primitives 100%, but selection fails) |
+| H-REE-17 | A state-conditioned motif selector reduces oracle regret relative to the best global fixed policy on held-out heterogeneous worlds | **NOT_SUPPORTED** (policy regret 0.264 >> fixed regret 0.070) |
+| H-REE-18 | At least one major temporal-control effect observed in the semantic simulator transfers to LLM-in-loop and real-evidence settings | UNTESTED |
