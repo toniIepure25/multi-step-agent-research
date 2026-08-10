@@ -1,0 +1,60 @@
+{
+  "full_ree_vs_B0_direct": {
+    "n": 120,
+    "steps": {
+      "mean_a": 8.408333333333333,
+      "mean_b": 1.0,
+      "diff": 7.408333333333333,
+      "effect_size": 3.772172939880783,
+      "interpretation": "large",
+      "ci_lower": 7.041666666666667,
+      "ci_upper": 7.783333333333333
+    },
+    "tokens": {
+      "mean_a": 1140.8333333333333,
+      "mean_b": 1000.0,
+      "diff": 140.83333333333334,
+      "effect_size": 0.7170947433519149
+    },
+    "hypotheses": {
+      "mean_a": 4.0,
+      "mean_b": 0.0,
+      "diff": 4.0,
+      "effect_size": 40000000000.0
+    },
+    "quality_wtl": {
+      "wins": 120,
+      "ties": 0,
+      "losses": 0
+    }
+  },
+  "full_ree_vs_B1_reflection": {
+    "n": 120,
+    "steps": {
+      "mean_a": 8.408333333333333,
+      "mean_b": 3.0,
+      "diff": 5.408333333333333,
+      "effect_size": 2.7538135410378266,
+      "interpretation": "large",
+      "ci_lower": 5.041666666666667,
+      "ci_upper": 5.783333333333333
+    },
+    "tokens": {
+      "mean_a": 1140.8333333333333,
+      "mean_b": 9247.5,
+      "diff": -8106.666666666667,
+      "effect_size": -1.1814600428579722
+    },
+    "hypotheses": {
+      "mean_a": 4.0,
+      "mean_b": 0.0,
+      "diff": 4.0,
+      "effect_size": 40000000000.0
+    },
+    "quality_wtl": {
+      "wins": 120,
+      "ties": 0,
+      "losses": 0
+    }
+  }
+}

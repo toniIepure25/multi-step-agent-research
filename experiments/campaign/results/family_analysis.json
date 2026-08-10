@@ -1,0 +1,194 @@
+{
+  "false_majority": {
+    "B0_direct": {
+      "n": 20,
+      "mean_steps": 1.0,
+      "mean_tokens": 1000.0,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 1.0,
+      "steps_ci_upper": 1.0
+    },
+    "B1_reflection": {
+      "n": 20,
+      "mean_steps": 3.0,
+      "mean_tokens": 9247.5,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 3.0,
+      "steps_ci_upper": 3.0
+    },
+    "full_ree": {
+      "n": 20,
+      "mean_steps": 10.2,
+      "mean_tokens": 1320.0,
+      "mean_hypotheses": 4.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 5.2,
+      "steps_ci": 9.8,
+      "steps_ci_upper": 10.6
+    }
+  },
+  "duplicated_source": {
+    "B0_direct": {
+      "n": 20,
+      "mean_steps": 1.0,
+      "mean_tokens": 1000.0,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 1.0,
+      "steps_ci_upper": 1.0
+    },
+    "B1_reflection": {
+      "n": 20,
+      "mean_steps": 3.0,
+      "mean_tokens": 9247.5,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 3.0,
+      "steps_ci_upper": 3.0
+    },
+    "full_ree": {
+      "n": 20,
+      "mean_steps": 11.25,
+      "mean_tokens": 1425.0,
+      "mean_hypotheses": 4.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 6.25,
+      "steps_ci": 10.9,
+      "steps_ci_upper": 11.55
+    }
+  },
+  "assumption_flip": {
+    "B0_direct": {
+      "n": 20,
+      "mean_steps": 1.0,
+      "mean_tokens": 1000.0,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 1.0,
+      "steps_ci_upper": 1.0
+    },
+    "B1_reflection": {
+      "n": 20,
+      "mean_steps": 3.0,
+      "mean_tokens": 9247.5,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 3.0,
+      "steps_ci_upper": 3.0
+    },
+    "full_ree": {
+      "n": 20,
+      "mean_steps": 7.0,
+      "mean_tokens": 1000.0,
+      "mean_hypotheses": 4.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 2.0,
+      "steps_ci": 7.0,
+      "steps_ci_upper": 7.0
+    }
+  },
+  "hypothesis_ecology": {
+    "B0_direct": {
+      "n": 20,
+      "mean_steps": 1.0,
+      "mean_tokens": 1000.0,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 1.0,
+      "steps_ci_upper": 1.0
+    },
+    "B1_reflection": {
+      "n": 20,
+      "mean_steps": 3.0,
+      "mean_tokens": 9247.5,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 3.0,
+      "steps_ci_upper": 3.0
+    },
+    "full_ree": {
+      "n": 20,
+      "mean_steps": 9.0,
+      "mean_tokens": 1200.0,
+      "mean_hypotheses": 4.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 4.0,
+      "steps_ci": 9.0,
+      "steps_ci_upper": 9.0
+    }
+  },
+  "ignorance_discovery": {
+    "B0_direct": {
+      "n": 20,
+      "mean_steps": 1.0,
+      "mean_tokens": 1000.0,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 1.0,
+      "steps_ci_upper": 1.0
+    },
+    "B1_reflection": {
+      "n": 20,
+      "mean_steps": 3.0,
+      "mean_tokens": 9247.5,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 3.0,
+      "steps_ci_upper": 3.0
+    },
+    "full_ree": {
+      "n": 20,
+      "mean_steps": 7.0,
+      "mean_tokens": 1000.0,
+      "mean_hypotheses": 4.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 2.0,
+      "steps_ci": 7.0,
+      "steps_ci_upper": 7.0
+    }
+  },
+  "stopping_quality": {
+    "B0_direct": {
+      "n": 20,
+      "mean_steps": 1.0,
+      "mean_tokens": 1000.0,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 1.0,
+      "steps_ci_upper": 1.0
+    },
+    "B1_reflection": {
+      "n": 20,
+      "mean_steps": 3.0,
+      "mean_tokens": 9247.5,
+      "mean_hypotheses": 0.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 0.0,
+      "steps_ci": 3.0,
+      "steps_ci_upper": 3.0
+    },
+    "full_ree": {
+      "n": 20,
+      "mean_steps": 6.0,
+      "mean_tokens": 900.0,
+      "mean_hypotheses": 4.0,
+      "mean_ignorance": 0.0,
+      "mean_evidence": 1.0,
+      "steps_ci": 6.0,
+      "steps_ci_upper": 6.0
+    }
+  }
+}

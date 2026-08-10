@@ -1,0 +1,110 @@
+[
+  {
+    "architecture": "B0_direct",
+    "budget": 2000,
+    "mean_quality": 0.0,
+    "mean_compute": 1000.0,
+    "n": 30,
+    "mean_steps": 1.0,
+    "mean_hypotheses": 0.0
+  },
+  {
+    "architecture": "B1_reflection",
+    "budget": 2000,
+    "mean_quality": 0.0,
+    "mean_compute": 1998.0,
+    "n": 30,
+    "mean_steps": 3.0,
+    "mean_hypotheses": 0.0
+  },
+  {
+    "architecture": "full_ree",
+    "budget": 2000,
+    "mean_quality": 7.333333333333333,
+    "mean_compute": 1133.3333333333333,
+    "n": 30,
+    "mean_steps": 8.333333333333334,
+    "mean_hypotheses": 4.0
+  },
+  {
+    "architecture": "B0_direct",
+    "budget": 5000,
+    "mean_quality": 0.0,
+    "mean_compute": 1000.0,
+    "n": 30,
+    "mean_steps": 1.0,
+    "mean_hypotheses": 0.0
+  },
+  {
+    "architecture": "B1_reflection",
+    "budget": 5000,
+    "mean_quality": 0.0,
+    "mean_compute": 4998.0,
+    "n": 30,
+    "mean_steps": 3.0,
+    "mean_hypotheses": 0.0
+  },
+  {
+    "architecture": "full_ree",
+    "budget": 5000,
+    "mean_quality": 7.433333333333334,
+    "mean_compute": 1143.3333333333333,
+    "n": 30,
+    "mean_steps": 8.433333333333334,
+    "mean_hypotheses": 4.0
+  },
+  {
+    "architecture": "B0_direct",
+    "budget": 10000,
+    "mean_quality": 0.0,
+    "mean_compute": 1000.0,
+    "n": 30,
+    "mean_steps": 1.0,
+    "mean_hypotheses": 0.0
+  },
+  {
+    "architecture": "B1_reflection",
+    "budget": 10000,
+    "mean_quality": 0.0,
+    "mean_compute": 9996.0,
+    "n": 30,
+    "mean_steps": 3.0,
+    "mean_hypotheses": 0.0
+  },
+  {
+    "architecture": "full_ree",
+    "budget": 10000,
+    "mean_quality": 7.433333333333334,
+    "mean_compute": 1143.3333333333333,
+    "n": 30,
+    "mean_steps": 8.433333333333334,
+    "mean_hypotheses": 4.0
+  },
+  {
+    "architecture": "B0_direct",
+    "budget": 20000,
+    "mean_quality": 0.0,
+    "mean_compute": 1000.0,
+    "n": 30,
+    "mean_steps": 1.0,
+    "mean_hypotheses": 0.0
+  },
+  {
+    "architecture": "B1_reflection",
+    "budget": 20000,
+    "mean_quality": 0.0,
+    "mean_compute": 19998.0,
+    "n": 30,
+    "mean_steps": 3.0,
+    "mean_hypotheses": 0.0
+  },
+  {
+    "architecture": "full_ree",
+    "budget": 20000,
+    "mean_quality": 7.433333333333334,
+    "mean_compute": 1143.3333333333333,
+    "n": 30,
+    "mean_steps": 8.433333333333334,
+    "mean_hypotheses": 4.0
+  }
+]

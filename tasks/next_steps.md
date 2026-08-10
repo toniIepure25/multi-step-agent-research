@@ -74,10 +74,31 @@ All REE phases (0–9) are **completed**. The architecture is implemented, teste
 | 12 | Counterfactual Cognitive Policy Study (state forking, CognitiveActionOutcomeDataset, regret analysis, feature importance) | completed |
 | 13 | Full Ablation + Scientific Findings (leave-one-out, additive ablation, Pareto frontier, prompt-only controls, hypothesis verdicts) | completed |
 
-### Next Steps
+### Scientific Campaign Execution
 
-- Wire REE controller to live LLM and search providers for end-to-end episodes
-- Run live experiments against real research questions (Phase 13 live validation)
-- Collect sufficient CognitiveActionOutcome data (500+ entries) for Gate 3
-- Train Level 2 learned scheduler from trajectory data if data volume justifies it
-- Produce final scientific report with all H-REE verdicts
+| Campaign | Records | Status |
+|----------|---------|--------|
+| Holdout benchmarks (30 scenarios × 4 budgets × 3 architectures) | 360 | **executed** |
+| Ablation campaign (18 dev scenarios × 9 configs) | 162 | **executed** |
+| Counterfactual fork study (60 episodes) | 701 outcomes | **executed** |
+| Frozen protocol | — | **filed** |
+| Negative findings | — | **documented** |
+| Final scientific report | — | **written** |
+
+### Headline Results
+
+- **H-REE hypotheses**: 0 supported, 2 not-supported, 8 inconclusive
+- **Bid-value correlation**: r=0.039 (genuine negative finding)
+- **Ablation effect sizes**: all 0.00 (flags non-functional — methodological defect)
+- **Quality comparison**: invalid (incomparable metrics across architectures)
+
+### Required Next Steps (Priority Order)
+
+1. **Wire ablation flags into operator registration** — `BenchmarkRunner._build_registry()` must conditionally include/exclude operators
+2. **Implement ground-truth quality evaluation** — compare system output against `scenario.ground_truth`
+3. **Normalize token costs** — use realistic mock costs or live providers
+4. **Add all operator types to benchmark** — reason, attack, counterfactual, ontology
+5. **Include B3/B4 in holdout campaign**
+6. **Run with live LLM provider** for genuine quality/compute comparison
+7. **Calibrate self-model from data** before testing H-REE-01
+8. **Scale counterfactual study** to 500+ distinct states with all action types

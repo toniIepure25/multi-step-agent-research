@@ -1,0 +1,32 @@
+{
+  "n_outcomes": 701,
+  "n_episodes": 60,
+  "bid_vs_realized_correlation": 0.03911048057981015,
+  "feature_importance": {
+    "belief_volatility": 0.5851995840583573,
+    "contradiction_density": 0.5851995840583573,
+    "highest_ignorance_priority": 0.5851995840583573,
+    "mean_ignorance_priority": 0.5851995840583573,
+    "self_model_expected_success": 0.5851995840583573,
+    "top_hypothesis_margin": 0.57787357673235,
+    "budget_fraction": 0.11679437538210724,
+    "evidence_count": 0.11191942785380726,
+    "workspace_saturation": 0.09908236794114111,
+    "step_count": 0.09908236794114111,
+    "hypothesis_count": 0.09846773926659802,
+    "hypothesis_entropy": 0.03312936865005334
+  },
+  "mean_gain_by_action": {
+    "retrieve": 0.189999999999999,
+    "generate_hypothesis": 0.2103101562950715
+  },
+  "confusion_matrix": {
+    "high_gain": {
+      "retrieve": 381,
+      "generate_hypothesis": 200
+    },
+    "low_gain": {
+      "generate_hypothesis": 120
+    }
+  }
+}
