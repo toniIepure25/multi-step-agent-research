@@ -62,12 +62,12 @@ class StoppingPolicy:
         self._ignorance_threshold = ignorance_impact_threshold
 
     def extract_signals(self, state: EpistemicState) -> StoppingSignals:
-        """Extract stopping-relevant signals from the current state."""
-        ignorance_impact = 0.0
-        for iid in state.ignorance_ids:
-            artifact = state.artifacts.get(iid, {})
-            if isinstance(artifact, dict):
-                ignorance_impact += artifact.get("impact_if_resolved", 0.0)
+        """Extract stopping-relevant signals from materialized views."""
+        unresolved_impact = sum(
+            iv.impact_if_resolved
+            for iv in state.views.ignorance_items.values()
+            if iv.status == "open"
+        )
 
         return StoppingSignals(
             budget_fraction_remaining=state.budget.budget_fraction_remaining,
@@ -78,7 +78,7 @@ class StoppingPolicy:
             contradiction_count=len(state.contradiction_ids),
             has_synthesized="synthesize" in state.operator_history,
             step_count=state.process.step_count,
-            unresolved_impact=ignorance_impact,
+            unresolved_impact=unresolved_impact,
         )
 
     def evaluate(self, state: EpistemicState) -> StoppingReason:
@@ -103,8 +103,8 @@ class StoppingPolicy:
 
         if signals.has_synthesized and signals.claim_count > 0:
             if signals.unresolved_impact < self._ignorance_threshold:
-                return StoppingReason(StoppingDecision.STOP, "sufficient work, low remaining ignorance impact", 0.7)
-            if signals.contradiction_count == 0:
-                return StoppingReason(StoppingDecision.STOP, "claims produced, no contradictions", 0.6)
+                if signals.contradiction_count == 0:
+                    return StoppingReason(StoppingDecision.STOP, "sufficient work, low remaining ignorance impact", 0.7)
+                return StoppingReason(StoppingDecision.STOP, "claims produced, low ignorance", 0.6)
 
         return StoppingReason(StoppingDecision.CONTINUE, "more work potentially valuable", 0.5)

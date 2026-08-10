@@ -36,6 +36,18 @@ class ReasonOperator:
         if not state.evidence_ids:
             return []
 
+        p_success = state.views.self_model.operator_success_rates.get(
+            self.name, state.views.self_model.overall_success_rate
+        )
+
+        base_gain = 0.3
+        if state.views.contradiction_density > 0.0:
+            base_gain += 0.2
+        if state.views.highest_ignorance_priority > 0.5:
+            base_gain += 0.15
+
+        info_gain = min(1.0, base_gain * p_success)
+
         return [EpistemicActionBid(
             action=EpistemicAction(
                 action_id=generate_id("action"),
@@ -44,11 +56,12 @@ class ReasonOperator:
                 parameters={"focus": "analyze current evidence"},
                 description="Reason about collected evidence to identify patterns and gaps",
             ),
-            expected_information_gain=0.3,
-            probability_changes_decision=0.3,
+            expected_information_gain=info_gain,
+            probability_changes_decision=0.3 * p_success,
             novelty_gain=0.2,
             estimated_token_cost=2000,
-            rationale="Internal reasoning to connect evidence and identify gaps",
+            failure_risk=max(0.0, min(1.0, 1.0 - p_success)),
+            rationale=f"Reasoning (P(success)={p_success:.2f}, contradictions={state.views.contradiction_density:.2f})",
         )]
 
     async def execute(self, state: EpistemicState, action: EpistemicAction) -> OperatorResult:

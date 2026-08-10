@@ -37,7 +37,17 @@ class RetrieveOperator:
         if state.process.status != "active":
             return []
 
-        info_gain = 0.6 if len(state.evidence_ids) < 5 else 0.3
+        base_gain = 0.6 if len(state.evidence_ids) < 5 else 0.3
+
+        ignorance_boost = 0.0
+        for iv in state.views.ignorance_items.values():
+            if iv.status == "open" and iv.ignorance_type in ("missing_evidence", "unknown", "untested_assumption"):
+                ignorance_boost = max(ignorance_boost, iv.priority * 0.3)
+
+        p_success = state.views.self_model.operator_success_rates.get(
+            self.name, state.views.self_model.overall_success_rate
+        )
+        info_gain = min(1.0, (base_gain + ignorance_boost) * p_success)
 
         return [EpistemicActionBid(
             action=EpistemicAction(
@@ -48,10 +58,11 @@ class RetrieveOperator:
                 description=f"Search for evidence about: {state.process.goal}",
             ),
             expected_information_gain=info_gain,
-            probability_changes_decision=0.4,
+            probability_changes_decision=0.4 * p_success,
             novelty_gain=0.5 if len(state.evidence_ids) < 3 else 0.2,
             estimated_token_cost=500,
-            rationale="Retrieve external evidence to ground hypotheses",
+            failure_risk=max(0.0, min(1.0, 1.0 - p_success)),
+            rationale=f"Retrieve evidence (P(success)={p_success:.2f}, ign_boost={ignorance_boost:.2f})",
         )]
 
     async def execute(self, state: EpistemicState, action: EpistemicAction) -> OperatorResult:

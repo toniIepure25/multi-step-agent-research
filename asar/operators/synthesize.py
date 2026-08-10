@@ -39,6 +39,11 @@ class SynthesizeOperator:
             return []
         already_synthesized = "synthesize" in state.operator_history
 
+        p_success = state.views.self_model.operator_success_rates.get(
+            self.name, state.views.self_model.overall_success_rate
+        )
+        base_gain = 0.4 if not already_synthesized else 0.2
+
         return [EpistemicActionBid(
             action=EpistemicAction(
                 action_id=generate_id("action"),
@@ -47,11 +52,12 @@ class SynthesizeOperator:
                 parameters={},
                 description="Synthesize collected evidence into structured claims",
             ),
-            expected_information_gain=0.4 if not already_synthesized else 0.2,
-            probability_changes_decision=0.6 if not already_synthesized else 0.3,
+            expected_information_gain=min(1.0, base_gain * p_success),
+            probability_changes_decision=(0.6 if not already_synthesized else 0.3) * p_success,
             novelty_gain=0.3,
             estimated_token_cost=3000,
-            rationale="Produce structured claims from accumulated evidence",
+            failure_risk=max(0.0, min(1.0, 1.0 - p_success)),
+            rationale=f"Synthesis (P(success)={p_success:.2f})",
         )]
 
     async def execute(self, state: EpistemicState, action: EpistemicAction) -> OperatorResult:

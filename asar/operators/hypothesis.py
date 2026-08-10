@@ -38,11 +38,20 @@ class GenerateHypothesisOperator:
             return []
         if not state.evidence_ids:
             return []
-        existing_count = len(state.hypothesis_ids)
+        existing_count = len(state.views.hypotheses)
         if existing_count >= 10:
             return []
 
-        gain = 0.7 if existing_count < 2 else 0.4
+        p_success = state.views.self_model.operator_success_rates.get(
+            self.name, state.views.self_model.overall_success_rate
+        )
+
+        base_gain = 0.7 if existing_count < 2 else 0.4
+        if state.views.hypothesis_entropy < 0.5 and existing_count > 0:
+            base_gain += 0.15
+
+        info_gain = min(1.0, base_gain * p_success)
+
         return [EpistemicActionBid(
             action=EpistemicAction(
                 action_id=generate_id("action"),
@@ -51,11 +60,12 @@ class GenerateHypothesisOperator:
                 parameters={"diversity_target": max(3, existing_count + 2)},
                 description="Generate diverse candidate hypotheses from evidence",
             ),
-            expected_information_gain=gain,
-            probability_changes_decision=0.5,
+            expected_information_gain=info_gain,
+            probability_changes_decision=0.5 * p_success,
             novelty_gain=0.6 if existing_count < 3 else 0.3,
             estimated_token_cost=2500,
-            rationale="Abductive reasoning to generate candidate explanations",
+            failure_risk=max(0.0, min(1.0, 1.0 - p_success)),
+            rationale=f"Hypothesis generation (P(success)={p_success:.2f}, entropy={state.views.hypothesis_entropy:.2f})",
         )]
 
     async def execute(self, state: EpistemicState, action: EpistemicAction) -> OperatorResult:
@@ -201,8 +211,20 @@ class AttackHypothesisOperator:
     async def propose(self, state: EpistemicState) -> list[EpistemicActionBid]:
         if state.budget.is_exhausted or state.process.status != "active":
             return []
-        if len(state.hypothesis_ids) < 1:
+        if len(state.views.hypotheses) < 1:
             return []
+
+        p_success = state.views.self_model.operator_success_rates.get(
+            self.name, state.views.self_model.overall_success_rate
+        )
+
+        ignorance_boost = 0.0
+        for iv in state.views.ignorance_items.values():
+            if iv.status == "open" and iv.ignorance_type == "untested_assumption":
+                ignorance_boost = max(ignorance_boost, iv.priority * 0.25)
+
+        base_gain = 0.4 + ignorance_boost
+        info_gain = min(1.0, base_gain * p_success)
 
         return [EpistemicActionBid(
             action=EpistemicAction(
@@ -212,11 +234,12 @@ class AttackHypothesisOperator:
                 parameters={},
                 description="Attack existing hypotheses to test their robustness",
             ),
-            expected_information_gain=0.4,
-            expected_falsification_value=0.7,
-            probability_changes_decision=0.4,
+            expected_information_gain=info_gain,
+            expected_falsification_value=0.7 * p_success,
+            probability_changes_decision=0.4 * p_success,
             estimated_token_cost=2000,
-            rationale="Falsification-oriented analysis of existing hypotheses",
+            failure_risk=max(0.0, min(1.0, 1.0 - p_success)),
+            rationale=f"Hypothesis attack (P(success)={p_success:.2f}, ign_boost={ignorance_boost:.2f})",
         )]
 
     async def execute(self, state: EpistemicState, action: EpistemicAction) -> OperatorResult:

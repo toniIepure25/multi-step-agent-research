@@ -32,7 +32,6 @@ class StopOperator:
         bids: list[EpistemicActionBid] = []
 
         has_claims = len(state.claim_ids) > 0
-        has_evidence = len(state.evidence_ids) > 0
         budget_low = state.budget.budget_fraction_remaining < 0.1
         has_synthesized = "synthesize" in state.operator_history
 
@@ -44,6 +43,10 @@ class StopOperator:
         elif state.process.step_count > 10:
             stop_value = 0.5
 
+        high_ignorance = state.views.highest_ignorance_priority > 0.5
+        if high_ignorance and not budget_low:
+            stop_value *= 0.5
+
         if stop_value > 0.1:
             reason = "budget exhausted" if budget_low else "sufficient work completed"
             bids.append(EpistemicActionBid(
@@ -54,14 +57,11 @@ class StopOperator:
                     parameters={"reason": reason},
                     description=f"Stop research: {reason}",
                 ),
-                expected_information_gain=0.0,
+                expected_information_gain=stop_value,
                 probability_changes_decision=0.0,
                 estimated_token_cost=0,
-                rationale=f"Proposing stop because: {reason}",
+                rationale=f"Stop (value={stop_value:.2f}, high_ignorance={high_ignorance})",
             ))
-            bids[-1] = bids[-1].model_copy(
-                update={"expected_information_gain": stop_value}
-            )
 
         return bids
 

@@ -6,10 +6,15 @@ Existing schemas in schemas/ are preserved unchanged for the legacy runtime.
 """
 
 from schemas.ree.epistemic_state import (
+    BeliefSnapshot,
     BudgetState,
     EpistemicState,
+    HypothesisView,
+    IgnoranceView,
+    MaterializedViews,
     ProcessState,
     ResourceCost,
+    SelfModelSummary,
     WorkspaceSlot,
     WorkspaceState,
 )
@@ -69,12 +74,29 @@ from schemas.ree.value_model import (
     NormConflict,
     ValuePrinciple,
 )
+from schemas.ree.experiment import (
+    CognitiveActionOutcome,
+    CognitiveActionRegret,
+    EpistemicStateFeatures,
+    ExperimentManifest,
+    MechanismConfig,
+    RealizedEpistemicGain,
+)
 
 __all__ = [
+    "CognitiveActionOutcome",
+    "CognitiveActionRegret",
+    "EpistemicStateFeatures",
+    "ExperimentManifest",
+    "MechanismConfig",
+    "RealizedEpistemicGain",
     "ActionType",
     "Assumption",
     "BeliefSnapshot",
     "BudgetState",
+    "HypothesisView",
+    "IgnoranceView",
+    "MaterializedViews",
     "CalibrationPoint",
     "CapabilityEstimate",
     "ConclusionInvariance",
@@ -109,6 +131,7 @@ __all__ = [
     "ResearchNode",
     "ResearchNodeType",
     "ResourceCost",
+    "SelfModelSummary",
     "SensitivityResult",
     "StakeholderModel",
     "TribunalRole",
