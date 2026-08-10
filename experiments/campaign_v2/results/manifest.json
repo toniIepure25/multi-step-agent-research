@@ -1,0 +1,54 @@
+{
+  "base_seed": 7777,
+  "scenarios_per_family": 20,
+  "families": [
+    "hypothesis_ecology",
+    "false_majority",
+    "ignorance_discovery",
+    "stopping_quality",
+    "source_duplication"
+  ],
+  "split_sizes": {
+    "dev": 50,
+    "validation": 25,
+    "locked_test": 25
+  },
+  "split_hashes": {
+    "dev": "6d835082c9db3ed0",
+    "validation": "a22d9de26318686a",
+    "locked_test": "5f571ff5eac1bf7f"
+  },
+  "architectures": [
+    "B0_direct",
+    "B1_reflection",
+    "full_ree"
+  ],
+  "budgets": [
+    2000,
+    5000,
+    10000,
+    20000
+  ],
+  "ablation_configs": {
+    "full_ree": {},
+    "no_hypothesis": {
+      "hypothesis_ecology": false
+    },
+    "no_ignorance": {
+      "ignorance_ledger": false
+    },
+    "no_self_model": {
+      "self_model": false
+    },
+    "no_stopping": {
+      "stopping_policy": false
+    },
+    "no_market": {
+      "epistemic_market": false
+    },
+    "no_hyp_no_ign": {
+      "hypothesis_ecology": false,
+      "ignorance_ledger": false
+    }
+  }
+}

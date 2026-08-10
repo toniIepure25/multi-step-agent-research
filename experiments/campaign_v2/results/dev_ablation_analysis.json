@@ -1,0 +1,58 @@
+{
+  "{}": {
+    "n": 50,
+    "mean_quality": 0.3645,
+    "std_quality": 0.1722,
+    "mean_tokens": 5000,
+    "mean_hypotheses": 2,
+    "mean_ignorance": 0.18
+  },
+  "{\"hypothesis_ecology\": false}": {
+    "n": 50,
+    "mean_quality": 0.0371,
+    "std_quality": 0.0161,
+    "mean_tokens": 2828,
+    "mean_hypotheses": 0,
+    "mean_ignorance": 0
+  },
+  "{\"ignorance_ledger\": false}": {
+    "n": 50,
+    "mean_quality": 0.3246,
+    "std_quality": 0.1825,
+    "mean_tokens": 3622,
+    "mean_hypotheses": 2,
+    "mean_ignorance": 0
+  },
+  "{\"self_model\": false}": {
+    "n": 50,
+    "mean_quality": 0.3645,
+    "std_quality": 0.1722,
+    "mean_tokens": 5000,
+    "mean_hypotheses": 2,
+    "mean_ignorance": 0.18
+  },
+  "{\"stopping_policy\": false}": {
+    "n": 50,
+    "mean_quality": 0.3645,
+    "std_quality": 0.1722,
+    "mean_tokens": 5000,
+    "mean_hypotheses": 2,
+    "mean_ignorance": 0.18
+  },
+  "{\"epistemic_market\": false}": {
+    "n": 50,
+    "mean_quality": 0.3645,
+    "std_quality": 0.1722,
+    "mean_tokens": 5000,
+    "mean_hypotheses": 2,
+    "mean_ignorance": 0.18
+  },
+  "{\"hypothesis_ecology\": false, \"ignorance_ledger\": false}": {
+    "n": 50,
+    "mean_quality": 0.0371,
+    "std_quality": 0.0161,
+    "mean_tokens": 2828,
+    "mean_hypotheses": 0,
+    "mean_ignorance": 0
+  }
+}

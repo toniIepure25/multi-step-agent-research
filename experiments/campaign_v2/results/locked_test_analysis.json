@@ -1,0 +1,117 @@
+{
+  "hyp_ecology": {
+    "B0_direct": {
+      "n": 5,
+      "mean_quality": 0.08,
+      "std_quality": 0.0,
+      "min": 0.08,
+      "max": 0.08
+    },
+    "B1_reflection": {
+      "n": 5,
+      "mean_quality": 0.7,
+      "std_quality": 0.0,
+      "min": 0.7,
+      "max": 0.7
+    },
+    "full_ree": {
+      "n": 5,
+      "mean_quality": 0.13,
+      "std_quality": 0.0,
+      "min": 0.13,
+      "max": 0.13
+    }
+  },
+  "false_majority": {
+    "B0_direct": {
+      "n": 5,
+      "mean_quality": 0.5,
+      "std_quality": 0.0,
+      "min": 0.5,
+      "max": 0.5
+    },
+    "B1_reflection": {
+      "n": 5,
+      "mean_quality": 0.484,
+      "std_quality": 0.2958,
+      "min": 0.16,
+      "max": 0.7
+    },
+    "full_ree": {
+      "n": 5,
+      "mean_quality": 0.366,
+      "std_quality": 0.252,
+      "min": 0.09,
+      "max": 0.55
+    }
+  },
+  "ignorance": {
+    "B0_direct": {
+      "n": 5,
+      "mean_quality": 0.475,
+      "std_quality": 0.0,
+      "min": 0.475,
+      "max": 0.475
+    },
+    "B1_reflection": {
+      "n": 5,
+      "mean_quality": 0.7,
+      "std_quality": 0.0,
+      "min": 0.7,
+      "max": 0.7
+    },
+    "full_ree": {
+      "n": 5,
+      "mean_quality": 0.323,
+      "std_quality": 0.1968,
+      "min": 0.235,
+      "max": 0.675
+    }
+  },
+  "stopping": {
+    "B0_direct": {
+      "n": 5,
+      "mean_quality": 0.05,
+      "std_quality": 0.0,
+      "min": 0.05,
+      "max": 0.05
+    },
+    "B1_reflection": {
+      "n": 5,
+      "mean_quality": 0.7,
+      "std_quality": 0.0,
+      "min": 0.7,
+      "max": 0.7
+    },
+    "full_ree": {
+      "n": 5,
+      "mean_quality": 0.48,
+      "std_quality": 0.2124,
+      "min": 0.1,
+      "max": 0.575
+    }
+  },
+  "duplication": {
+    "B0_direct": {
+      "n": 5,
+      "mean_quality": 0.335,
+      "std_quality": 0.2602,
+      "min": 0.05,
+      "max": 0.525
+    },
+    "B1_reflection": {
+      "n": 5,
+      "mean_quality": 0.385,
+      "std_quality": 0.2876,
+      "min": 0.175,
+      "max": 0.7
+    },
+    "full_ree": {
+      "n": 5,
+      "mean_quality": 0.48,
+      "std_quality": 0.2124,
+      "min": 0.1,
+      "max": 0.575
+    }
+  }
+}

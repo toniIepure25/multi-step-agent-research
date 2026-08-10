@@ -1,0 +1,86 @@
+[
+  {
+    "architecture": "B0_direct",
+    "budget_tokens": 2000,
+    "mean_quality": 0.2797,
+    "mean_tokens_used": 1000,
+    "n": 50
+  },
+  {
+    "architecture": "B0_direct",
+    "budget_tokens": 5000,
+    "mean_quality": 0.2797,
+    "mean_tokens_used": 1000,
+    "n": 50
+  },
+  {
+    "architecture": "B0_direct",
+    "budget_tokens": 10000,
+    "mean_quality": 0.2797,
+    "mean_tokens_used": 1000,
+    "n": 50
+  },
+  {
+    "architecture": "B0_direct",
+    "budget_tokens": 20000,
+    "mean_quality": 0.2797,
+    "mean_tokens_used": 1000,
+    "n": 50
+  },
+  {
+    "architecture": "B1_reflection",
+    "budget_tokens": 2000,
+    "mean_quality": 0.5623,
+    "mean_tokens_used": 2000,
+    "n": 50
+  },
+  {
+    "architecture": "B1_reflection",
+    "budget_tokens": 5000,
+    "mean_quality": 0.5623,
+    "mean_tokens_used": 2000,
+    "n": 50
+  },
+  {
+    "architecture": "B1_reflection",
+    "budget_tokens": 10000,
+    "mean_quality": 0.5623,
+    "mean_tokens_used": 2000,
+    "n": 50
+  },
+  {
+    "architecture": "B1_reflection",
+    "budget_tokens": 20000,
+    "mean_quality": 0.5623,
+    "mean_tokens_used": 2000,
+    "n": 50
+  },
+  {
+    "architecture": "full_ree",
+    "budget_tokens": 2000,
+    "mean_quality": 0.3778,
+    "mean_tokens_used": 2000,
+    "n": 50
+  },
+  {
+    "architecture": "full_ree",
+    "budget_tokens": 5000,
+    "mean_quality": 0.3778,
+    "mean_tokens_used": 5000,
+    "n": 50
+  },
+  {
+    "architecture": "full_ree",
+    "budget_tokens": 10000,
+    "mean_quality": 0.3778,
+    "mean_tokens_used": 5500,
+    "n": 50
+  },
+  {
+    "architecture": "full_ree",
+    "budget_tokens": 20000,
+    "mean_quality": 0.3778,
+    "mean_tokens_used": 5500,
+    "n": 50
+  }
+]
