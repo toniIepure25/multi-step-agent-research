@@ -56,6 +56,8 @@ from schemas.ree.experiment import ExperimentManifest, MechanismConfig
 class ScenarioRetrieveOperator:
     """Deterministic retrieve operator that returns scenario evidence."""
 
+    PER_STEP_TOKENS = 500
+
     def __init__(self, evidence_pool: tuple[dict[str, Any], ...]) -> None:
         self._pool = evidence_pool
         self._retrieved = 0
@@ -87,7 +89,7 @@ class ScenarioRetrieveOperator:
                 operator_name=self.name,
             ),
             expected_information_gain=min(1.0, (base_gain + ignorance_boost) * p_success),
-            estimated_token_cost=100,
+            estimated_token_cost=self.PER_STEP_TOKENS,
             failure_risk=max(0.0, 1.0 - p_success),
         )]
 
@@ -96,7 +98,7 @@ class ScenarioRetrieveOperator:
             return OperatorResult(
                 operator_name=self.name, action_id=action.action_id,
                 outcome=OperatorOutcome.NO_OP,
-                resource_cost=ResourceCost(input_tokens=10, output_tokens=10),
+                resource_cost=ResourceCost(input_tokens=50, output_tokens=50),
             )
 
         item = self._pool[self._retrieved]
@@ -111,17 +113,20 @@ class ScenarioRetrieveOperator:
             "parent_source": item.get("parent_source"),
         }}
 
+        half = self.PER_STEP_TOKENS // 2
         return OperatorResult(
             operator_name=self.name, action_id=action.action_id,
             outcome=OperatorOutcome.SUCCESS,
             artifacts_produced=artifacts,
             workspace_additions=[eid],
-            resource_cost=ResourceCost(input_tokens=50, output_tokens=50),
+            resource_cost=ResourceCost(input_tokens=half, output_tokens=half),
         )
 
 
 class ScenarioHypothesisOperator:
     """Generates hypotheses based on scenario evidence."""
+
+    PER_STEP_TOKENS = 500
 
     @property
     def name(self) -> str:
@@ -146,7 +151,7 @@ class ScenarioHypothesisOperator:
                 operator_name=self.name,
             ),
             expected_information_gain=min(1.0, base_gain * p_success),
-            estimated_token_cost=200,
+            estimated_token_cost=self.PER_STEP_TOKENS,
         )]
 
     async def execute(self, state: EpistemicState, action: EpistemicAction) -> OperatorResult:
@@ -164,12 +169,129 @@ class ScenarioHypothesisOperator:
             "generation_method": "abduction",
         }}
 
+        half = self.PER_STEP_TOKENS // 2
         return OperatorResult(
             operator_name=self.name, action_id=action.action_id,
             outcome=OperatorOutcome.SUCCESS,
             artifacts_produced=artifacts,
             workspace_additions=[hid],
-            resource_cost=ResourceCost(input_tokens=100, output_tokens=100),
+            resource_cost=ResourceCost(input_tokens=half, output_tokens=half),
+        )
+
+
+class ScenarioReasonOperator:
+    """Mock reasoning operator for benchmarks. Produces analysis artifacts."""
+
+    PER_STEP_TOKENS = 500
+
+    @property
+    def name(self) -> str:
+        return "reason"
+
+    async def propose(self, state: EpistemicState) -> list[EpistemicActionBid]:
+        if state.budget.is_exhausted or state.process.status != "active":
+            return []
+        if not state.evidence_ids:
+            return []
+
+        p_success = state.views.self_model.operator_success_rates.get(
+            self.name, state.views.self_model.overall_success_rate
+        )
+        base_gain = 0.3
+        if state.views.contradiction_density > 0:
+            base_gain += 0.2
+        if state.views.highest_ignorance_priority > 0.5:
+            base_gain += 0.15
+
+        return [EpistemicActionBid(
+            action=EpistemicAction(
+                action_id=generate_id("action"),
+                action_type=ActionType.REASON,
+                operator_name=self.name,
+            ),
+            expected_information_gain=min(1.0, base_gain * p_success),
+            estimated_token_cost=self.PER_STEP_TOKENS,
+        )]
+
+    async def execute(self, state: EpistemicState, action: EpistemicAction) -> OperatorResult:
+        evidence_texts = []
+        for eid in state.evidence_ids:
+            art = state.artifacts.get(eid)
+            if isinstance(art, dict):
+                evidence_texts.append(art.get("content", ""))
+
+        aid = generate_id("analysis")
+        artifacts = {aid: {
+            "type": "analysis",
+            "content": f"Analysis of {len(evidence_texts)} evidence items for: {state.process.goal}",
+            "evidence_count_analyzed": len(evidence_texts),
+        }}
+
+        half = self.PER_STEP_TOKENS // 2
+        return OperatorResult(
+            operator_name=self.name, action_id=action.action_id,
+            outcome=OperatorOutcome.SUCCESS,
+            artifacts_produced=artifacts,
+            workspace_additions=[aid],
+            resource_cost=ResourceCost(input_tokens=half, output_tokens=half),
+        )
+
+
+class ScenarioAttackOperator:
+    """Mock attack operator that produces ignorance items."""
+
+    PER_STEP_TOKENS = 500
+
+    @property
+    def name(self) -> str:
+        return "attack_hypothesis"
+
+    async def propose(self, state: EpistemicState) -> list[EpistemicActionBid]:
+        if state.budget.is_exhausted or state.process.status != "active":
+            return []
+        if not state.views.hypotheses:
+            return []
+
+        p_success = state.views.self_model.operator_success_rates.get(
+            self.name, state.views.self_model.overall_success_rate
+        )
+        ignorance_boost = 0.0
+        for iv in state.views.ignorance_items.values():
+            if iv.status == "open":
+                ignorance_boost = max(ignorance_boost, iv.priority * 0.25)
+
+        base_gain = 0.4 + ignorance_boost
+        return [EpistemicActionBid(
+            action=EpistemicAction(
+                action_id=generate_id("action"),
+                action_type=ActionType.ATTACK_HYPOTHESIS,
+                operator_name=self.name,
+            ),
+            expected_information_gain=min(1.0, base_gain * p_success),
+            expected_falsification_value=0.5,
+            estimated_token_cost=self.PER_STEP_TOKENS,
+        )]
+
+    async def execute(self, state: EpistemicState, action: EpistemicAction) -> OperatorResult:
+        artifacts: dict[str, Any] = {}
+        for hid, hv in list(state.views.hypotheses.items())[:2]:
+            iid = generate_id("ignorance")
+            artifacts[iid] = {
+                "type": "ignorance_item",
+                "ignorance_id": iid,
+                "ignorance_type": "untested_assumption",
+                "description": f"Untested assumption in {hid}: {hv.statement[:80]}",
+                "priority": 0.7,
+                "status": "open",
+                "related_hypothesis_ids": [hid],
+            }
+
+        half = self.PER_STEP_TOKENS // 2
+        return OperatorResult(
+            operator_name=self.name, action_id=action.action_id,
+            outcome=OperatorOutcome.SUCCESS,
+            artifacts_produced=artifacts,
+            resource_cost=ResourceCost(input_tokens=half, output_tokens=half),
         )
 
 
@@ -229,6 +351,20 @@ class BenchmarkRunner:
             )
             return self._wrap_baseline(scenario, manifest, baseline_result)
 
+        if architecture == "B3_fixed_ree":
+            reg = self._build_registry(scenario, ablation or {})
+            baseline_result = await FixedDepthREEBaseline(operators=reg).run(
+                scenario.question, budget=effective_budget, registry=reg,
+            )
+            return self._wrap_baseline(scenario, manifest, baseline_result)
+
+        if architecture == "B4_adaptive_ree":
+            reg = self._build_registry(scenario, ablation or {})
+            baseline_result = await REEAdaptiveBaseline(registry=reg).run(
+                scenario.question, budget=effective_budget, registry=reg,
+            )
+            return self._wrap_baseline(scenario, manifest, baseline_result)
+
         reg = self._build_registry(scenario, ablation or {})
         store = AppendOnlyEventStore()
         traj = TrajectoryDataset()
@@ -243,12 +379,16 @@ class BenchmarkRunner:
 
         final_state = await ctrl.run(scenario.question, budget=effective_budget)
 
+        gt_match = self._evaluate_ground_truth(final_state, scenario)
+
         scenario_result = ScenarioResult(
             scenario_id=scenario.scenario_id,
             architecture=architecture,
             experiment_id=manifest.experiment_id,
             tokens_used=final_state.budget.tokens_used,
             steps_used=final_state.process.step_count,
+            quality_score=1.0 if gt_match else 0.0,
+            ground_truth_match=gt_match,
             hypotheses=[
                 {"id": hid, "posterior": hv.posterior, "status": hv.status}
                 for hid, hv in final_state.views.hypotheses.items()
@@ -277,7 +417,14 @@ class BenchmarkRunner:
     ) -> OperatorRegistry:
         reg = OperatorRegistry()
         reg.register(ScenarioRetrieveOperator(scenario.evidence_pool))
-        reg.register(ScenarioHypothesisOperator())
+
+        if ablation.get("hypothesis_ecology", True):
+            reg.register(ScenarioHypothesisOperator())
+
+        if ablation.get("ignorance_ledger", True):
+            reg.register(ScenarioAttackOperator())
+
+        reg.register(ScenarioReasonOperator())
         reg.register(StopOperator())
         return reg
 
@@ -304,12 +451,82 @@ class BenchmarkRunner:
             scenario_split=scenario.split,
         )
 
+    def _evaluate_ground_truth(
+        self,
+        state: EpistemicState,
+        scenario: ScenarioSpec,
+    ) -> bool:
+        """Check if the system's artifacts contain or align with ground truth."""
+        if scenario.ground_truth is None:
+            return False
+
+        gt_lower = scenario.ground_truth.lower()
+
+        for aid, artifact in state.artifacts.items():
+            if not isinstance(artifact, dict):
+                continue
+            content = artifact.get("content", "") or artifact.get("statement", "") or ""
+            if gt_lower in content.lower():
+                return True
+            claim = artifact.get("claim", "")
+            if gt_lower in str(claim).lower():
+                return True
+
+        for eid in state.evidence_ids:
+            art = state.artifacts.get(eid)
+            if isinstance(art, dict):
+                c = art.get("content", "")
+                if gt_lower in str(c).lower():
+                    return True
+
+        return False
+
+    def _evaluate_baseline_ground_truth(
+        self,
+        result: BaselineResult,
+        scenario: ScenarioSpec,
+    ) -> bool:
+        """Check if baseline output aligns with ground truth."""
+        if scenario.ground_truth is None:
+            return False
+
+        gt_lower = scenario.ground_truth.lower()
+
+        if gt_lower in result.answer.lower():
+            return True
+
+        for claim in result.claims:
+            text = claim.get("text", "")
+            if gt_lower in text.lower():
+                return True
+
+        if result.final_state:
+            return self._evaluate_ground_truth(result.final_state, scenario)
+
+        return False
+
     def _wrap_baseline(
         self,
         scenario: ScenarioSpec,
         manifest: ExperimentManifest,
         result: BaselineResult,
     ) -> BenchmarkRunResult:
+        gt_match = self._evaluate_baseline_ground_truth(result, scenario)
+
+        hypotheses: list[dict[str, Any]] = []
+        ignorance_items: list[dict[str, Any]] = []
+        raw_state: dict[str, Any] = {}
+        if result.final_state:
+            hypotheses = [
+                {"id": hid, "posterior": hv.posterior, "status": hv.status}
+                for hid, hv in result.final_state.views.hypotheses.items()
+            ]
+            ignorance_items = [
+                {"id": iid, "priority": iv.priority, "status": iv.status}
+                for iid, iv in result.final_state.views.ignorance_items.items()
+            ]
+            raw_state = result.final_state.model_dump()
+
         return BenchmarkRunResult(
             scenario_id=scenario.scenario_id,
             architecture=result.baseline_name,
@@ -320,6 +537,11 @@ class BenchmarkRunner:
                 experiment_id=manifest.experiment_id,
                 tokens_used=result.tokens_used,
                 steps_used=result.steps_used,
+                quality_score=1.0 if gt_match else 0.0,
+                ground_truth_match=gt_match,
+                hypotheses=hypotheses,
+                ignorance_items=ignorance_items,
+                raw_state=raw_state,
             ),
             events=result.events,
         )

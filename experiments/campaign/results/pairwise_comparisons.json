@@ -2,58 +2,155 @@
   "full_ree_vs_B0_direct": {
     "n": 120,
     "steps": {
-      "mean_a": 8.408333333333333,
+      "mean_a": 14.25,
       "mean_b": 1.0,
-      "diff": 7.408333333333333,
-      "effect_size": 3.772172939880783,
+      "diff": 13.25,
+      "effect_size": 1.4780993802102003,
       "interpretation": "large",
-      "ci_lower": 7.041666666666667,
-      "ci_upper": 7.783333333333333
+      "ci_lower": 11.725,
+      "ci_upper": 14.766666666666667
     },
     "tokens": {
-      "mean_a": 1140.8333333333333,
+      "mean_a": 6625.0,
       "mean_b": 1000.0,
-      "diff": 140.83333333333334,
-      "effect_size": 0.7170947433519149
+      "diff": 5625.0,
+      "effect_size": 1.2549900398011133
     },
     "hypotheses": {
-      "mean_a": 4.0,
+      "mean_a": 1.0,
       "mean_b": 0.0,
-      "diff": 4.0,
-      "effect_size": 40000000000.0
+      "diff": 1.0,
+      "effect_size": 10000000000.0
     },
+    "gt_match_rate_a": 0.3333333333333333,
+    "gt_match_rate_b": 0.3333333333333333,
     "quality_wtl": {
-      "wins": 120,
-      "ties": 0,
+      "wins": 0,
+      "ties": 120,
       "losses": 0
     }
   },
   "full_ree_vs_B1_reflection": {
     "n": 120,
     "steps": {
-      "mean_a": 8.408333333333333,
+      "mean_a": 14.25,
       "mean_b": 3.0,
-      "diff": 5.408333333333333,
-      "effect_size": 2.7538135410378266,
+      "diff": 11.25,
+      "effect_size": 1.2549900398011133,
       "interpretation": "large",
-      "ci_lower": 5.041666666666667,
-      "ci_upper": 5.783333333333333
+      "ci_lower": 9.725,
+      "ci_upper": 12.766666666666667
     },
     "tokens": {
-      "mean_a": 1140.8333333333333,
+      "mean_a": 6625.0,
       "mean_b": 9247.5,
-      "diff": -8106.666666666667,
-      "effect_size": -1.1814600428579722
+      "diff": -2622.5,
+      "effect_size": -0.9753011897206331
     },
     "hypotheses": {
-      "mean_a": 4.0,
+      "mean_a": 1.0,
       "mean_b": 0.0,
-      "diff": 4.0,
-      "effect_size": 40000000000.0
+      "diff": 1.0,
+      "effect_size": 10000000000.0
     },
+    "gt_match_rate_a": 0.3333333333333333,
+    "gt_match_rate_b": 0.3333333333333333,
     "quality_wtl": {
-      "wins": 120,
-      "ties": 0,
+      "wins": 0,
+      "ties": 120,
+      "losses": 0
+    }
+  },
+  "full_ree_vs_B3_fixed_ree": {
+    "n": 120,
+    "steps": {
+      "mean_a": 14.25,
+      "mean_b": 4.0,
+      "diff": 10.25,
+      "effect_size": 1.14343536959657,
+      "interpretation": "large",
+      "ci_lower": 8.725,
+      "ci_upper": 11.766666666666667
+    },
+    "tokens": {
+      "mean_a": 6625.0,
+      "mean_b": 1500.0,
+      "diff": 5125.0,
+      "effect_size": 1.1434353695965698
+    },
+    "hypotheses": {
+      "mean_a": 1.0,
+      "mean_b": 0.0,
+      "diff": 1.0,
+      "effect_size": 10000000000.0
+    },
+    "gt_match_rate_a": 0.3333333333333333,
+    "gt_match_rate_b": 0.3333333333333333,
+    "quality_wtl": {
+      "wins": 0,
+      "ties": 120,
+      "losses": 0
+    }
+  },
+  "full_ree_vs_B4_adaptive_ree": {
+    "n": 120,
+    "steps": {
+      "mean_a": 14.25,
+      "mean_b": 14.25,
+      "diff": 0.0,
+      "effect_size": 0.0,
+      "interpretation": "negligible",
+      "ci_lower": 0.0,
+      "ci_upper": 0.0
+    },
+    "tokens": {
+      "mean_a": 6625.0,
+      "mean_b": 6625.0,
+      "diff": 0.0,
+      "effect_size": 0.0
+    },
+    "hypotheses": {
+      "mean_a": 1.0,
+      "mean_b": 0.0,
+      "diff": 1.0,
+      "effect_size": 10000000000.0
+    },
+    "gt_match_rate_a": 0.3333333333333333,
+    "gt_match_rate_b": 0.3333333333333333,
+    "quality_wtl": {
+      "wins": 0,
+      "ties": 120,
+      "losses": 0
+    }
+  },
+  "B4_adaptive_ree_vs_B3_fixed_ree": {
+    "n": 120,
+    "steps": {
+      "mean_a": 14.25,
+      "mean_b": 4.0,
+      "diff": 10.25,
+      "effect_size": 1.14343536959657,
+      "interpretation": "large",
+      "ci_lower": 8.725,
+      "ci_upper": 11.766666666666667
+    },
+    "tokens": {
+      "mean_a": 6625.0,
+      "mean_b": 1500.0,
+      "diff": 5125.0,
+      "effect_size": 1.1434353695965698
+    },
+    "hypotheses": {
+      "mean_a": 0.0,
+      "mean_b": 0.0,
+      "diff": 0.0,
+      "effect_size": 0.0
+    },
+    "gt_match_rate_a": 0.3333333333333333,
+    "gt_match_rate_b": 0.3333333333333333,
+    "quality_wtl": {
+      "wins": 0,
+      "ties": 120,
       "losses": 0
     }
   }

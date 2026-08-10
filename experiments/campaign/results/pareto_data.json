@@ -2,109 +2,221 @@
   {
     "architecture": "B0_direct",
     "budget": 2000,
-    "mean_quality": 0.0,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
     "mean_compute": 1000.0,
     "n": 30,
     "mean_steps": 1.0,
-    "mean_hypotheses": 0.0
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
   },
   {
     "architecture": "B1_reflection",
     "budget": 2000,
-    "mean_quality": 0.0,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
     "mean_compute": 1998.0,
     "n": 30,
     "mean_steps": 3.0,
-    "mean_hypotheses": 0.0
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
+  },
+  {
+    "architecture": "B3_fixed_ree",
+    "budget": 2000,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 1500.0,
+    "n": 30,
+    "mean_steps": 4.0,
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
+  },
+  {
+    "architecture": "B4_adaptive_ree",
+    "budget": 2000,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 2000.0,
+    "n": 30,
+    "mean_steps": 5.0,
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
   },
   {
     "architecture": "full_ree",
     "budget": 2000,
-    "mean_quality": 7.333333333333333,
-    "mean_compute": 1133.3333333333333,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 2000.0,
     "n": 30,
-    "mean_steps": 8.333333333333334,
-    "mean_hypotheses": 4.0
+    "mean_steps": 5.0,
+    "mean_hypotheses": 1.0,
+    "mean_ignorance": 2.0
   },
   {
     "architecture": "B0_direct",
     "budget": 5000,
-    "mean_quality": 0.0,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
     "mean_compute": 1000.0,
     "n": 30,
     "mean_steps": 1.0,
-    "mean_hypotheses": 0.0
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
   },
   {
     "architecture": "B1_reflection",
     "budget": 5000,
-    "mean_quality": 0.0,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
     "mean_compute": 4998.0,
     "n": 30,
     "mean_steps": 3.0,
-    "mean_hypotheses": 0.0
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
+  },
+  {
+    "architecture": "B3_fixed_ree",
+    "budget": 5000,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 1500.0,
+    "n": 30,
+    "mean_steps": 4.0,
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
+  },
+  {
+    "architecture": "B4_adaptive_ree",
+    "budget": 5000,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 5000.0,
+    "n": 30,
+    "mean_steps": 11.0,
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
   },
   {
     "architecture": "full_ree",
     "budget": 5000,
-    "mean_quality": 7.433333333333334,
-    "mean_compute": 1143.3333333333333,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 5000.0,
     "n": 30,
-    "mean_steps": 8.433333333333334,
-    "mean_hypotheses": 4.0
+    "mean_steps": 11.0,
+    "mean_hypotheses": 1.0,
+    "mean_ignorance": 8.0
   },
   {
     "architecture": "B0_direct",
     "budget": 10000,
-    "mean_quality": 0.0,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
     "mean_compute": 1000.0,
     "n": 30,
     "mean_steps": 1.0,
-    "mean_hypotheses": 0.0
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
   },
   {
     "architecture": "B1_reflection",
     "budget": 10000,
-    "mean_quality": 0.0,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
     "mean_compute": 9996.0,
     "n": 30,
     "mean_steps": 3.0,
-    "mean_hypotheses": 0.0
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
+  },
+  {
+    "architecture": "B3_fixed_ree",
+    "budget": 10000,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 1500.0,
+    "n": 30,
+    "mean_steps": 4.0,
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
+  },
+  {
+    "architecture": "B4_adaptive_ree",
+    "budget": 10000,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 5500.0,
+    "n": 30,
+    "mean_steps": 12.0,
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
   },
   {
     "architecture": "full_ree",
     "budget": 10000,
-    "mean_quality": 7.433333333333334,
-    "mean_compute": 1143.3333333333333,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 5500.0,
     "n": 30,
-    "mean_steps": 8.433333333333334,
-    "mean_hypotheses": 4.0
+    "mean_steps": 12.0,
+    "mean_hypotheses": 1.0,
+    "mean_ignorance": 9.0
   },
   {
     "architecture": "B0_direct",
     "budget": 20000,
-    "mean_quality": 0.0,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
     "mean_compute": 1000.0,
     "n": 30,
     "mean_steps": 1.0,
-    "mean_hypotheses": 0.0
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
   },
   {
     "architecture": "B1_reflection",
     "budget": 20000,
-    "mean_quality": 0.0,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
     "mean_compute": 19998.0,
     "n": 30,
     "mean_steps": 3.0,
-    "mean_hypotheses": 0.0
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
+  },
+  {
+    "architecture": "B3_fixed_ree",
+    "budget": 20000,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 1500.0,
+    "n": 30,
+    "mean_steps": 4.0,
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
+  },
+  {
+    "architecture": "B4_adaptive_ree",
+    "budget": 20000,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 14000.0,
+    "n": 30,
+    "mean_steps": 29.0,
+    "mean_hypotheses": 0.0,
+    "mean_ignorance": 0.0
   },
   {
     "architecture": "full_ree",
     "budget": 20000,
-    "mean_quality": 7.433333333333334,
-    "mean_compute": 1143.3333333333333,
+    "mean_quality": 0.3333333333333333,
+    "gt_match_rate": 0.3333333333333333,
+    "mean_compute": 14000.0,
     "n": 30,
-    "mean_steps": 8.433333333333334,
-    "mean_hypotheses": 4.0
+    "mean_steps": 29.0,
+    "mean_hypotheses": 1.0,
+    "mean_ignorance": 26.0
   }
 ]

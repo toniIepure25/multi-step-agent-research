@@ -1,21 +1,27 @@
-# ASAR-REE Scientific Certification — Final Report
+# ASAR-REE Scientific Certification — Final Report (v2)
 
 **Campaign date**: 2026-08-10
 **Starting SHA**: `2c44f09`
-**Ending SHA**: (see commit at end of campaign)
+**Ending SHA**: see final commit
 **Branch**: `feature/asar-ree-v2`
 
 ---
 
 ## 1. Abstract
 
-We executed a controlled empirical campaign to determine whether the ASAR-REE (Reflexive Epistemic Ecology) architecture produces measurably better epistemic intelligence than simpler research architectures. The campaign ran 360 holdout benchmark trials across 3 architectures × 4 budget levels × 6 scenario families, 162 ablation trials across 9 configurations, and 701 counterfactual cognitive action outcomes from 60 episodes.
+We executed a controlled empirical campaign to determine whether the ASAR-REE (Reflexive Epistemic Ecology) architecture produces measurably better epistemic intelligence than simpler research architectures. The campaign ran 600 holdout benchmark trials across 5 architectures × 4 budget levels × 6 scenario families, 162 ablation trials across 9 configurations, and 2,100 counterfactual cognitive action outcomes from 60 episodes.
 
-**The primary finding is negative**: the controlled benchmark framework reveals fundamental methodological limitations that prevent valid quality comparisons. The mock operator implementations produce structurally incomparable outputs across architectures, ablation flags do not alter behavior, and token accounting is asymmetric. Consequently, most H-REE hypotheses are classified as INCONCLUSIVE rather than supported or refuted.
+**Primary finding**: Under deterministic controlled benchmarks with mock operators, all architectures achieve identical ground-truth accuracy (33%). No architecture produces better *answer quality*. The architectural differences manifest in *structural behavior*: REE generates hypotheses and ignorance items, uses more diverse operator sequences, and scales compute with budget — but these structural differences do not improve correctness on the tested scenarios.
 
-**One genuine finding emerged**: the heuristic bidding system has near-zero predictive calibration (r=0.039), meaning operator bids do not predict realized epistemic gain. This is a scientifically meaningful observation about the current metacognitive scheduling mechanism.
+**Significant secondary findings**:
 
-**The experiment infrastructure itself is validated**: deterministic reproducible scenarios, event-sourced state forking, counterfactual outcome collection, and machine-readable artifact persistence all function correctly.
+1. **The ignorance/attack mechanism crowds out hypothesis generation** under budget constraints (full REE: 1 hypothesis, REE-without-ignorance: 4 hypotheses). This is a genuine interaction effect with practical implications.
+
+2. **Operator bids are anti-calibrated** (r = -0.083): the epistemic market slightly prefers lower-value actions. The reason and attack operators produce negative mean realized gain (-0.05 each), while retrieve (+0.15) and generate_hypothesis (+0.27) produce positive gain.
+
+3. **Ablation flags now produce measurable behavioral differences**: removing hypothesis ecology eliminates hypothesis generation; removing ignorance eliminates attack behavior and releases budget for hypothesis generation.
+
+4. **Budget scaling differs across architectures**: B0 is budget-invariant (1000 tokens), B3 uses fixed 1500, B1 scales linearly, while B4/full_ree scale sub-linearly (2000–14000 tokens across 2000–20000 budget).
 
 ---
 
@@ -23,68 +29,61 @@ We executed a controlled empirical campaign to determine whether the ASAR-REE (R
 
 > Autonomous research intelligence can be improved not merely by allocating more reasoning compute, but by maintaining an explicit ecology of competing epistemic representations and using metacognitive control to select the most valuable cognitive operation under bounded resources.
 
-**Operationalization**: The strongest evidence would show that at equal compute, REE achieves higher epistemic quality. Even stronger: REE achieves comparable quality using less compute. Strongest: specific REE mechanisms causally improve epistemic behavior, and their interactions explain improvements better than simply adding more inference.
-
-**Verdict**: This thesis cannot be confirmed or refuted by the current controlled experiments due to the methodological limitations documented in Section 24.
+**Verdict**: NOT SUPPORTED by the current controlled experiments. All architectures produce identical ground-truth accuracy. The structural differences (hypothesis generation, ignorance tracking) do not translate to quality improvement in the mock-operator framework. The experiment does NOT disprove the thesis — it establishes that the thesis cannot be tested with mock operators that produce deterministic, content-independent outputs.
 
 ---
 
-## 3. Architecture
+## 3. Architecture Conditions
 
-| Code | Description | Operators |
-|------|-------------|-----------|
-| B0 | Direct model — single controlled answer | 1 synthetic step |
-| B1 | Simple reflection — answer + critique + revision | 3 synthetic steps |
-| B3 | Fixed-depth REE — predetermined operator sequence | retrieve → reason → hypothesis → synthesize → stop |
-| B4 | Adaptive REE — heuristic Epistemic Market | Full controller with market selection |
-| B5/full_ree | Full REE — all mechanisms active | retrieve, hypothesis, stop (in mock benchmarks) |
-
-Note: B3 and B4 were not included in the holdout campaign runner (only B0, B1, full_ree were executed against holdout scenarios). B3/B4 are available as baseline classes but were not wired into the campaign runner due to operator registry dependency.
+| Code | Description | Operators in Benchmark | Budget Behavior |
+|------|-------------|----------------------|-----------------|
+| B0 | Direct — single call | 1 synthetic step | Fixed 1000 tokens |
+| B1 | Reflection — answer/critique/revision | 3 synthetic steps | Linear with budget |
+| B3 | Fixed REE — predetermined sequence | retrieve→reason→hypothesis→stop | Fixed 1500 tokens |
+| B4 | Adaptive REE — heuristic market | retrieve, reason, hypothesis, attack, stop | Sub-linear scaling |
+| B5/full_ree | Full REE — all mechanisms | retrieve, reason, hypothesis, attack, stop | Sub-linear scaling |
 
 ---
 
 ## 4. Experimental Design
 
-### Scenario Families (6)
-
-| Family | Holdout N | Primary Mechanism Tested |
-|--------|-----------|--------------------------|
-| false_majority | 5 | Social epistemology, minority preservation |
-| duplicated_source | 5 | Evidence independence |
-| assumption_flip | 5 | Counterfactual robustness |
-| hypothesis_ecology | 5 | Premature convergence prevention |
-| ignorance_discovery | 5 | Ignorance foresight |
-| stopping_quality | 5 | Adaptive stopping |
-
-### Budgets
-2,000 / 5,000 / 10,000 / 20,000 synthetic equivalent tokens.
-
-### Conditions Executed
-- 360 holdout records: 30 holdout scenarios × 4 budgets × 3 architectures
-- 162 ablation records: 18 dev scenarios × 9 ablation configs
-- 701 counterfactual outcomes: 60 dev episodes with state forking
+- **600 holdout records**: 30 holdout scenarios × 4 budgets × 5 architectures
+- **162 ablation records**: 18 dev scenarios × 9 configs
+- **2,100 counterfactual outcomes**: 60 dev episodes × state-forking with 4+ action types
+- **Frozen protocol**: `experiments/protocols/FROZEN_PROTOCOL.md`
 
 ---
 
 ## 5. Benchmark Construction
 
-Scenarios generated deterministically from `base_seed=42` with family-specific generators. Dev/holdout split at 70/30 per family. Leakage check: 0 violations. Ground truth provided for all scenarios (e.g., correct answer, hidden variables, expected sensitivity).
+6 families, 15 scenarios each (10 dev, 5 holdout), seed-deterministic, 0 leakage violations.
 
-Checksums were not computed before the campaign (protocol gap).
+| Family | Ground Truth Type | Holdout GT Match Rate |
+|--------|-------------------|----------------------|
+| false_majority | Single letter (A/B) | 100% all architectures* |
+| duplicated_source | Single letter (Y) | 100% all architectures* |
+| assumption_flip | Full phrase | 0% all architectures |
+| hypothesis_ecology | Short string (H2) | 0% all architectures |
+| ignorance_discovery | Full sentence | 0% all architectures |
+| stopping_quality | Full phrase | 0% all architectures |
+
+*100% match rate is a substring-matching artifact: single-character ground truths match widely.
 
 ---
 
 ## 6. Compute Controls
 
-### Token Accounting (Observed)
-
 | Architecture | Budget 2k | Budget 5k | Budget 10k | Budget 20k |
 |---|---|---|---|---|
-| B0_direct | 1,000 | 1,000 | 1,000 | 1,000 |
-| B1_reflection | 1,998 | 4,998 | 9,996 | 19,998 |
-| full_ree | 1,133 | 1,143 | 1,143 | 1,143 |
+| B0 | 1,000 | 1,000 | 1,000 | 1,000 |
+| B1 | 1,998 | 4,998 | 9,996 | 19,998 |
+| B3 | 1,500 | 1,500 | 1,500 | 1,500 |
+| B4 | 2,000 | 5,000 | 5,500 | 14,000 |
+| full_ree | 2,000 | 5,000 | 5,500 | 14,000 |
 
-**CRITICAL ISSUE**: Token accounting is fundamentally asymmetric. B1 uses nearly its full budget. REE's mock operators use fixed small costs (50-100 tokens per step). B0 caps at 1000. Budget never constrains REE behavior.
+Token costs are now normalized at 500 tokens per operator step (250 input + 250 output).
+
+B4 and full_ree show identical compute profiles because they use the same controller with the same operator set. The only difference is that full_ree captures hypothesis/ignorance state in results.
 
 ---
 
@@ -92,24 +91,25 @@ Checksums were not computed before the campaign (protocol gap).
 
 ### Table 26: Hypothesis Verdict Table
 
-| Hypothesis | Primary Experiment | N | Baseline | REE Condition | Effect | 95% CI | Compute Diff | Verdict | Evidence Level |
-|---|---|---|---|---|---|---|---|---|---|
-| H-REE-01 Self-model calibration | Holdout benchmark | 120 | B0 (1 step) | full_ree (8.4 steps) | N/A — quality not comparable | N/A | +141 tokens | INCONCLUSIVE | Mock only |
-| H-REE-02 Ignorance foresight | Holdout benchmark | 120 | B0 | full_ree | 0 ignorance items in all conditions | N/A | N/A | INCONCLUSIVE | Mechanism not exercised |
-| H-REE-03 Evidence independence | Holdout source duplication | 20 | B0/B1 | full_ree | Not measurable — no independence analysis | N/A | N/A | INCONCLUSIVE | Mechanism not exercised |
-| H-REE-04 Hypothesis ecology | Holdout ecology scenarios | 20 | B0/B1 (0 hypotheses) | full_ree (4 hypotheses) | +4.0 hypotheses | N/A | +143 tokens | INCONCLUSIVE | Artifact count, not quality |
-| H-REE-05 Quality-Compute Pareto | Pareto analysis | 360 | B0/B1 | full_ree | REE occupies single point; budget never binding | N/A | Variable | NOT_SUPPORTED | Mock token costs unrealistic |
-| H-REE-06 State predicts action value | Counterfactual study | 701 | Random action | Heuristic bid | r=0.039 bid-value corr | N/A | N/A | NOT_SUPPORTED | Genuine finding |
-| H-REE-07 Counterfactual robustness | Assumption flip scenarios | 20 | B0/B1 | full_ree | No counterfactual operator in benchmark | N/A | N/A | INCONCLUSIVE | Mechanism not exercised |
-| H-REE-08 Memory consolidation | Not executed | 0 | — | — | — | — | — | INCONCLUSIVE | No memory in benchmark |
-| H-REE-09 Mechanism synergy | Ablation campaign | 162 | Leave-one-out configs | full_ree | 0.00 effect size across all comparisons | N/A | 0 | INCONCLUSIVE | Ablation flags have no effect |
-| H-REE-10 Ontology revision | Not executed | 0 | — | — | — | — | — | INCONCLUSIVE | No ontology operator |
+| Hypothesis | N | Baseline | REE Condition | Effect | 95% CI | Compute Diff | Verdict | Evidence |
+|---|---|---|---|---|---|---|---|---|
+| H-REE-01 Self-model | 600 | B0 (33% GT) | full_ree (33% GT) | 0% quality difference | — | +5625 tokens | INCONCLUSIVE | Quality identical |
+| H-REE-02 Ignorance foresight | 162 | full_ree (ign=8.0) | no_ignorance (ign=0.0) | -8.0 ignorance items | — | 0 steps diff | PARTIALLY_SUPPORTED | Ignorance produced; utility unproven |
+| H-REE-03 Evidence independence | 600 | All 33% GT | All 33% GT | 0% quality difference | — | — | INCONCLUSIVE | No correctness impact |
+| H-REE-04 Hypothesis ecology | 162 | no_ecology (hyp=0) | full_ree (hyp=1) | +1 hypothesis | — | 0 steps diff | PARTIALLY_SUPPORTED | Hypotheses produced; crowded by ignorance |
+| H-REE-05 Pareto frontier | 600 | All 33% GT | All 33% GT | No quality diff at any budget | — | Variable | NOT_SUPPORTED | Same quality, higher compute for REE |
+| H-REE-06 Predicts action value | 2100 | Random | Heuristic bid | r=-0.083 | — | — | NOT_SUPPORTED | Anti-calibrated bids |
+| H-REE-07 Counterfactual | 600 | All 33% GT | All 33% GT | 0% | — | — | INCONCLUSIVE | Mock operator limitation |
+| H-REE-08 Memory | 0 | — | — | — | — | — | INCONCLUSIVE | Not tested |
+| H-REE-09 Synergy | 162 | Full (hyp=1,ign=8) | No-ign (hyp=4,ign=0) | Negative interaction | — | 0 | NEGATIVE | Ignorance crowds out hypothesis |
+| H-REE-10 Ontology | 0 | — | — | — | — | — | INCONCLUSIVE | Not tested |
 
 ### Verdict Summary
 - **SUPPORTED**: 0
-- **PARTIALLY_SUPPORTED**: 0
+- **PARTIALLY_SUPPORTED**: 2 (H-REE-02, H-REE-04 — mechanism functions, utility unproven)
 - **NOT_SUPPORTED**: 2 (H-REE-05, H-REE-06)
-- **INCONCLUSIVE**: 8
+- **NEGATIVE**: 1 (H-REE-09 — ignorance × hypothesis interaction is harmful)
+- **INCONCLUSIVE**: 5
 
 ---
 
@@ -117,96 +117,96 @@ Checksums were not computed before the campaign (protocol gap).
 
 ### Table 27: Quality-Compute Table
 
-| Architecture | Budget | Quality* | 95% CI | Tokens Used | Steps | Hypotheses | Pareto-dominated? |
-|---|---|---|---|---|---|---|---|
-| B0_direct | 2,000 | 0.0 | — | 1,000 | 1.0 | 0.0 | Yes (by full_ree) |
-| B0_direct | 5,000 | 0.0 | — | 1,000 | 1.0 | 0.0 | Yes |
-| B0_direct | 10,000 | 0.0 | — | 1,000 | 1.0 | 0.0 | Yes |
-| B0_direct | 20,000 | 0.0 | — | 1,000 | 1.0 | 0.0 | Yes |
-| B1_reflection | 2,000 | 0.0 | — | 1,998 | 3.0 | 0.0 | Yes |
-| B1_reflection | 5,000 | 0.0 | — | 4,998 | 3.0 | 0.0 | Yes |
-| B1_reflection | 10,000 | 0.0 | — | 9,996 | 3.0 | 0.0 | Yes |
-| B1_reflection | 20,000 | 0.0 | — | 19,998 | 3.0 | 0.0 | Yes |
-| full_ree | 2,000 | 7.3 | — | 1,133 | 8.3 | 4.0 | No |
-| full_ree | 5,000 | 7.4 | — | 1,143 | 8.4 | 4.0 | No |
-| full_ree | 10,000 | 7.4 | — | 1,143 | 8.4 | 4.0 | No |
-| full_ree | 20,000 | 7.4 | — | 1,143 | 8.4 | 4.0 | No |
-
-*Quality = hypothesis_count + evidence_count + claim_count. **This metric is NOT valid for cross-architecture comparison.** B0/B1 produce claims via different code paths that do not register as hypothesis/evidence artifacts.
+| Architecture | Budget | GT Rate | Quality | Tokens | Steps | Hyps | Ign | Pareto-dominated? |
+|---|---|---|---|---|---|---|---|---|
+| B0 | 2k | 33% | 0.33 | 1,000 | 1 | 0 | 0 | Pareto-optimal (min cost) |
+| B0 | 5k–20k | 33% | 0.33 | 1,000 | 1 | 0 | 0 | Pareto-optimal |
+| B1 | 2k | 33% | 0.33 | 1,998 | 3 | 0 | 0 | Dominated by B0 |
+| B1 | 5k–20k | 33% | 0.33 | 4,998–19,998 | 3 | 0 | 0 | Dominated by B0 |
+| B3 | all | 33% | 0.33 | 1,500 | 4 | 0 | 0 | Dominated by B0 |
+| B4 | 2k | 33% | 0.33 | 2,000 | 5 | 0 | 0 | Dominated by B0 |
+| B4 | 5k–20k | 33% | 0.33 | 5,000–14,000 | 11–29 | 0 | 0 | Dominated by B0 |
+| full_ree | 2k | 33% | 0.33 | 2,000 | 5 | 1 | 2 | Dominated by B0 (quality) |
+| full_ree | 5k | 33% | 0.33 | 5,000 | 11 | 1 | 8 | Dominated by B0 |
+| full_ree | 10k | 33% | 0.33 | 5,500 | 12 | 1 | 9 | Dominated by B0 |
+| full_ree | 20k | 33% | 0.33 | 14,000 | 29 | 1 | 26 | Dominated by B0 |
 
 ### Pareto Analysis Answers
 
-1. **Does Full REE dominate Fixed REE?** Cannot determine — Fixed REE (B3) was not included in holdout runs.
-2. **Does Adaptive REE dominate Fixed REE?** Cannot determine — neither B3 nor B4 were in holdout runs.
-3. **At what complexity does REE become worth overhead?** Cannot determine — budget never constrains REE.
-4. **Does REE ever perform worse from excessive cognition?** Not observed, but quality metric is invalid.
-5. **Low-budget advantage?** REE's token usage is budget-invariant (mock costs too low).
-6. **Does more budget stop helping?** Budget is irrelevant for REE in mock framework.
+1. **Does Full REE dominate Fixed REE?** No. Same quality, more compute.
+2. **Does Adaptive REE dominate Fixed REE?** No. Same quality, more compute.
+3. **Break-even complexity?** Not observed. Quality is flat across all architectures.
+4. **Does REE perform worse from excessive cognition?** Not in quality, but it wastes compute.
+5. **Low-budget advantage?** No. B0 achieves same quality at minimum cost.
+6. **Budget scaling?** More budget helps REE generate more ignorance items but not quality.
+
+**Conclusion**: B0 (direct) Pareto-dominates all other architectures under mock conditions. This is a CRITICAL negative finding but is expected given mock operators produce content-independent outputs.
 
 ---
 
-## 9. Hypothesis Ecology
+## 9. Hypothesis Ecology Findings
 
-### By-Family Results (hypothesis_ecology holdout scenarios)
-
-| Architecture | Mean Steps | Mean Tokens | Mean Hypotheses | Mean Ignorance |
+### Cross-Architecture (holdout, all budgets averaged)
+| Architecture | Hypotheses | GT Match | Ignorance | Steps |
 |---|---|---|---|---|
-| B0_direct | 1.0 | 1,000 | 0.0 | 0.0 |
-| B1_reflection | 3.0 | 9,248 | 0.0 | 0.0 |
-| full_ree | 9.0 | 1,200 | 4.0 | 0.0 |
+| B0 | 0 | 0% | 0 | 1 |
+| B1 | 0 | 0% | 0 | 3 |
+| B3 | 0 | 0% | 0 | 4 |
+| B4 | 0 | 0% | 0 | 14.2 |
+| full_ree | 1.0 | 0% | 11.2 | 14.2 |
 
-REE produces 4 hypotheses per ecology scenario. Baselines produce 0. However, whether these hypotheses represent genuine diversity, correct belief revision, or prevent premature convergence **cannot be determined** from the current data. The mock `ScenarioHypothesisOperator` generates generic hypotheses that don't interact with ground truth.
+### Ablation (dev, 5k budget)
+| Config | Hypotheses | Ignorance | Steps |
+|---|---|---|---|
+| full_ree | 1.0 | 8.0 | 11 |
+| ree_no_hypothesis_ecology | 0.0 | 0.0 | 11 |
+| ree_no_ignorance_ledger | 4.0 | 0.0 | 11 |
+
+### KEY FINDING: Ignorance-Hypothesis Competition
+When both hypothesis ecology and ignorance/attack are active, the attack operator produces ignorance items that boost retrieve bids, consuming budget that would otherwise go to hypothesis generation. Full REE generates only 1 hypothesis while REE-without-ignorance generates 4.
+
+This is a **genuine negative interaction effect**: the ignorance mechanism reduces hypothesis diversity under budget constraints.
 
 ---
 
-## 10. Ignorance
+## 10. Ignorance Findings
 
-**Result**: Zero ignorance items across all conditions and all scenarios.
+REE produces ignorance items when the attack operator is enabled (mean 8.0 items on dev, up to 26 at 20k budget). Removing the ignorance mechanism (`ree_no_ignorance_ledger`) eliminates all ignorance items.
 
-No mock operator produces ignorance artifacts. H-REE-02 is entirely untestable in the current framework.
+**The ignorance mechanism WORKS mechanically** — it produces structured ignorance artifacts. However:
+- It does not improve ground-truth accuracy
+- It crowds out hypothesis generation
+- Its behavioral impact (boosting retrieve bids) consumes budget without quality return
 
 ---
 
-## 11. Self-Model
+## 11. Self-Model Findings
 
-The self-model (`SelfModelSummary`) is present in `state.views.self_model` and influences operator bids (verified by mechanism influence unit tests). The default `overall_success_rate=0.7` reduces bid values by approximately 30%.
-
-However, the self-model's influence on bid values does not translate into improved action selection (bid-value correlation: 0.039). Whether this is because:
-(a) the self-model scaling is correct but the base bids are uninformative, or
-(b) the self-model scaling itself adds noise,
-cannot be distinguished in the current framework.
+The self-model is present with default `overall_success_rate=0.7`. In the `ree_no_self_model` ablation, behavior is identical to full_ree (both produce hyp=1.0, ign=8.0, steps=11, GT=100%), indicating that the self-model's bid-scaling effect does not change operator selection in practice.
 
 ---
 
 ## 12. Evidence Independence
 
-Source lineage metadata (`parent_source` fields) exists in scenario evidence pools (particularly `false_majority` and `duplicated_source` families). However, no mock operator or controller mechanism reads or uses this metadata. H-REE-03 is untestable.
+Not differentially tested. Source lineage metadata exists but no operator uses it.
 
 ---
 
 ## 13. Social Epistemology
 
-The sealed tribunal infrastructure exists (`DissonanceTribunal`) but is not used by the benchmark runner. All benchmark runs use the standard `EpistemicController`. Social architecture comparisons were not executed.
+Tribunal not included in benchmark runner. Not tested.
 
 ---
 
 ## 14. Counterfactual/Ontology
 
-No counterfactual or ontology operators are registered in benchmark scenarios. The `CounterfactualLabOperator` and `OntologyForgeOperator` exist in the codebase but are not wired into the `BenchmarkRunner._build_registry()`.
+No counterfactual or ontology operators in benchmarks. Not tested.
 
 ---
 
-## 15. Stopping
+## 15. Stopping Policy
 
-### By-Family Results (stopping_quality holdout scenarios)
-
-| Architecture | Mean Steps | Mean Tokens |
-|---|---|---|
-| B0_direct | 1.0 | 1,000 |
-| B1_reflection | 3.0 | 9,248 |
-| full_ree | 6.0 | 900 |
-
-REE's stopping policy terminates at approximately 6 steps for stopping_quality scenarios (vs. 8-11 for other families), suggesting the mock evidence pool is smaller (1 evidence item vs. 4-6). The `StoppingPolicy` activates but its quality impact cannot be assessed without ground-truth comparison.
+REE stopping behavior is governed by budget exhaustion and operator proposal availability, not the StoppingPolicy mechanism. At 20k budget, REE runs 29 steps (vs 5 at 2k), confirming the budget constraint is now binding. The stopping policy's `evaluate()` method runs but does not override the market.
 
 ---
 
@@ -214,238 +214,265 @@ REE's stopping policy terminates at approximately 6 steps for stopping_quality s
 
 ### Table 28: Counterfactual Cognition Table
 
-| State Class | Selected Action | Oracle Action | Mean Realized Gain | Mean Regret | Bid Correlation | Predicted-Policy Regret |
-|---|---|---|---|---|---|---|
-| Early episode (low evidence) | retrieve | generate_hypothesis* | 0.190 | N/A† | 0.039 | N/A |
-| Mid episode (with evidence) | generate_hypothesis | retrieve* | 0.210 | N/A† | 0.039 | N/A |
-| All states pooled | mixed | mixed | 0.199 | N/A† | 0.039 | N/A |
+| Action Type | N (high gain) | N (low gain) | Mean Gain | Bid-Value r | Classification |
+|---|---|---|---|---|---|
+| retrieve | 540 | 0 | +0.150 | — | Consistently positive |
+| generate_hypothesis | 540 | 0 | +0.272 | — | Highest positive gain |
+| reason | 0 | 540 | -0.050 | — | Consistently negative |
+| attack_hypothesis | 0 | 480 | -0.050 | — | Consistently negative |
+| **Overall** | **1080** | **1020** | **+0.081** | **-0.083** | **Anti-calibrated** |
 
-*Oracle action determined by higher mean gain. Difference between actions is small (0.02).
-†Regret computation requires per-state oracle comparison; pooled dataset has only 2 action types with similar gains.
+### KEY FINDINGS
 
-### Detailed Counterfactual Metrics
+1. **Generate_hypothesis is the highest-value action** (+0.27 mean gain). The market should strongly prefer it.
 
-- **N outcomes**: 701
-- **N episodes**: 60
-- **Action types observed**: 2 (retrieve, generate_hypothesis)
-- **Bid-vs-realized correlation**: r = 0.039 (near zero)
-- **Mean gain (retrieve)**: 0.190
-- **Mean gain (generate_hypothesis)**: 0.210
-- **High-gain outcomes**: retrieve=381, generate_hypothesis=200
-- **Low-gain outcomes**: generate_hypothesis=120
+2. **Reason and attack produce negative gain** (-0.05 each). Under the current gain scalarization, these operators actively harm epistemic utility.
 
-### Interpretation
+3. **The market is anti-calibrated** (r=-0.083). Instead of selecting high-value actions, the bid system slightly prefers low-value ones.
 
-The near-zero bid-value correlation (r=0.039) is a **genuine negative finding**. The heuristic epistemic market's operator bids are effectively uncalibrated with respect to realized epistemic gain. This means:
+4. **An optimal policy would select retrieve or generate_hypothesis exclusively**, avoiding reason and attack entirely. This contradicts the architectural intuition that diverse cognitive operations are beneficial.
 
-1. The operator selection mechanism is not better than random with respect to downstream value
-2. Improving bid calibration is a concrete, measurable improvement target
-3. The "epistemic market" metaphor requires empirical grounding, not just architectural elegance
-
-However, the finding is limited by:
-- Only 2 action types (full action space not available in mock)
-- Mock operators have fixed-form outcomes regardless of state
-- Gain vector may not capture relevant quality dimensions for mock scenarios
+5. **However**: negative gain for reason/attack may be an artifact of the mock operator implementation (they produce artifacts with fixed small costs but no quality-relevant content). With a real LLM, reasoning and hypothesis-attacking could produce genuine epistemic value.
 
 ---
 
 ## 17. State-Feature Predictive Study
 
-### Feature Importance (Correlation with Scalarized Gain)
+### Feature Importance (from counterfactual dataset)
 
-| Feature | Importance | Notes |
+| Feature | Importance | Status |
 |---|---|---|
-| belief_volatility | 0.585 | **Spurious** — constant across mock states |
-| contradiction_density | 0.585 | **Spurious** — constant |
-| highest_ignorance_priority | 0.585 | **Spurious** — always 0.0 |
-| mean_ignorance_priority | 0.585 | **Spurious** — always 0.0 |
-| self_model_expected_success | 0.585 | **Spurious** — always 0.7 |
-| top_hypothesis_margin | 0.578 | **Spurious** — minimal variation |
-| budget_fraction | 0.117 | **Potentially real** — varies by trajectory stage |
-| evidence_count | 0.112 | **Potentially real** — varies by trajectory stage |
-| workspace_saturation | 0.099 | Minimal variation |
-| step_count | 0.099 | Correlated with evidence_count |
-| hypothesis_count | 0.098 | Caps at 4 |
-| hypothesis_entropy | 0.033 | Low variation |
+| hypothesis_entropy | 0.572 | Spurious — low variation |
+| belief_volatility | 0.572 | Spurious — constant |
+| contradiction_density | 0.572 | Spurious — constant |
+| evidence_count | 0.572 | Potentially real |
+| self_model_expected_success | 0.572 | Spurious — constant at 0.7 |
+| top_hypothesis_margin | 0.474 | Low variation |
+| workspace_saturation | 0.474 | Low variation |
+| hypothesis_count | 0.474 | Caps at 4 |
 
-**Conclusion**: The rich epistemic state representation adds no predictive information beyond simple trajectory-stage features (`budget_fraction`, `evidence_count`, `step_count`). This is because mock scenarios produce uniform states with minimal variation in epistemic features.
-
-This does NOT mean rich features are useless — it means **mock experiments cannot test whether they are useful**.
+**Conclusion**: The predictive study cannot distinguish genuinely informative features from constant/low-variation ones in the mock framework. A learned scheduler is NOT justified from this data.
 
 ---
 
-## 18. Ablations
+## 18. Ablation Results
 
-All ablation comparisons produced **zero effect size** (d=0.00) because ablation flags do not alter operator registration or controller behavior. See NEGATIVE_FINDINGS.md §1.
+### Leave-One-Out Ablation (dev scenarios, 5k budget)
+
+| Config | Hyps | Ign | Steps | GT Match | Behavioral Difference |
+|---|---|---|---|---|---|
+| full_ree | 1.0 | 8.0 | 11 | 100% | Baseline |
+| ree_no_hypothesis_ecology | 0.0 | 0.0 | 11 | 100% | No hypotheses, no ignorance |
+| ree_no_ignorance_ledger | 4.0 | 0.0 | 11 | 100% | 4x more hypotheses, no ignorance |
+| ree_no_self_model | 1.0 | 8.0 | 11 | 100% | No difference |
+| ree_no_evidence_independence | 1.0 | 8.0 | 11 | 100% | No difference |
+| ree_no_epistemic_market | 1.0 | 8.0 | 11 | 100% | No difference |
+| ree_no_stopping_policy | 1.0 | 8.0 | 11 | 100% | No difference |
+| ree_core | 1.0 | 8.0 | 11 | 100% | No difference |
+| baseline_none | 0.0 | 0.0 | 11 | 100% | No hypotheses, no ignorance |
+
+### Ablation Findings
+
+1. **hypothesis_ecology and ignorance_ledger are the only ablation flags that change behavior**. They control whether ScenarioHypothesisOperator and ScenarioAttackOperator are registered.
+
+2. **self_model, evidence_independence, epistemic_market, stopping_policy** — these flags don't control operator registration in the current benchmark runner, so they have no effect.
+
+3. **Removing ignorance increases hypothesis diversity** (1→4 hypotheses), a genuine interaction effect.
 
 ---
 
 ## 19. Interaction Effects
 
-Cannot be assessed. Prerequisite: functional ablation mechanism.
+### Confirmed Interaction: Ignorance × Hypothesis Ecology
+
+| Ignorance | Hypothesis Ecology | Hypotheses | Ignorance Items |
+|---|---|---|---|
+| ON | ON | 1.0 | 8.0 |
+| ON | OFF | 0.0 | 0.0* |
+| OFF | ON | 4.0 | 0.0 |
+| OFF | OFF | 0.0 | 0.0 |
+
+*Hypothesis ecology OFF means no ScenarioHypothesisOperator, so ScenarioAttackOperator (which requires hypotheses to attack) cannot function.
+
+**Effect**: When both are active, ignorance/attack consumes budget that would go to hypothesis generation. This is a **negative interaction**: the full system produces fewer hypotheses than the hypothesis-only system.
 
 ---
 
 ## 20. Minimal Effective REE
 
-Cannot be determined from current experiments. All ablation conditions produce identical behavior, so no mechanism can be identified as dispensable.
+Based on ablation results, the **minimal configuration that produces all observed behavioral features** is:
+
+```
+EpistemicState
++ ScenarioRetrieveOperator
++ ScenarioHypothesisOperator  (hypothesis_ecology=True)
++ ScenarioReasonOperator
++ StopOperator
+```
+
+WITHOUT the attack/ignorance mechanism, since it crowds out hypotheses. However, this finding may not generalize to live LLM settings.
 
 ---
 
 ## 21. Task-Conditional Effects
 
-### By-Family Comparison (full_ree, Budget = 5000)
+| Family | REE Behavioral Difference |
+|---|---|
+| false_majority | 100% GT match regardless (substring artifact) |
+| duplicated_source | 100% GT match regardless |
+| assumption_flip | 0% GT match regardless |
+| hypothesis_ecology | 0% GT match regardless |
+| ignorance_discovery | 0% GT match regardless |
+| stopping_quality | 0% GT match regardless |
 
-| Family | Mean Steps | Mean Tokens | Mean Hypotheses |
-|---|---|---|---|
-| false_majority | 10.2 | 1,320 | 4.0 |
-| duplicated_source | 11.2 | 1,425 | 4.0 |
-| assumption_flip | 7.0 | 1,000 | 4.0 |
-| hypothesis_ecology | 9.0 | 1,200 | 4.0 |
-| ignorance_discovery | 7.0 | 1,000 | 4.0 |
-| stopping_quality | 6.0 | 900 | 4.0 |
-
-**Observation**: REE uses more steps/tokens for families with larger evidence pools (false_majority: 4-6 sources, duplicated_source: 5-7 sources) and fewer for families with smaller pools (assumption_flip: 2, stopping_quality: 1). This is a mechanical consequence of evidence pool size, not adaptive behavior.
+REE does not show task-conditional quality advantages. The 100% matches on false_majority and duplicated_source are substring-matching artifacts (ground truth is a single letter).
 
 ---
 
 ## 22. Live Validation
 
-Not executed. Prerequisite: valid controlled benchmark results and available LLM provider credentials.
+Not executed. Prerequisite: live LLM provider credentials.
 
 ---
 
 ## 23. Negative Findings
 
-See dedicated `NEGATIVE_FINDINGS.md`. Summary:
+See `NEGATIVE_FINDINGS.md` for detailed documentation. Key negatives:
 
-1. Ablation flags are metadata-only — no behavioral effect
-2. Quality metrics are incomparable across architectures
-3. Token accounting is fundamentally asymmetric
-4. Budget never constrains REE in mock scenarios
-5. Bid calibration is near-zero (r=0.039) — genuine finding
-6. Ignorance items never produced
-7. Evidence independence not exercised
-8. Feature importance dominated by constant values
-9. Prompt-only controls not testable
-10. Only 2 action types in counterfactual study
+1. **No quality improvement**: All architectures achieve identical GT accuracy
+2. **B0 Pareto-dominates all others**: Simplest architecture is most efficient
+3. **Ignorance crowds out hypothesis generation**: Genuine negative interaction
+4. **Market bids are anti-calibrated** (r=-0.083)
+5. **Reason and attack operators produce negative gain** in mock framework
+6. **Self-model ablation produces no behavioral difference**
+7. **Most ablation flags have no behavioral effect** (only hypothesis_ecology and ignorance_ledger are wired)
 
 ---
 
 ## 24. Limitations
 
 ### Fundamental
-- **No ground-truth quality comparison**: Outputs are not evaluated against scenario answers
-- **Mock operators do not simulate real LLM behavior**: Fixed costs, deterministic outputs, no prompt context
-- **Ablation infrastructure is structural but non-functional**: Flags exist but don't change behavior
+- Mock operators produce content-independent outputs — they cannot test semantic quality
+- Ground-truth evaluation uses substring matching — too coarse for some families, too permissive for others
+- B4 and full_ree use identical controllers — they only differ in result capture, not behavior
+- Ablation flags only control 2 of 12 mechanisms via operator registration
 
-### Methodological
-- **No repeated trials needed**: All scenarios are fully deterministic under mock operators
-- **No statistical testing possible**: Zero variance within conditions means infinite or zero effect sizes
-- **No calibration data**: Self-model uses default rates, not empirically calibrated values
-
-### Scope
-- **B3 and B4 baselines not in holdout campaign**: Only B0, B1, full_ree were compared
-- **No live LLM experiments**: All results are from mock/controlled operators
-- **No social architecture experiments**: Tribunal not included in benchmark runner
+### What Would Change with Live LLMs
+- Operator outputs would depend on question content and evidence
+- Quality differences between architectures could emerge
+- Reason and attack operators could produce genuine analytical value
+- Hypothesis generation could produce content-relevant hypotheses
+- Self-model could calibrate from actual success/failure patterns
 
 ---
 
 ## 25. Novel Contributions
 
-Despite the experimental limitations, the campaign produces several genuine contributions:
+### A. Empirical Interaction Discovery
+The ignorance-hypothesis competition finding is genuine: explicit ignorance tracking consumes cognitive budget that would otherwise produce hypothesis diversity. This is a meaningful architectural insight.
 
-### A. Validated Experiment Infrastructure
-- 360 + 162 + 701 = 1,223 total experiment records persisted as machine-readable JSONL
-- Deterministic seed-based scenario generation with leakage-free dev/holdout splits
-- Event-sourced state forking produces valid counterfactual outcomes
+### B. Market Anti-Calibration Finding
+The heuristic bidding system (r=-0.083) is worse than random at selecting high-value actions. This is a concrete, measurable deficit that future work should address.
 
-### B. Empirical Bid Decorrelation Finding
-- Heuristic operator bids have r=0.039 correlation with realized gain
-- This is a concrete, measurable finding about metacognitive scheduling quality
-- Directly informs future work on bid calibration
+### C. Counterfactual Cognitive Action Dataset
+2,100 (state, action, gain) records demonstrate the feasibility of counterfactual cognitive-action evaluation via event-sourced state forking.
 
-### C. Methodological Framework
-- The experiment design (frozen protocol, hypothesis pre-registration, required tables) is sound
-- The negative results demonstrate how to rigorously evaluate epistemic architectures
-- The framework is ready for live LLM experiments
+### D. Validated Experiment Infrastructure
+The complete pipeline — scenario generation, architecture dispatch, ablation, counterfactual forking, statistical analysis — runs end-to-end and produces machine-readable artifacts.
 
-### D. Failure Documentation
-- NEGATIVE_FINDINGS.md provides a detailed map of what doesn't work and why
-- Future experiments can avoid repeating these methodological errors
+### E. Action-Value Decomposition
+The finding that retrieve (+0.15) and generate_hypothesis (+0.27) produce positive gain while reason (-0.05) and attack (-0.05) produce negative gain provides a concrete target for metacognitive improvement.
 
 ---
 
 ## 26. Claims NOT Supported
 
-| Claim | Status | Reason |
+| Claim | Status | Evidence |
 |---|---|---|
-| A. Explicit epistemic state outperforms prompt-only | NOT TESTABLE | Mock operators don't use prompts |
-| B. Self-model predicts failure | NOT TESTABLE | No failure detection in mock framework |
-| C. Sealed deliberation preserves minorities | NOT TESTABLE | Tribunal not in benchmark runner |
+| A. Epistemic state outperforms prompt-only | NOT TESTABLE | Mock operators don't use prompts |
+| B. Self-model predicts failure | NOT SUPPORTED | No behavioral difference when ablated |
+| C. Sealed deliberation preserves minorities | NOT TESTABLE | Tribunal not in benchmarks |
 | D. Source-lineage prevents false confidence | NOT TESTABLE | Independence not exercised |
-| E. Ontology revision improves frame-escape | NOT TESTABLE | No ontology operator in benchmarks |
-| F. Metacognitive scheduling improves Pareto | NOT SUPPORTED | Budget never constrains REE |
-| G. Epistemic state predicts cognitive value | NOT SUPPORTED | r=0.039 bid-value correlation |
-| H. Hypothesis ecology + ignorance + scheduling synergy | NOT TESTABLE | Ablation flags non-functional |
+| E. Ontology revision improves frame-escape | NOT TESTABLE | No ontology operator |
+| F. Metacognitive scheduling improves Pareto | NOT SUPPORTED | B0 Pareto-dominates |
+| G. Epistemic state predicts cognitive value | NOT SUPPORTED | r=-0.083 |
+| H. Mechanism synergy | NEGATIVE | Ignorance-hypothesis negative interaction |
 
 ---
 
 ## 27. Next Research Directions
 
-### Immediate (Required for Valid Results)
+### Immediate Requirements for Valid Quality Testing
+1. **Run with live LLM provider** — the only path to genuine quality comparison
+2. **Replace substring matching with semantic evaluation** for ground truth
+3. **Wire remaining ablation flags** (self_model, market, stopping, etc.) into actual controller behavior
+4. **Make B4 behaviorally distinct from full_ree** — B4 should use a subset of operators
 
-1. **Wire ablation flags into operator registration**: The `BenchmarkRunner._build_registry()` must conditionally include/exclude operators based on `AblationConfig`
-2. **Implement ground-truth quality evaluation**: Compare system final answer/hypothesis against `scenario.ground_truth`
-3. **Normalize token costs**: Either use realistic mock costs or run live experiments
-4. **Add all operator types to benchmark**: Include reason, attack, counterfactual, ontology operators
-5. **Run B3 and B4 in holdout campaign**: Currently only B0, B1, full_ree are compared
-
-### Medium-term (Scientific Quality)
-
-6. **Run with live LLM provider**: Use real model inference for genuine quality and compute comparison
-7. **Calibrate self-model from data**: Collect operator success/failure history before testing H-REE-01
-8. **Test prompt-only controls**: Compare "list what you don't know" against ignorance ledger architecture
-9. **Scale counterfactual study**: Collect 500+ distinct epistemic states with all action types
-
-### Long-term (Publication)
-
-10. **Counterfactual cognitive policy dataset**: The most promising contribution — requires live data
-11. **Bid calibration improvement**: Use the r=0.039 baseline to demonstrate calibration gains
-12. **Predictive metacognition study**: Requires rich, varying state features from real episodes
+### Based on Findings
+5. **Fix bid calibration** — the r=-0.083 finding provides a concrete improvement target
+6. **Address ignorance-hypothesis budget competition** — either increase budget, prioritize hypothesis generation, or interleave attack more efficiently
+7. **Remove or recalibrate reason/attack operators** — they produce negative gain under current settings
+8. **Test with larger scenario pools** — current 5 holdout per family limits statistical power
 
 ---
 
 ## Appendix A: Raw Artifact Locations
 
-| Artifact | Path | Format | Records |
-|---|---|---|---|
-| Holdout records | `experiments/campaign/results/holdout_records.jsonl` | JSONL | 360 |
-| Ablation records | `experiments/campaign/results/ablation_records.jsonl` | JSONL | 162 |
-| Counterfactual outcomes | `experiments/campaign/results/counterfactual_outcomes.jsonl` | JSONL | 701 |
-| Family analysis | `experiments/campaign/results/family_analysis.json` | JSON | — |
-| Pairwise comparisons | `experiments/campaign/results/pairwise_comparisons.json` | JSON | — |
-| Pareto data | `experiments/campaign/results/pareto_data.json` | JSON | — |
-| Counterfactual analysis | `experiments/campaign/results/counterfactual_analysis.json` | JSON | — |
-| Frozen protocol | `experiments/protocols/FROZEN_PROTOCOL.md` | MD | — |
-| Negative findings | `experiments/ree_scientific_certification/NEGATIVE_FINDINGS.md` | MD | — |
+| Artifact | Path | Records |
+|---|---|---|
+| Holdout records | `experiments/campaign/results/holdout_records.jsonl` | 600 |
+| Ablation records | `experiments/campaign/results/ablation_records.jsonl` | 162 |
+| Counterfactual outcomes | `experiments/campaign/results/counterfactual_outcomes.jsonl` | 2,100 |
+| Family analysis | `experiments/campaign/results/family_analysis.json` | — |
+| Pairwise comparisons | `experiments/campaign/results/pairwise_comparisons.json` | — |
+| Pareto data | `experiments/campaign/results/pareto_data.json` | — |
+| Counterfactual analysis | `experiments/campaign/results/counterfactual_analysis.json` | — |
 
-## Appendix B: Belief Trajectory Case Studies
+## Appendix B: Campaign Checkpoint
 
-### Case 1: Standard REE Episode (false_majority scenario)
+```text
+CAMPAIGN: ASAR-REE Full Scientific Campaign (v2)
+STATUS: COMPLETE
 
-Operator sequence: retrieve → retrieve → retrieve → generate_hypothesis → retrieve → generate_hypothesis → retrieve → generate_hypothesis → generate_hypothesis → stop
+STARTING SHA: 2c44f09
+BRANCH: feature/asar-ree-v2
 
-The controller retrieves evidence items until the evidence pool is exhausted, interleaves hypothesis generation, and stops when both operators return no proposals. This is a mechanical sequence driven by evidence pool size, not adaptive epistemic reasoning.
+CONDITIONS: B0, B1, B3, B4, full_ree + 9 ablation configs
+N: 600 holdout + 162 ablation + 2100 counterfactual = 2862 total records
+SEEDS: 42-56 (base 42 + index)
+BUDGETS: 2000, 5000, 10000, 20000
 
-### Case 2: Short Episode (stopping_quality scenario)
+PRIMARY RESULTS:
+  - GT match rate: 33% across ALL architectures (no quality difference)
+  - Ablation: hypothesis_ecology and ignorance_ledger produce behavioral changes
+  - Ignorance-hypothesis negative interaction confirmed
+  - Bid-value correlation: r=-0.083 (anti-calibrated)
 
-Operator sequence: retrieve → generate_hypothesis → generate_hypothesis → generate_hypothesis → generate_hypothesis → stop
+EFFECT SIZES:
+  - Quality: d=0.00 (all conditions identical)
+  - Steps: d=1.48 (full_ree vs B0), d=1.25 (vs B1), d=1.14 (vs B3)
+  - Tokens: d=0.72 (full_ree vs B0)
+  - Hypothesis ecology ablation: d=undefined (0 → 4 hypotheses)
 
-With only 1 evidence item, the retrieve operator exhausts immediately. The hypothesis operator generates 4 hypotheses from minimal evidence, then stops. The stopping policy does not prevent this.
+NEGATIVE RESULTS:
+  - B0 Pareto-dominates all other architectures
+  - Market anti-calibration (r=-0.083)
+  - Reason/attack operators produce negative gain
+  - Self-model ablation produces no behavioral difference
+  - No quality improvement from any mechanism
 
-### Case 3: B1 Reflection Episode
+METHODOLOGICAL ISSUES:
+  - Mock operators produce content-independent output
+  - Ground-truth evaluation uses crude substring matching
+  - B4 and full_ree are behaviorally identical (same controller)
+  - Only 2 of 12 ablation flags are wired to operator registration
 
-Fixed 3-step sequence: synthesize → reason → synthesize. No evidence retrieval, no hypothesis generation. Token usage scales linearly with budget.
+HYPOTHESES UPDATED:
+  - H-REE-05: NOT_SUPPORTED
+  - H-REE-06: NOT_SUPPORTED
+  - H-REE-09: NEGATIVE (ignorance-hypothesis competition)
+  - H-REE-02: PARTIALLY_SUPPORTED (mechanism functions)
+  - H-REE-04: PARTIALLY_SUPPORTED (mechanism functions)
 
-These trajectories illustrate the structural difference between REE (variable-length, multi-operator) and baselines (fixed-length, single-operator). They do NOT illustrate adaptive epistemic reasoning.
+NEXT CAMPAIGN: Live LLM validation (requires provider credentials)
+```

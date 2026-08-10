@@ -1,32 +1,35 @@
 {
-  "n_outcomes": 701,
+  "n_outcomes": 2100,
   "n_episodes": 60,
-  "bid_vs_realized_correlation": 0.03911048057981015,
+  "bid_vs_realized_correlation": -0.08335884624269263,
   "feature_importance": {
-    "belief_volatility": 0.5851995840583573,
-    "contradiction_density": 0.5851995840583573,
-    "highest_ignorance_priority": 0.5851995840583573,
-    "mean_ignorance_priority": 0.5851995840583573,
-    "self_model_expected_success": 0.5851995840583573,
-    "top_hypothesis_margin": 0.57787357673235,
-    "budget_fraction": 0.11679437538210724,
-    "evidence_count": 0.11191942785380726,
-    "workspace_saturation": 0.09908236794114111,
-    "step_count": 0.09908236794114111,
-    "hypothesis_count": 0.09846773926659802,
-    "hypothesis_entropy": 0.03312936865005334
+    "hypothesis_entropy": 0.5717783285535569,
+    "belief_volatility": 0.5717783285535569,
+    "contradiction_density": 0.5717783285535569,
+    "evidence_count": 0.5717783285535569,
+    "self_model_expected_success": 0.5717783285535569,
+    "top_hypothesis_margin": 0.47381912266711557,
+    "workspace_saturation": 0.47381912266711557,
+    "hypothesis_count": 0.47381912266711557,
+    "highest_ignorance_priority": 0.34892113516190304,
+    "mean_ignorance_priority": 0.34892113516190304,
+    "step_count": 0.09765577206318121,
+    "budget_fraction": 0.058472089708604735
   },
   "mean_gain_by_action": {
-    "retrieve": 0.189999999999999,
-    "generate_hypothesis": 0.2103101562950715
+    "retrieve": 0.15000000000000038,
+    "generate_hypothesis": 0.272222222222222,
+    "reason": -0.05000000000000046,
+    "attack_hypothesis": -0.050000000000000426
   },
   "confusion_matrix": {
     "high_gain": {
-      "retrieve": 381,
-      "generate_hypothesis": 200
+      "retrieve": 540,
+      "generate_hypothesis": 540
     },
     "low_gain": {
-      "generate_hypothesis": 120
+      "reason": 540,
+      "attack_hypothesis": 480
     }
   }
 }

@@ -31,7 +31,9 @@ from asar.evaluation.baselines import (
 from asar.evaluation.benchmark_runner import (
     BenchmarkRunner,
     BenchmarkRunResult,
+    ScenarioAttackOperator,
     ScenarioHypothesisOperator,
+    ScenarioReasonOperator,
     ScenarioRetrieveOperator,
 )
 from asar.evaluation.counterfactual_study import (
@@ -105,6 +107,8 @@ class RunRecord:
     operator_sequence: list[str]
     final_status: str
     manifest_id: str
+    ground_truth_match: bool = False
+    quality_score: float = 0.0
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -126,6 +130,8 @@ class RunRecord:
             "operator_sequence": self.operator_sequence,
             "final_status": self.final_status,
             "manifest_id": self.manifest_id,
+            "ground_truth_match": self.ground_truth_match,
+            "quality_score": self.quality_score,
         }
 
 
@@ -157,6 +163,8 @@ def extract_record(
         operator_sequence=state.get("operator_history", []) if isinstance(state, dict) else [],
         final_status=state.get("process", {}).get("status", "unknown") if isinstance(state, dict) else "unknown",
         manifest_id=result.manifest.experiment_id,
+        ground_truth_match=result.result.ground_truth_match or False,
+        quality_score=result.result.quality_score or 0.0,
     )
 
 
@@ -204,11 +212,15 @@ async def run_counterfactual_fork_campaign(
     for scenario in scenarios:
         retrieve_op = ScenarioRetrieveOperator(scenario.evidence_pool)
         hypothesis_op = ScenarioHypothesisOperator()
+        reason_op = ScenarioReasonOperator()
+        attack_op = ScenarioAttackOperator()
         stop_op = StopOperator()
 
         reg = OperatorRegistry()
         reg.register(retrieve_op)
         reg.register(hypothesis_op)
+        reg.register(reason_op)
+        reg.register(attack_op)
         reg.register(stop_op)
         store = AppendOnlyEventStore()
         traj = TrajectoryDataset()
@@ -232,6 +244,8 @@ async def run_counterfactual_fork_campaign(
                 fork_ops = [
                     ScenarioRetrieveOperator(scenario.evidence_pool),
                     ScenarioHypothesisOperator(),
+                    ScenarioReasonOperator(),
+                    ScenarioAttackOperator(),
                     StopOperator(),
                 ]
                 await fork_runner.run_fork(
@@ -297,6 +311,8 @@ def analyze_by_family(records: list[RunRecord]) -> dict[str, dict[str, Any]]:
             hyp_counts = [r.hypothesis_count for r in recs]
             ign_counts = [r.ignorance_count for r in recs]
             evidence_counts = [r.evidence_count for r in recs]
+            gt_matches = [1 if r.ground_truth_match else 0 for r in recs]
+            quality_scores = [r.quality_score for r in recs]
 
             family_analysis[arch] = {
                 "n": len(recs),
@@ -305,8 +321,8 @@ def analyze_by_family(records: list[RunRecord]) -> dict[str, dict[str, Any]]:
                 "mean_hypotheses": sum(hyp_counts) / len(hyp_counts) if hyp_counts else 0,
                 "mean_ignorance": sum(ign_counts) / len(ign_counts) if ign_counts else 0,
                 "mean_evidence": sum(evidence_counts) / len(evidence_counts) if evidence_counts else 0,
-                "steps_ci": bootstrap_ci(steps).lower if steps else 0,
-                "steps_ci_upper": bootstrap_ci(steps).upper if steps else 0,
+                "gt_match_rate": sum(gt_matches) / len(gt_matches) if gt_matches else 0,
+                "mean_quality": sum(quality_scores) / len(quality_scores) if quality_scores else 0,
             }
         analysis[family] = family_analysis
     return analysis
@@ -321,16 +337,19 @@ def compute_pareto_data(records: list[RunRecord]) -> list[dict[str, Any]]:
 
     points = []
     for (arch, budget), recs in grouped.items():
-        quality = sum(r.hypothesis_count + r.evidence_count + r.claim_count for r in recs) / len(recs)
+        quality = sum(r.quality_score for r in recs) / len(recs)
         compute = sum(r.tokens_used for r in recs) / len(recs)
+        gt_rate = sum(1 for r in recs if r.ground_truth_match) / len(recs)
         points.append({
             "architecture": arch,
             "budget": budget,
             "mean_quality": quality,
+            "gt_match_rate": gt_rate,
             "mean_compute": compute,
             "n": len(recs),
             "mean_steps": sum(r.steps_used for r in recs) / len(recs),
             "mean_hypotheses": sum(r.hypothesis_count for r in recs) / len(recs),
+            "mean_ignorance": sum(r.ignorance_count for r in recs) / len(recs),
         })
     return points
 
@@ -367,10 +386,12 @@ def pairwise_architecture_comparison(
     tokens_comp = paired_comparison(tokens_a, tokens_b, label_a=arch_a, label_b=arch_b, metric="tokens")
     hyp_comp = paired_comparison(hyp_a, hyp_b, label_a=arch_a, label_b=arch_b, metric="hypotheses")
 
-    w, t, l = win_tie_loss(
-        [a.hypothesis_count + a.evidence_count for a in [a_by_scenario[k] for k in sorted(common)]],
-        [b.hypothesis_count + b.evidence_count for b in [b_by_scenario[k] for k in sorted(common)]],
-    )
+    quality_a = [a_by_scenario[k].quality_score for k in sorted(common)]
+    quality_b = [b_by_scenario[k].quality_score for k in sorted(common)]
+    gt_a = [1 if a_by_scenario[k].ground_truth_match else 0 for k in sorted(common)]
+    gt_b = [1 if b_by_scenario[k].ground_truth_match else 0 for k in sorted(common)]
+
+    w, t, l = win_tie_loss(quality_a, quality_b)
 
     return {
         "n": len(common),
@@ -391,6 +412,8 @@ def pairwise_architecture_comparison(
             "diff": hyp_comp.mean_diff,
             "effect_size": hyp_comp.effect_size.cohens_d,
         },
+        "gt_match_rate_a": sum(gt_a) / len(gt_a) if gt_a else 0,
+        "gt_match_rate_b": sum(gt_b) / len(gt_b) if gt_b else 0,
         "quality_wtl": {"wins": w, "ties": t, "losses": l},
     }
 
@@ -421,7 +444,7 @@ async def main():
     print("=" * 70)
 
     budgets = [2000, 5000, 10000, 20000]
-    architectures = ["B0_direct", "B1_reflection", "full_ree"]
+    architectures = ["B0_direct", "B1_reflection", "B3_fixed_ree", "B4_adaptive_ree", "full_ree"]
 
     all_records: list[RunRecord] = []
     for budget_tokens in budgets:
@@ -438,9 +461,11 @@ async def main():
                 except Exception as exc:
                     print(f"  FAILED: {scenario.scenario_id}/{arch}/{budget_tokens}: {exc}")
             all_records.extend(arch_records)
+            gt_rate = sum(1 for r in arch_records if r.ground_truth_match) / max(1, len(arch_records))
             print(f"  {arch} @ {budget_tokens}tok: {len(arch_records)} runs, "
                   f"avg steps={sum(r.steps_used for r in arch_records)/max(1,len(arch_records)):.1f}, "
-                  f"avg tokens={sum(r.tokens_used for r in arch_records)/max(1,len(arch_records)):.0f}")
+                  f"avg tokens={sum(r.tokens_used for r in arch_records)/max(1,len(arch_records)):.0f}, "
+                  f"GT match={gt_rate:.0%}")
 
     # Save raw records
     with (OUTPUT_DIR / "holdout_records.jsonl").open("w") as f:
@@ -508,7 +533,8 @@ async def main():
             print(f"    {arch}: steps={stats['mean_steps']:.1f}, "
                   f"tokens={stats['mean_tokens']:.0f}, "
                   f"hyps={stats['mean_hypotheses']:.1f}, "
-                  f"ign={stats['mean_ignorance']:.1f}")
+                  f"ign={stats['mean_ignorance']:.1f}, "
+                  f"GT={stats['gt_match_rate']:.0%}")
 
     # Pairwise comparisons
     print("\n--- Pairwise Comparisons (holdout) ---")
@@ -516,6 +542,9 @@ async def main():
     pairs = [
         ("full_ree", "B0_direct"),
         ("full_ree", "B1_reflection"),
+        ("full_ree", "B3_fixed_ree"),
+        ("full_ree", "B4_adaptive_ree"),
+        ("B4_adaptive_ree", "B3_fixed_ree"),
     ]
     for arch_a, arch_b in pairs:
         comp = pairwise_architecture_comparison(all_records, arch_a, arch_b)
@@ -526,6 +555,7 @@ async def main():
                   f"(d={comp['steps']['effect_size']:.2f}, {comp['steps']['interpretation']})")
             print(f"    Tokens: {comp['tokens']['mean_a']:.0f} vs {comp['tokens']['mean_b']:.0f}")
             print(f"    Hypotheses: {comp['hypotheses']['mean_a']:.1f} vs {comp['hypotheses']['mean_b']:.1f}")
+            print(f"    GT match: {comp['gt_match_rate_a']:.0%} vs {comp['gt_match_rate_b']:.0%}")
             print(f"    Quality W/T/L: {comp['quality_wtl']}")
 
     with (OUTPUT_DIR / "pairwise_comparisons.json").open("w") as f:
@@ -539,24 +569,39 @@ async def main():
     print("\n--- Quality-Compute Pareto Data ---")
     for pt in sorted(pareto_data, key=lambda p: (p["architecture"], p["budget"])):
         print(f"  {pt['architecture']} @ {pt['budget']}tok: "
-              f"quality={pt['mean_quality']:.1f}, compute={pt['mean_compute']:.0f}")
+              f"quality={pt['mean_quality']:.2f}, GT={pt['gt_match_rate']:.0%}, "
+              f"compute={pt['mean_compute']:.0f}, ign={pt.get('mean_ignorance', 0):.1f}")
 
     # Ablation analysis
     print("\n--- Ablation Analysis ---")
     if "full_ree" in ablation_records and ablation_records["full_ree"]:
-        full_steps = [r.steps_used for r in ablation_records["full_ree"]]
-        full_hyps = [r.hypothesis_count for r in ablation_records["full_ree"]]
+        full_recs = ablation_records["full_ree"]
+        full_steps = [r.steps_used for r in full_recs]
+        full_quality = [r.quality_score for r in full_recs]
+        full_gt = sum(1 for r in full_recs if r.ground_truth_match) / max(1, len(full_recs))
+        print(f"  full_ree: GT={full_gt:.0%}, hyps={sum(r.hypothesis_count for r in full_recs)/len(full_recs):.1f}, "
+              f"ign={sum(r.ignorance_count for r in full_recs)/len(full_recs):.1f}, "
+              f"steps={sum(full_steps)/len(full_steps):.1f}")
         for config_name, recs in ablation_records.items():
             if config_name == "full_ree" or not recs:
                 continue
             n = min(len(full_steps), len(recs))
             abl_steps = [r.steps_used for r in recs[:n]]
+            abl_gt = sum(1 for r in recs if r.ground_truth_match) / max(1, len(recs))
             comp = paired_comparison(
+                full_quality[:n], [r.quality_score for r in recs[:n]],
+                label_a="full_ree", label_b=config_name, metric="quality",
+            )
+            steps_comp = paired_comparison(
                 full_steps[:n], abl_steps,
                 label_a="full_ree", label_b=config_name, metric="steps",
             )
             print(f"  full_ree vs {config_name}: "
-                  f"steps diff={comp.mean_diff:.1f} (d={comp.effect_size.cohens_d:.2f})")
+                  f"GT={full_gt:.0%} vs {abl_gt:.0%}, "
+                  f"quality d={comp.effect_size.cohens_d:.2f}, "
+                  f"steps d={steps_comp.effect_size.cohens_d:.2f}, "
+                  f"hyps={sum(r.hypothesis_count for r in recs)/len(recs):.1f}, "
+                  f"ign={sum(r.ignorance_count for r in recs)/len(recs):.1f}")
 
     # Counterfactual analysis
     print("\n--- Counterfactual Cognition Analysis ---")
