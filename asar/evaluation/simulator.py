@@ -266,11 +266,13 @@ class EpistemicWorldSimulator:
 
         self._attacked_hypotheses.add(hypothesis_id)
 
+        found_something = bool(weaknesses or ignorance_items)
         return {
             "hypothesis_id": hypothesis_id,
             "weaknesses": weaknesses,
             "ignorance_items": ignorance_items,
             "is_actually_true": hyp.is_true,
+            "found_something": found_something,
         }
 
     def reason(

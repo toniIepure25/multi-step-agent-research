@@ -1,0 +1,48 @@
+{
+  "total_records": 2000,
+  "distinct_states": 500,
+  "families": [
+    "ignorance_discovery",
+    "false_majority",
+    "hypothesis_ecology",
+    "stopping_quality",
+    "source_duplication"
+  ],
+  "best_action_distribution": {
+    "retrieve": 258,
+    "generate_hypothesis": 42,
+    "reason": 89,
+    "stop": 96,
+    "attack_hypothesis": 15
+  },
+  "policy_results": {
+    "majority_baseline": {
+      "mean_accuracy": 0.516,
+      "mean_regret": 0.1207
+    },
+    "family_baseline": {
+      "mean_accuracy": 0.178,
+      "mean_regret": 0.1894
+    },
+    "simple_rule": {
+      "mean_accuracy": 0.348,
+      "mean_regret": 0.1327
+    },
+    "always_retrieve": {
+      "mean_accuracy": 0.516,
+      "mean_regret": 0.1207
+    },
+    "always_reason": {
+      "mean_accuracy": 0.178,
+      "mean_regret": 0.1894
+    },
+    "always_gen_hyp": {
+      "mean_accuracy": 0.084,
+      "mean_regret": 0.1744
+    },
+    "always_stop": {
+      "mean_accuracy": 0.192,
+      "mean_regret": 0.1963
+    }
+  }
+}

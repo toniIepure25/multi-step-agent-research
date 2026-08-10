@@ -20,7 +20,7 @@ from asar.evaluation.simulator import (
     LatentWorld,
 )
 from asar.metacognition.controller import EpistemicController
-from asar.metacognition.market import EpistemicMarket
+from asar.metacognition.market import DiversityAwareMarket, EpistemicMarket, RoundRobinMarket
 from asar.metacognition.stopping import StoppingPolicy
 from asar.metacognition.trajectory import TrajectoryDataset
 from asar.operators.registry import OperatorRegistry
@@ -194,6 +194,7 @@ class SimAttackOperator:
 
     def __init__(self, sim: EpistemicWorldSimulator) -> None:
         self._sim = sim
+        self._attacks_without_result = 0
 
     @property
     def name(self) -> str:
@@ -214,6 +215,11 @@ class SimAttackOperator:
                 ignorance_boost = max(ignorance_boost, iv.priority * 0.2)
 
         base_gain = 0.35 + ignorance_boost
+        decay = max(0.1, 1.0 - self._attacks_without_result * 0.3)
+        base_gain *= decay
+
+        falsification_value = 0.4 * decay
+
         return [EpistemicActionBid(
             action=EpistemicAction(
                 action_id=generate_id("action"),
@@ -221,7 +227,7 @@ class SimAttackOperator:
                 operator_name=self.name,
             ),
             expected_information_gain=min(1.0, base_gain * p_success),
-            expected_falsification_value=0.4,
+            expected_falsification_value=falsification_value,
             estimated_token_cost=self.PER_STEP_TOKENS,
         )]
 
@@ -250,10 +256,16 @@ class SimAttackOperator:
                 "related_hypothesis_ids": [target_hid],
             }
 
+        if result.get("found_something", False):
+            self._attacks_without_result = 0
+        else:
+            self._attacks_without_result += 1
+
         half = self.PER_STEP_TOKENS // 2
+        outcome = OperatorOutcome.SUCCESS if artifacts else OperatorOutcome.NO_OP
         return OperatorResult(
             operator_name=self.name, action_id=action.action_id,
-            outcome=OperatorOutcome.SUCCESS,
+            outcome=outcome,
             artifacts_produced=artifacts,
             resource_cost=ResourceCost(input_tokens=half, output_tokens=half),
         )
@@ -416,6 +428,11 @@ class SemanticBenchmarkRunner:
         if architecture == "B1_reflection":
             return self._run_reflection(world, sim, effective_budget, abl)
 
+        if architecture in ("full_ree", "B4_diversity_ree"):
+            pass  # proceed to REE controller
+        elif architecture.startswith("B"):
+            pass  # unknown baseline, run as REE
+
         reg = self._build_registry(sim, abl)
         store = AppendOnlyEventStore()
         traj = TrajectoryDataset()
@@ -423,7 +440,13 @@ class SemanticBenchmarkRunner:
         sm = self._resolve_self_model(self_model, abl)
 
         stopping = StoppingPolicy() if abl.get("stopping_policy", True) else None
-        market = EpistemicMarket() if abl.get("epistemic_market", True) else None
+
+        if not abl.get("epistemic_market", True):
+            market = RoundRobinMarket()
+        elif architecture == "B4_diversity_ree":
+            market = DiversityAwareMarket()
+        else:
+            market = EpistemicMarket()
 
         ctrl = EpistemicController(
             registry=reg,
