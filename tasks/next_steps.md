@@ -24,32 +24,9 @@ Each step produces a testable artifact. Each step should be one commit. Do them 
 | 12 | 5 Tier 1 benchmark questions with ground-truth rubrics | `evaluation` | — | not started |
 | 13 | Baseline metrics: run pipeline on benchmarks, record results | `evaluation` | steps 11–12 | not started |
 
-Steps 1–2 are independent. Steps 3–8 depend only on `common` + schemas and are independent of each other. Step 9 wires everything. Step 10 is the proof.
-
-## Open Decisions Before Starting
-
-- **OQ-P1**: Which search API? Tavily, Brave Search, or SerpAPI. Pick one, add as dependency.
-- **OQ-P2**: API key management — env vars for now, revisit later.
-- **OQ-A4**: Error handling in executors — decide before step 5. Recommendation: return empty `list[EvidenceItem]` on failure + log, don't raise.
-
-## NOT in v0 (Do Not Implement Yet)
-
-- Re-planning loop (`planning.replan()` raises `NotImplementedError`)
-- Parallel execution
-- `CitationRecord` generation / knowledge graph (`grounding` layer)
-- LLM-based verification (v0 verification is deterministic Python only)
-- Multi-perspective deliberation / debate (v0 is single-pass synthesis)
-- Memory compression / eviction (`compress()` is a no-op)
-- Embedding-based retrieval
-- Full benchmark suite or ablation framework
-
-See [v0-canonical-architecture.md § What is Postponed](../docs/architecture/v0-canonical-architecture.md#10-what-is-postponed-and-why) for rationale.
-
----
-
 ## ASAR-REE Implementation Status
 
-All REE phases (0–9) are **completed**. The architecture is implemented, tested, and documented.
+All REE phases (0–9) and scientific validation (10–13) are **completed**.
 
 | Phase | Description | Status |
 |-------|-------------|--------|
@@ -63,42 +40,57 @@ All REE phases (0–9) are **completed**. The architecture is implemented, teste
 | 7 | Federated Memory + Consolidation + Replay Learning | completed |
 | 8 | Value Model + Reflective Equilibrium + Full Integration | completed |
 | 9 | Scientific Evaluation Suite + Ablations + Release Candidate | completed |
+| 10-13 | Scientific Campaign V1 (methodological negative baseline) | completed |
+| 14 | Semantic Benchmark Rebuild (EpistemicWorldSimulator) | completed |
+| 15 | Metacognitive Calibration + Counterfactual Study V2 | completed |
+| 16 | Final Scientific Verdicts | completed |
 
-### Scientific Validation Campaign (Phases 10–13)
+### Scientific Campaign V1 (SHA: 120a576) — Frozen
 
-| Phase | Description | Status |
-|-------|-------------|--------|
-| 10A | Runtime Completion Gate (MaterializedViews, reducer projection, self-model/ignorance behavioral wiring, mechanism influence tests) | completed |
-| 10B | Measurement Hardening (ExperimentManifest, RealizedEpistemicGain vector, CognitiveActionOutcome, baselines B0-B4, scenario runner, statistical plan) | completed |
-| 11 | Controlled Epistemic Benchmark Campaign (6 scenario families, cross-architecture comparison, batch execution) | completed |
-| 12 | Counterfactual Cognitive Policy Study (state forking, CognitiveActionOutcomeDataset, regret analysis, feature importance) | completed |
-| 13 | Full Ablation + Scientific Findings (leave-one-out, additive ablation, Pareto frontier, prompt-only controls, hypothesis verdicts) | completed |
+Established that content-independent mock operators with substring matching
+produce non-discriminative quality. All architectures identical at 33% GT match.
+Preserved as immutable negative baseline.
 
-### Scientific Campaign Execution
+### Scientific Campaign V2 (SHA: 23e0774) — Current
 
-| Campaign | Records | Status |
-|----------|---------|--------|
-| Holdout benchmarks (30 scenarios × 4 budgets × 3 architectures) | 360 | **executed** |
-| Ablation campaign (18 dev scenarios × 9 configs) | 162 | **executed** |
-| Counterfactual fork study (60 episodes) | 701 outcomes | **executed** |
-| Frozen protocol | — | **filed** |
-| Negative findings | — | **documented** |
-| Final scientific report | — | **written** |
+| Dataset | Records | Families | Architectures |
+|---------|---------|----------|---------------|
+| Dev holdout | 150 | 5 | B0, B1, REE |
+| Dev ablation | 350 | 5 | 7 ablation configs |
+| Dev Pareto | 600 | 5 | 3 × 4 budgets |
+| Validation | 75 | 5 | 3 |
+| Locked test | 75 | 5 | 3 |
+| Counterfactual | 2000 | 5 | 5 actions × 500 states |
+| Market comparison | 200 | 5 | 4 market variants |
+| **Total** | **3450** | | |
 
-### Headline Results
+### Headline Results (Campaign V2)
 
-- **H-REE hypotheses**: 0 supported, 2 not-supported, 8 inconclusive
-- **Bid-value correlation**: r=0.039 (genuine negative finding)
-- **Ablation effect sizes**: all 0.00 (flags non-functional — methodological defect)
-- **Quality comparison**: invalid (incomparable metrics across architectures)
+| Finding | Value | Interpretation |
+|---------|-------|----------------|
+| B1 vs REE (locked test) | 0.594 vs 0.356 | B1 fixed strategy wins |
+| Hypothesis ecology ablation | d ≈ 1.4 | Causally critical mechanism |
+| Market anti-calibration | round-robin ≥ market | Market scheduling hurts |
+| Bid-value correlation | r = 0.137 | Weak positive (improved from V1's -0.083) |
+| Oracle-realized correlation | r = 0.031 | Nearly zero |
+| Best action prediction | 34.8% (rule) vs 51.6% (always-retrieve) | Simple rule underperforms majority |
+
+### Hypothesis Verdicts
+
+| Hypothesis | Verdict |
+|---|---|
+| H-REE-05: Hypothesis ecology reduces convergence | **SUPPORTED** (d ≈ 1.4) |
+| H-REE-02: Ignorance predicts failure | **PARTIALLY_SUPPORTED** (small effect) |
+| H-REE-09: Full REE > additive sum | **NOT_SUPPORTED** |
+| H-REE-10: Adaptive scheduling improves efficiency | **NOT_SUPPORTED** |
+| H-REE-01, 03, 04, 06, 07, 08 | **INCONCLUSIVE** |
 
 ### Required Next Steps (Priority Order)
 
-1. **Wire ablation flags into operator registration** — `BenchmarkRunner._build_registry()` must conditionally include/exclude operators
-2. **Implement ground-truth quality evaluation** — compare system output against `scenario.ground_truth`
-3. **Normalize token costs** — use realistic mock costs or live providers
-4. **Add all operator types to benchmark** — reason, attack, counterfactual, ontology
-5. **Include B3/B4 in holdout campaign**
-6. **Run with live LLM provider** for genuine quality/compute comparison
-7. **Calibrate self-model from data** before testing H-REE-01
-8. **Scale counterfactual study** to 500+ distinct states with all action types
+1. **Fix the Epistemic Market** — use counterfactual data to build calibrated scheduler
+2. **Force reasoning into REE** — the reason operator is consistently best but underselected
+3. **Make remaining ablations causal** — self-model, stopping, evidence independence need deeper controller integration
+4. **Model-in-the-loop campaign** — use real LLM with simulator ground truth
+5. **Expand scenario families** — tribunal, ontology, memory scenarios
+6. **Larger N** — 50+ worlds per family for statistical power
+7. **Learned scheduler** — if enough counterfactual data supports it
