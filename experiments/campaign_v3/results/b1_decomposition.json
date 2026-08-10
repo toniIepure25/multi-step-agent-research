@@ -1,0 +1,52 @@
+{
+  "B1_extended": {
+    "mean": 0.6304,
+    "std": 0.176,
+    "n": 50
+  },
+  "B1_full": {
+    "mean": 0.5731,
+    "std": 0.2281,
+    "n": 50
+  },
+  "B1_hyp_ret_reason": {
+    "mean": 0.3975,
+    "std": 0.2168,
+    "n": 50
+  },
+  "B1_no_1st_ret": {
+    "mean": 0.4319,
+    "std": 0.2604,
+    "n": 50
+  },
+  "B1_no_2nd_ret": {
+    "mean": 0.4319,
+    "std": 0.2604,
+    "n": 50
+  },
+  "B1_no_reason": {
+    "mean": 0.3435,
+    "std": 0.1539,
+    "n": 50
+  },
+  "B1_one_hyp": {
+    "mean": 0.3805,
+    "std": 0.2665,
+    "n": 50
+  },
+  "B1_ret_hyp_ret_hyp_atk_reason": {
+    "mean": 0.6031,
+    "std": 0.252,
+    "n": 50
+  },
+  "B1_ret_only": {
+    "mean": 0.0384,
+    "std": 0.0144,
+    "n": 50
+  },
+  "B1_reversed": {
+    "mean": 0.35,
+    "std": 0.1568,
+    "n": 50
+  }
+}

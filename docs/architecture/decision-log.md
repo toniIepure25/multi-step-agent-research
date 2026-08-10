@@ -111,3 +111,20 @@ Record all non-trivial architectural decisions here. **Any change to schemas, pr
 **Consequences:** Invariant #5 is scoped: legacy retains "working/compressed/evicted always queryable"; REE uses "every record's functional store and temporal state are always queryable". Memory consolidation, reconsolidation, and forgetting become explicit operations with event-sourced provenance.
 
 **Invariants affected:** #5 (scoped to legacy; REE equivalent defined).
+
+## ADR-007: B1 Fixed Sequence as REE-Minimal-Empirical Baseline
+
+**Date:** 2026-08-10
+**Status:** accepted
+**Context:** Campaign V3 (Phases 17-20) systematically decomposed the winning B1 strategy and tested temporal complementarity, cognitive motifs, hierarchical control, and ecology cross-architecture effects. Results demonstrate that B1_extended (retrieve->gen_hyp->retrieve->gen_hyp->reason->retrieve->reason) achieves the highest quality (0.672) with 3500 tokens, while Full REE achieves 0.324 at ~5000 tokens. The Epistemic Market is anti-calibrated (attack crowding, no prerequisite checking). Cognitive operations exhibit strong compositional complementarity (gen_hyp+reason: +0.228 super-additive). Hierarchical cognitive options match but do not exceed B1_extended.
+
+**Options considered:**
+1. Fix the Epistemic Market with calibrated bids — addresses scheduling failure but the market architecture may be fundamentally mismatched to sequence-structured cognition.
+2. Replace market with cognitive options — hierarchical control via EXPLORE/DISCRIMINATE/CONSOLIDATE motifs. Matches B1_extended quality but adds complexity without measurable benefit.
+3. Adopt B1_extended as REE-Minimal-Empirical — the simplest architecture that retains all empirically supported mechanisms. No market, no self-model, no stopping policy.
+
+**Decision:** Option 3 — adopt B1_extended as the empirical baseline for REE. Future adaptive controllers must demonstrate improvement over this baseline on diverse task families, not merely match it. The market is classified HARMFUL. Self-model and stopping policy are classified NO_MEASURED_BENEFIT. Hypothesis generation and reasoning are classified CORE_SUPPORTED.
+
+**Consequences:** The minimal effective REE configuration requires only evidence retrieval, hypothesis generation (at least 2), and consistency reasoning in a fixed temporal order. Persistent EpistemicState, market scheduling, self-model, and stopping policy are not required. Attack is conditionally useful late in episodes.
+
+**Invariants affected:** None changed. REE modularity (swappable components) is preserved — B1_extended is a specific operator sequence, not a change to the protocol system.

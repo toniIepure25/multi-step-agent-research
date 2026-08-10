@@ -1,0 +1,20 @@
+{
+  "Hypothesis Generation": "CORE_SUPPORTED",
+  "Reasoning (consistency scoring)": "CORE_SUPPORTED",
+  "Multiple Hypotheses (>=2)": "CORE_SUPPORTED",
+  "Evidence Retrieval": "CORE_SUPPORTED",
+  "Sequence Structure (order matters)": "CORE_SUPPORTED",
+  "Cognitive Options (temporally extended)": "CONDITIONALLY_USEFUL",
+  "Attack Hypothesis (late, rich state)": "CONDITIONALLY_USEFUL",
+  "Ignorance Discovery (via attack)": "CONDITIONALLY_USEFUL",
+  "Persistent EpistemicState": "USEFUL_ONLY_IN_COMBINATION",
+  "Hypothesis Ecology (persistent tracking)": "USEFUL_ONLY_IN_COMBINATION",
+  "Epistemic Market (heuristic bid-based)": "HARMFUL",
+  "Self-Model (current implementation)": "NO_MEASURED_BENEFIT",
+  "Stopping Policy": "NO_MEASURED_BENEFIT",
+  "DiversityAwareMarket": "NO_MEASURED_BENEFIT",
+  "Ontology Forge": "INCONCLUSIVE",
+  "Sealed Tribunal": "INCONCLUSIVE",
+  "Federated Memory": "INCONCLUSIVE",
+  "Evidence Independence Scoring": "INCONCLUSIVE"
+}

@@ -1,0 +1,32 @@
+{
+  "B0": {
+    "mean": 0.2889,
+    "std": 0.2218,
+    "n": 50
+  },
+  "B1": {
+    "mean": 0.5731,
+    "std": 0.2281,
+    "n": 50
+  },
+  "B1_plus_ecology": {
+    "mean": 0.5731,
+    "std": 0.2281,
+    "n": 50
+  },
+  "full_ree_no_ecology": {
+    "mean": 0.0372,
+    "std": 0.0161,
+    "n": 50
+  },
+  "full_ree_with_ecology": {
+    "mean": 0.3579,
+    "std": 0.1617,
+    "n": 50
+  },
+  "no_hypothesis_fixed": {
+    "mean": 0.0413,
+    "std": 0.0118,
+    "n": 50
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "B1_full": {
+    "mean": 0.5731,
+    "std": 0.2281
+  },
+  "B1_extended": {
+    "mean": 0.6304,
+    "std": 0.176
+  },
+  "full_ree": {
+    "mean": 0.3579,
+    "std": 0.1617
+  },
+  "hierarchical_options": {
+    "mean": 0.6304,
+    "std": 0.176
+  },
+  "hierarchical_3k": {
+    "mean": 0.3435,
+    "std": 0.1539
+  },
+  "hierarchical_2k": {
+    "mean": 0.3435,
+    "std": 0.1539
+  },
+  "round_robin": {
+    "mean": 0.4427,
+    "std": 0.2836
+  }
+}
