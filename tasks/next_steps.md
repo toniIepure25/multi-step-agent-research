@@ -64,10 +64,20 @@ All REE phases (0–9) are **completed**. The architecture is implemented, teste
 | 8 | Value Model + Reflective Equilibrium + Full Integration | completed |
 | 9 | Scientific Evaluation Suite + Ablations + Release Candidate | completed |
 
-### REE Next Steps
+### Scientific Validation Campaign (Phases 10–13)
 
-- Wire REE controller to live LLM and search providers for end-to-end real episodes
-- Run controlled experiments on benchmark tasks (H-REE-01 through H-REE-10)
-- Train Level 2 learned scheduler from trajectory data
-- Implement offline "sleep" replay consolidation
-- Build Tier 2/3 evaluation benchmarks with adversarial scenarios
+| Phase | Description | Status |
+|-------|-------------|--------|
+| 10A | Runtime Completion Gate (MaterializedViews, reducer projection, self-model/ignorance behavioral wiring, mechanism influence tests) | completed |
+| 10B | Measurement Hardening (ExperimentManifest, RealizedEpistemicGain vector, CognitiveActionOutcome, baselines B0-B4, scenario runner, statistical plan) | completed |
+| 11 | Controlled Epistemic Benchmark Campaign (6 scenario families, cross-architecture comparison, batch execution) | completed |
+| 12 | Counterfactual Cognitive Policy Study (state forking, CognitiveActionOutcomeDataset, regret analysis, feature importance) | completed |
+| 13 | Full Ablation + Scientific Findings (leave-one-out, additive ablation, Pareto frontier, prompt-only controls, hypothesis verdicts) | completed |
+
+### Next Steps
+
+- Wire REE controller to live LLM and search providers for end-to-end episodes
+- Run live experiments against real research questions (Phase 13 live validation)
+- Collect sufficient CognitiveActionOutcome data (500+ entries) for Gate 3
+- Train Level 2 learned scheduler from trajectory data if data volume justifies it
+- Produce final scientific report with all H-REE verdicts
