@@ -1,0 +1,12 @@
+condition_id,study,llm_calls,retrieve_ops,gen_hyp_ops,reason_ops,attack_ops,control_ops,synthesis_ops,total_ops,evidence_budget,budget_matched
+C00_control_control,A,3,0,0,0,0,2,1,3,0,YES
+C10_hyp_control,A,3,0,1,0,0,1,1,3,0,YES
+C01_control_reason,A,3,0,0,1,0,1,1,3,0,YES
+C11_hyp_reason,A,3,0,1,1,0,0,1,3,0,YES
+CB00_control_control,AB,3,1,0,0,0,2,1,4,1,YES
+CB10_hyp_control,AB,3,1,1,0,0,1,1,4,1,YES
+CB01_control_retrieve,AB,2,2,0,0,0,1,1,4,2,PARTIAL
+CB11_hyp_retrieve,AB,3,2,1,0,0,0,1,4,2,YES
+early_attack,C,4,1,1,1,1,0,1,5,1,YES
+mid_attack,C,4,1,1,1,1,0,1,5,1,YES
+late_attack,C,4,1,1,1,1,0,1,5,1,YES

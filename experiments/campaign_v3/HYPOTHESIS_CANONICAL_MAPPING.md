@@ -72,3 +72,27 @@ Both models classified as VALID_EXPERIMENTAL_SUBSTRATE (10/10 operations pass).
 - **H-REE-17: NOT_SUPPORTED** — not tested (by design)
 
 No historical V1-V4 verdicts changed.
+
+## Campaign V6 Status Update (Causal Closed-Loop Validation)
+
+### New Hypotheses
+
+- **H-REE-19**: Compute-Controlled Temporal Complementarity
+- **H-REE-20**: Semantic Mediation
+- **H-REE-21**: Closed-Loop LLM Causality
+- **H-REE-22**: Matched-Budget Attack Timing
+- **H-REE-23**: Exogenous Benchmark Transfer
+
+### V6 Results
+
+- Condition certification: 11/11 PASS (closed-loop LLM cognition verified)
+- Factorial complementarity (N=32): interaction = 0.000 under budget controls
+- Attack timing (N=32): effect = 0.019 under matched budget (was +0.276)
+
+### Updated Verdicts
+- **H-REE-15**: Downgraded to **NOT_SUPPORTED** — V4 complementarity was a main effect of hypothesis generation, not super-additive interaction
+- **H-REE-19: NOT_SUPPORTED** — factorial interaction = 0 under matched compute
+- **H-REE-20: UNTESTED** — semantic intervention infrastructure built
+- **H-REE-21: PARTIALLY_SUPPORTED** — closed-loop works but quality dominated by single operation
+- **H-REE-22: NOT_SUPPORTED** — attack timing effect disappears under budget controls
+- **H-REE-23: UNTESTED** — external datasets selected but not executed

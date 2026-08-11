@@ -34,6 +34,7 @@ All REE phases (0-9) and scientific validation (10-24) are **completed**.
 | 17-20 | Campaign V3 (temporal complementarity, motifs) | completed |
 | 21-24 | Campaign V4 (adaptive necessity, LLM protocol, policy, paper) | completed |
 | 25-28 | Campaign V5 (LLM transfer, real-evidence, prior art, paper) | **COMPLETE** |
+| 30-43 | Campaign V6 (causal closed-loop factorial validation) | **IN PROGRESS** |
 
 ## Campaign Summary
 
@@ -59,43 +60,54 @@ Paper decision: CONTROLLED_MECHANISM / LLM PAPER (Level 2 evidence for complemen
 
 ## Headline Findings Across All Campaigns
 
-| Finding | Campaign | Strength |
-|---------|----------|----------|
-| B1_extended > Full REE | V2-V4 | Strong, replicated |
-| gen_hyp + reason complementarity | V3-V4 | Strong, replicated |
-| Hypothesis generation is core | V2-V4 | Strong, replicated |
-| Epistemic Market is harmful | V2-V4 | Strong, replicated |
-| Attack is state-dependent | V3-V4 | Strong, replicated |
-| Ecology effect is NOT cross-arch | V3 | Moderate |
-| Order effects exist but modest | V3-V4 | Moderate |
-| Adaptivity gap = 0.096 | V4 | Moderate |
-| Motif policy fails | V4 | Negative, important |
-| LLM complementarity replicates | V5 | Strong (model-invariant) |
-| LLM attack timing replicates | V5 | Strong (+0.276) |
-| Real-evidence sequence effects weak | V5 | Negative, important |
-| Reflection adds no value | V5 | Negative |
+| Finding | Campaign | V6 Status | Strength |
+|---------|----------|-----------|----------|
+| B1_extended > Full REE | V2-V4 | Unchanged | Strong, replicated |
+| gen_hyp + reason complementarity | V3-V4 | **OVERTURNED by V6** | Was strong; interaction=0 under budget controls |
+| Hypothesis generation is core | V2-V6 | **STRENGTHENED** | Dominant main effect in V6 factorial |
+| Epistemic Market is harmful | V2-V4 | Unchanged | Strong, replicated |
+| Attack is state-dependent | V3-V5 | **OVERTURNED by V6** | Effect=0.019 under matched budget |
+| Order effects exist but modest | V3-V4 | Unchanged (V5 not replicated) | Weak |
+| Adaptivity gap = 0.096 | V4 | Unchanged | Moderate |
+| Motif policy fails | V4 | Unchanged | Negative, important |
+| LLM complementarity replicates | V5 | **Reinterpreted** | Was main effect, not interaction |
+| LLM attack timing replicates | V5 | **OVERTURNED** | Compute confound |
+| Real-evidence transfer weak | V5 | Unchanged | Negative, important |
+| Reflection adds no value | V5 | Unchanged (was broken) | Negative |
+| **Factorial complementarity = 0** | **V6** | NEW | Critical negative result |
+| **Attack timing confounded** | **V6** | NEW | Critical negative result |
 
-## Hypothesis Verdicts (Final)
+## Hypothesis Verdicts (Updated Post-V6)
 
-| ID | Verdict |
-|---|---|
-| H-REE-05: Epistemic Market | NOT_SUPPORTED |
-| H-REE-09: Full REE > sum | NOT_SUPPORTED |
-| H-REE-10: Hypothesis ecology | PARTIALLY_SUPPORTED |
-| H-REE-11: Temporal complementarity | **SUPPORTED** |
-| H-REE-12: Cross-arch ecology | NOT_SUPPORTED |
-| H-REE-13: Greedy control failure | **SUPPORTED** |
-| H-REE-14: Adaptive necessity | **SUPPORTED** |
-| H-REE-16: Sequence > primitive | **PARTIALLY_SUPPORTED** |
-| H-REE-17: Adaptive motif control | NOT_SUPPORTED |
-| H-REE-15: LLM complementarity | **PARTIALLY_SUPPORTED** |
-| H-REE-18: Cross-level transfer | NOT_SUPPORTED |
+| ID | Pre-V6 | Post-V6 |
+|---|---|---|
+| H-REE-05: Epistemic Market | NOT_SUPPORTED | NOT_SUPPORTED |
+| H-REE-09: Full REE > sum | NOT_SUPPORTED | NOT_SUPPORTED |
+| H-REE-10: Hypothesis ecology | PARTIALLY_SUPPORTED | PARTIALLY_SUPPORTED |
+| H-REE-11: Temporal complementarity | **SUPPORTED** | **NOT_SUPPORTED** (V6 factorial = 0) |
+| H-REE-12: Cross-arch ecology | NOT_SUPPORTED | NOT_SUPPORTED |
+| H-REE-13: Greedy control failure | **SUPPORTED** | Weakened (unclear under budget controls) |
+| H-REE-14: Adaptive necessity | **SUPPORTED** | **SUPPORTED** (oracle gap real) |
+| H-REE-16: Sequence > primitive | PARTIALLY_SUPPORTED | Weakened (may be main effect) |
+| H-REE-17: Adaptive motif control | NOT_SUPPORTED | NOT_SUPPORTED |
+| H-REE-15: LLM complementarity | PARTIALLY_SUPPORTED | **NOT_SUPPORTED** |
+| H-REE-18: Cross-level transfer | NOT_SUPPORTED | NOT_SUPPORTED |
+| H-REE-19: Budget-controlled comp. | — | **NOT_SUPPORTED** (interaction = 0) |
+| H-REE-20: Semantic mediation | — | UNTESTED |
+| H-REE-21: Closed-loop causality | — | **PARTIALLY_SUPPORTED** |
+| H-REE-22: Attack timing (matched) | — | **NOT_SUPPORTED** (effect = 0.019) |
+| H-REE-23: Exogenous transfer | — | UNTESTED |
+
+### Campaign V6 (SHA: pending commit)
+Budget-matched factorial validation against remote Mac Studio.
+Closed-loop certification: 11/11 PASS. N=32 worlds.
+Factorial interaction = 0.000. Attack timing = 0.019 (was 0.276).
+Central finding: V4 "complementarity" was main effect of hypothesis generation.
 
 ## Next Steps (Future Work)
 
-1. **Paper writing** — Controlled-mechanism / LLM paper is justified (Level 2 evidence for complementarity/attack timing). Frame around operation-pair-specific complementarity rather than general sequence superiority.
-2. **Stronger real-evidence validation** — Increase N beyond 14 packs with more diverse/challenging tasks. Current Phase 27 may lack discriminative power.
-3. **Nonlinear motif selector** — Test tree/neural models for motif prediction. Current transparent rules fail. Only pursue after preregistered experiment.
-4. **Richer state features** — Information-theoretic features, uncertainty estimates, evidence graph statistics.
-5. **Phase 29 (optional)** — Learned control only if H-REE-15 upgrades to SUPPORTED, adaptivity gap persists, and enough trajectories exist. H-REE-17 remains NOT_SUPPORTED.
-6. **Larger model comparison** — Test with frontier-class models to determine if sequence effects strengthen with model capability.
+1. **Execute H-REE-20 (semantic intervention)** — determine if artifact content matters.
+2. **Execute H-REE-23 (external datasets)** — SciFact/HotpotQA transfer test.
+3. **Paper repositioning** — methodology + negative results paper.
+4. **NeurIPS D&B 2027** — benchmark methodology submission track.
+5. **Workshop paper** — ICLR/ICML negative results workshop.

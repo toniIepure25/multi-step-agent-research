@@ -1,0 +1,317 @@
+{
+  "model": "gemma3:27b-it-qat",
+  "certificates": [
+    {
+      "condition_id": "C00_control_control",
+      "expected_operations": [
+        "control",
+        "control",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "control",
+        "control",
+        "synthesis"
+      ],
+      "operation_count": 3,
+      "model_call_count": 3,
+      "retrieval_count": 0,
+      "hypothesis_count": 0,
+      "attack_count": 0,
+      "reason_count": 0,
+      "artifact_types": [],
+      "posteriors_updated": false,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    },
+    {
+      "condition_id": "C10_hyp_control",
+      "expected_operations": [
+        "generate_hypothesis",
+        "control",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "generate_hypothesis",
+        "control",
+        "synthesis"
+      ],
+      "operation_count": 3,
+      "model_call_count": 3,
+      "retrieval_count": 0,
+      "hypothesis_count": 1,
+      "attack_count": 0,
+      "reason_count": 0,
+      "artifact_types": [
+        "hypothesis"
+      ],
+      "posteriors_updated": true,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    },
+    {
+      "condition_id": "C01_control_reason",
+      "expected_operations": [
+        "control",
+        "reason",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "control",
+        "reason",
+        "synthesis"
+      ],
+      "operation_count": 3,
+      "model_call_count": 3,
+      "retrieval_count": 0,
+      "hypothesis_count": 0,
+      "attack_count": 0,
+      "reason_count": 0,
+      "artifact_types": [],
+      "posteriors_updated": false,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    },
+    {
+      "condition_id": "C11_hyp_reason",
+      "expected_operations": [
+        "generate_hypothesis",
+        "reason",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "generate_hypothesis",
+        "reason",
+        "synthesis"
+      ],
+      "operation_count": 3,
+      "model_call_count": 3,
+      "retrieval_count": 0,
+      "hypothesis_count": 1,
+      "attack_count": 0,
+      "reason_count": 0,
+      "artifact_types": [
+        "hypothesis"
+      ],
+      "posteriors_updated": true,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    },
+    {
+      "condition_id": "CB00_control_control",
+      "expected_operations": [
+        "retrieve",
+        "control",
+        "control",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "retrieve",
+        "control",
+        "control",
+        "synthesis"
+      ],
+      "operation_count": 4,
+      "model_call_count": 3,
+      "retrieval_count": 1,
+      "hypothesis_count": 0,
+      "attack_count": 0,
+      "reason_count": 0,
+      "artifact_types": [
+        "evidence"
+      ],
+      "posteriors_updated": false,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    },
+    {
+      "condition_id": "CB10_hyp_control",
+      "expected_operations": [
+        "retrieve",
+        "generate_hypothesis",
+        "control",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "retrieve",
+        "generate_hypothesis",
+        "control",
+        "synthesis"
+      ],
+      "operation_count": 4,
+      "model_call_count": 3,
+      "retrieval_count": 1,
+      "hypothesis_count": 1,
+      "attack_count": 0,
+      "reason_count": 0,
+      "artifact_types": [
+        "hypothesis",
+        "evidence"
+      ],
+      "posteriors_updated": true,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    },
+    {
+      "condition_id": "CB01_control_retrieve",
+      "expected_operations": [
+        "retrieve",
+        "control",
+        "retrieve",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "retrieve",
+        "control",
+        "retrieve",
+        "synthesis"
+      ],
+      "operation_count": 4,
+      "model_call_count": 2,
+      "retrieval_count": 2,
+      "hypothesis_count": 0,
+      "attack_count": 0,
+      "reason_count": 0,
+      "artifact_types": [
+        "evidence"
+      ],
+      "posteriors_updated": false,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    },
+    {
+      "condition_id": "CB11_hyp_retrieve",
+      "expected_operations": [
+        "retrieve",
+        "generate_hypothesis",
+        "retrieve",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "retrieve",
+        "generate_hypothesis",
+        "retrieve",
+        "synthesis"
+      ],
+      "operation_count": 4,
+      "model_call_count": 3,
+      "retrieval_count": 2,
+      "hypothesis_count": 1,
+      "attack_count": 0,
+      "reason_count": 0,
+      "artifact_types": [
+        "hypothesis",
+        "evidence"
+      ],
+      "posteriors_updated": true,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    },
+    {
+      "condition_id": "early_attack",
+      "expected_operations": [
+        "attack",
+        "retrieve",
+        "generate_hypothesis",
+        "reason",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "attack",
+        "retrieve",
+        "generate_hypothesis",
+        "reason",
+        "synthesis"
+      ],
+      "operation_count": 5,
+      "model_call_count": 4,
+      "retrieval_count": 1,
+      "hypothesis_count": 1,
+      "attack_count": 0,
+      "reason_count": 1,
+      "artifact_types": [
+        "hypothesis",
+        "evidence",
+        "updated_posteriors"
+      ],
+      "posteriors_updated": true,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    },
+    {
+      "condition_id": "mid_attack",
+      "expected_operations": [
+        "retrieve",
+        "generate_hypothesis",
+        "attack",
+        "reason",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "retrieve",
+        "generate_hypothesis",
+        "attack",
+        "reason",
+        "synthesis"
+      ],
+      "operation_count": 5,
+      "model_call_count": 4,
+      "retrieval_count": 1,
+      "hypothesis_count": 1,
+      "attack_count": 1,
+      "reason_count": 1,
+      "artifact_types": [
+        "hypothesis",
+        "evidence",
+        "attack_result",
+        "updated_posteriors"
+      ],
+      "posteriors_updated": true,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    },
+    {
+      "condition_id": "late_attack",
+      "expected_operations": [
+        "retrieve",
+        "generate_hypothesis",
+        "reason",
+        "attack",
+        "synthesis"
+      ],
+      "observed_operations": [
+        "retrieve",
+        "generate_hypothesis",
+        "reason",
+        "attack",
+        "synthesis"
+      ],
+      "operation_count": 5,
+      "model_call_count": 4,
+      "retrieval_count": 1,
+      "hypothesis_count": 1,
+      "attack_count": 1,
+      "reason_count": 1,
+      "artifact_types": [
+        "hypothesis",
+        "evidence",
+        "attack_result",
+        "updated_posteriors"
+      ],
+      "posteriors_updated": true,
+      "budget_tokens": 0,
+      "status": "PASS",
+      "failure_reason": ""
+    }
+  ]
+}
