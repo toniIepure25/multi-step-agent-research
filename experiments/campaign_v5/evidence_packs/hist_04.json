@@ -1,0 +1,97 @@
+{
+  "pack_id": "hist_04",
+  "domain": "history_of_science",
+  "task_question": "Was Semmelweis's rejection primarily due to lack of germ theory, or professional politics?",
+  "evidence_count": 4,
+  "evidence_items": [
+    {
+      "item_id": "hist_04_e1",
+      "content": "Primary historical source on Was Semmelweis's rejection primarily due to lack o...",
+      "source": "Historical journal",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "traditional_view"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "hist_04_e2",
+      "content": "Revisionist scholarship challenging view on Was Semmelweis's rejection primarily due to lack o...",
+      "source": "Revisionist history study",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [
+        "revised_view"
+      ],
+      "contradicts_claims": [
+        "traditional_view"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "hist_04_e3",
+      "content": "Archival evidence providing nuance on Was Semmelweis's rejection primarily due to lack o...",
+      "source": "Archival research",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "decisive",
+      "supports_claims": [
+        "nuanced_view"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "hist_04_e4",
+      "content": "Popular narrative simplifying Was Semmelweis's rejection primarily due to lack o...",
+      "source": "Popular history book",
+      "source_type": "secondary",
+      "reliability": 0.4,
+      "role": "weak",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": "Traditional narrative",
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "nuanced_view",
+      "revised_view"
+    ],
+    "best_hypothesis": "nuanced_view",
+    "verdict": "MIXED",
+    "support_relations": {
+      "traditional_view": [
+        "hist_04_e1"
+      ]
+    },
+    "contradiction_relations": {
+      "traditional_view": [
+        "hist_04_e2"
+      ]
+    },
+    "source_dependencies": [
+      [
+        "hist_04_e4",
+        "Traditional narrative"
+      ]
+    ],
+    "critical_assumptions": [
+      "Archival sources are representative"
+    ],
+    "decisive_evidence": [
+      "hist_04_e3"
+    ],
+    "known_ambiguity": [
+      "Historiographic framing effects"
+    ]
+  }
+}

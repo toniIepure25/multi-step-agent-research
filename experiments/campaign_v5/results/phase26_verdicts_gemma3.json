@@ -1,0 +1,37 @@
+{
+  "model": "gemma3:27b-it-qat",
+  "verdicts": {
+    "R1_sequence_superiority": {
+      "verdict": "INCONCLUSIVE",
+      "effect": 0.0032
+    },
+    "R2_complementarity": {
+      "verdict": "REPLICATED",
+      "effect": 0.1113
+    },
+    "R4_order_effects": {
+      "verdict": "NOT_REPLICATED",
+      "effect": -0.0502
+    },
+    "R5_attack_timing": {
+      "verdict": "REPLICATED",
+      "effect": 0.2756
+    },
+    "R6_fixed_vs_greedy": {
+      "verdict": "INCONCLUSIVE",
+      "effect": 0.0032
+    }
+  },
+  "replicated_count": 2,
+  "means": {
+    "B1_extended": 0.2767,
+    "single_retrieve": 0.05,
+    "single_gen_hyp": 0.2734,
+    "explore": 0.3234,
+    "discriminate": 0.2225,
+    "reversed_B1": 0.3269,
+    "attack_early": 0.0,
+    "attack_late": 0.2756
+  },
+  "total_results": 128
+}

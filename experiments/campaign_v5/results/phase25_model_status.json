@@ -1,0 +1,10 @@
+{
+  "model_server": "NOT_AVAILABLE",
+  "ollama": "not_installed",
+  "vllm": "not_running",
+  "lm_studio": "not_running",
+  "api_key": "not_set",
+  "base_url": "not_set",
+  "status": "BLOCKED",
+  "required_action": "Install and start a local model server"
+}

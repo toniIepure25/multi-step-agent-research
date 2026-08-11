@@ -1,0 +1,114 @@
+{
+  "pack_id": "cog_05",
+  "domain": "cognitive_science",
+  "task_question": "Does language shape thought (linguistic relativity)? Specifically, do cross-linguistic differences in color terminology affect color perception and discrimination?",
+  "evidence_count": 5,
+  "evidence_items": [
+    {
+      "item_id": "cog_05_e1",
+      "content": "Winawer et al. (2007) show Russian speakers, who have obligatory light/dark blue distinction (goluboy/siniy), discriminate these colors faster than English speakers in behavioral tasks.",
+      "source": "Winawer et al., PNAS",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "supporting",
+      "supports_claims": [
+        "linguistic_relativity"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_05_e2",
+      "content": "The same color discrimination advantage disappears under verbal interference (dual-task) but not spatial interference, suggesting language-mediated rather than perceptual effect (Winawer et al., 2007, Experiment 2).",
+      "source": "Winawer et al., PNAS Exp 2",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "decisive",
+      "supports_claims": [
+        "weak_relativity"
+      ],
+      "contradicts_claims": [
+        "strong_relativity"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_05_e3",
+      "content": "Regier & Kay (2009) find universal tendencies in color naming across 110 languages despite surface variation, suggesting biological constraints dominate linguistic effects.",
+      "source": "Regier & Kay, Current Opinion in Psychology",
+      "source_type": "review",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [
+        "universal_perception"
+      ],
+      "contradicts_claims": [
+        "strong_relativity"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_05_e4",
+      "content": "Pre-linguistic infants show categorical color perception at boundaries that match English categories, suggesting innate perceptual categories precede language (Bornstein et al., 1976; replicated by Franklin et al., 2005).",
+      "source": "Bornstein 1976, Franklin 2005",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [],
+      "contradicts_claims": [
+        "strong_relativity"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_05_e5",
+      "content": "Popular article claims 'Eskimos have 50 words for snow, proving language determines reality' \u2014 a widely debunked misrepresentation.",
+      "source": "Popular media",
+      "source_type": "news",
+      "reliability": 0.1,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "weak_relativity",
+      "language_augmented_perception"
+    ],
+    "best_hypothesis": "weak_relativity",
+    "verdict": "SUPPORTED",
+    "support_relations": {
+      "linguistic_relativity": [
+        "cog_05_e1"
+      ],
+      "weak_relativity": [
+        "cog_05_e1",
+        "cog_05_e2"
+      ]
+    },
+    "contradiction_relations": {
+      "strong_relativity": [
+        "cog_05_e2",
+        "cog_05_e3",
+        "cog_05_e4"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "RT differences reflect genuine perceptual change vs. labeling strategy"
+    ],
+    "decisive_evidence": [
+      "cog_05_e2"
+    ],
+    "known_ambiguity": [
+      "Whether online language effects count as 'shaping thought'"
+    ]
+  }
+}

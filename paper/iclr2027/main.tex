@@ -1,0 +1,457 @@
+\documentclass{article}
+
+% ICLR 2027 style — replace with official iclr2027_conference.sty when available
+\usepackage{iclr2025_conference}
+\usepackage{times}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{subcaption}
+
+\title{Measuring the Value of Cognitive Sequences\\in LLM Research Agents}
+
+\author{Anonymous}
+
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\cf}{\textit{cf.}}
+
+\iclrfinalcopy
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Large language model (LLM) research agents combine heterogeneous cognitive operations---retrieval, hypothesis generation, reasoning, and falsification---to solve epistemic tasks.
+Most architectures select operations greedily, assuming local value suffices to guide useful global reasoning.
+We introduce a controlled epistemic benchmark enabling \emph{same-state counterfactual evaluation}: from a single epistemic state, we fork into alternative cognitive operations, apply matched continuation budgets, and compare downstream epistemic quality.
+In controlled experiments across eight epistemic regimes ($N{=}56$ worlds), specific operation pairs exhibit super-additive temporal complementarity (hypothesis generation $\to$ retrieval: $+0.162$, 95\% CI $[0.135, 0.188]$), while repeating operations shows interference ($-0.050$, CI crosses zero).
+Attack/falsification has zero standalone value but gains value after hypothesis formation ($+0.137$ for hypothesis $\to$ attack).
+These structural effects persist when cognitive operations are accompanied by real LLM inference with two model substrates (Gemma~3 27B and Llama~3.2 11B).
+We also report systematic negative findings: sequence superiority over primitives is not confirmed ($+0.003$), a learned adaptive controller fails (quality $0.323$ vs.\ best fixed $0.518$), and curated evidence tasks show negligible condition sensitivity (range $= 0.030$, $N{=}14$).
+The benchmark, negative-results analysis, and evidence that the relevant unit of metacognitive analysis is operation-pair complementarity rather than general sequence superiority constitute our contributions.
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%------------------------------------------------------------------
+
+LLM-based research agents orchestrate qualitatively distinct \emph{cognitive operations}---evidence retrieval, hypothesis generation, causal reasoning, and hypothesis falsification---to solve complex epistemic tasks.
+The central design question is: \emph{what cognitive operation should be performed next?}
+
+Most architectures answer either with a fixed pipeline or with greedy scheduling, where the locally most valuable operation is selected at each step.
+Both approaches assume that operation value can be assessed independently of temporal context.
+This assumption may be wrong.
+If \emph{temporal complementarity} exists---if the downstream value of operation $a_i$ depends on whether $a_j$ precedes or follows it---then greedy scheduling will systematically misallocate cognitive resources.
+
+We investigate whether heterogeneous cognitive operations exhibit measurable temporal complementarity.
+Our approach rests on a methodological contribution: a controlled epistemic benchmark that maintains latent ground truth, enabling \emph{same-state counterfactual evaluation}.
+From a single epistemic state, we fork execution into alternative operations, apply matched continuation budgets, and compare downstream quality.
+This isolates temporal-composition value from confounding state variation.
+
+\paragraph{Summary of findings.}
+Specific operation pairs show strong complementarity: hypothesis generation catalyzes retrieval ($+0.162$) and reasoning ($+0.137$), while attack has zero standalone value but gains value after hypothesis formation.
+These structural effects persist when operations are accompanied by real LLM inference.
+However, general sequence superiority over primitives is not confirmed, adaptive motif control fails, and effects do not transfer to curated evidence tasks.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item A controlled benchmark for counterfactual evaluation of cognitive operation sequences from matched epistemic states (\S\ref{sec:benchmark}).
+\item Empirical evidence of temporal complementarity and interference among cognitive operations, with 95\% confidence intervals (\S\ref{sec:results_compl}).
+\item Confirmation that complementarity effects persist under real LLM inference with two model substrates (\S\ref{sec:results_llm}).
+\item Systematic negative results: adaptive control failure, non-transfer to curated evidence, and bounds on sequence superiority (\S\ref{sec:results_negative}).
+\end{enumerate}
+
+%------------------------------------------------------------------
+\section{Related Work}
+\label{sec:related}
+%------------------------------------------------------------------
+
+\paragraph{Adaptive test-time compute.}
+Adaptive Computation Time \citep{graves2016act} and PonderNet \citep{banino2021pondernet} vary the \emph{amount} of computation.
+We instead vary the \emph{type}: we ask whether qualitatively different operations compose non-additively.
+
+\paragraph{Adaptive retrieval.}
+Self-RAG \citep{asai2024selfrag} and FLARE \citep{jiang2023flare} decide \emph{when} to retrieve.
+We measure the compositional value of retrieval relative to other operations.
+
+\paragraph{Process reward models.}
+Step-level rewards for mathematical reasoning \citep{lightman2024verify, wang2024mathshepherd} evaluate steps of the \emph{same kind}.
+Our operations differ in kind---retrieval, hypothesis generation, attack, reasoning.
+
+\paragraph{Reasoning trajectories.}
+Tree of Thoughts \citep{yao2024tree}, Graph of Thoughts \citep{besta2024graph}, and LATS \citep{zhou2024lats} search over reasoning paths but do not isolate compositional value of heterogeneous operation types from matched states.
+
+\paragraph{Metacognitive agents.}
+Reflexion \citep{shinn2023reflexion} and Self-Refine \citep{madaan2023selfrefine} add self-monitoring.
+Our negative results on adaptive control complement this literature.
+
+\paragraph{Tool scheduling and temporal abstraction.}
+Toolformer \citep{schick2023toolformer} and ART \citep{paranjape2023art} schedule tool use; the options framework \citep{sutton1999options} studies temporally extended actions.
+Our work is analogous to options but in an epistemic rather than reward-maximizing context.
+
+\paragraph{Distinction.}
+To our knowledge, no prior work combines same-state counterfactual evaluation with explicit measurement of downstream complementarity among heterogeneous epistemic operations (Table~\ref{tab:prior_art}).
+
+%------------------------------------------------------------------
+\section{Problem Formulation}
+\label{sec:formulation}
+%------------------------------------------------------------------
+
+\paragraph{Epistemic state.}
+An epistemic state $E_t = (\mathcal{R}_t, \mathcal{H}_t, \mathcal{I}_t, c_t)$ captures retrieved evidence~$\mathcal{R}$, hypotheses~$\mathcal{H}$, inferred relations~$\mathcal{I}$, and cumulative cost~$c$.
+
+\paragraph{Cognitive operations.}
+We define four primitives: \textsc{Retrieve}~($a_\text{ret}$), \textsc{Hypothesize}~($a_\text{hyp}$), \textsc{Attack}~($a_\text{atk}$), and \textsc{Reason}~($a_\text{rsn}$).
+Each transforms the epistemic state: $E_{t+1} = \tau(E_t, a_t)$.
+
+\paragraph{Temporal complementarity.}
+Two operations exhibit \emph{temporal complementarity} at state $E$ if their sequential value exceeds the additive baseline:
+\begin{equation}
+\label{eq:complementarity}
+\text{Comp}(a_i, a_j \mid E) = Q(\tau(\tau(E, a_i), a_j)) - \tfrac{1}{2}\bigl[Q(\tau(E, a_i)) + Q(\tau(E, a_j))\bigr]
+\end{equation}
+where $Q$ is an evaluator-defined quality function.
+When $\text{Comp} > 0$ (synergy), the sequence exceeds additive prediction; when $\text{Comp} < 0$ (interference), it underperforms.
+
+\paragraph{Resource-fairness caveat.}
+A 2-operation sequence consumes approximately twice the resources of a single operation.
+Our complementarity measure therefore includes a resource confound: positive complementarity could partially reflect additional compute rather than temporal structure alone.
+We report this limitation throughout.
+
+\paragraph{Counterfactual fork.}
+Given $E_t$, a counterfactual fork evaluates $G(S_A \mid E_t) - G(S_B \mid E_t)$ where both branches start from the same state.
+This controls for state variation.
+
+%------------------------------------------------------------------
+\section{Benchmark: Epistemic World Simulator}
+\label{sec:benchmark}
+%------------------------------------------------------------------
+
+The benchmark generates epistemic reasoning tasks with controlled latent structure.
+Each \emph{world} contains: latent hypotheses (one true), an evidence corpus with differential support, source dependencies, and hidden variables affecting reliability.
+The agent observes evidence but never the true hypothesis, causal graph, or quality function.
+
+\paragraph{Epistemic regimes.}
+Eight regimes (A--H) vary evidence informativeness, hypothesis discriminability, source independence, and deception structure.
+Each regime instantiates multiple worlds via deterministic seeds.
+
+\paragraph{Quality measurement.}
+$Q(E)$ combines hypothesis correctness, evidence coverage, and calibration.
+The function is evaluator-only: the agent never observes its score.
+
+\paragraph{Same-state evaluation.}
+The simulator supports event sourcing: any state can be snapshotted and restored, enabling counterfactual forks from identical starting conditions.
+This is the methodological core of the paper.
+
+%------------------------------------------------------------------
+\section{Experiments and Results}
+\label{sec:results}
+%------------------------------------------------------------------
+
+We organize experiments around five questions, summarized in Table~\ref{tab:claim_ladder}.
+
+%------------------------------------------------------------------
+\subsection{Temporal Complementarity and Interference}
+\label{sec:results_compl}
+%------------------------------------------------------------------
+
+\paragraph{Setup.}
+From matched epistemic states across 8 regimes ($N{=}56$ worlds, 7 seeds per regime), we execute all pairwise 2-operation sequences and compute $\text{Comp}(a_i, a_j)$ per Eq.~\ref{eq:complementarity}.
+
+\paragraph{Results (Table~\ref{tab:complementarity}).}
+Hypothesis generation is the catalytic operation: \textsc{Hyp}$\to$\textsc{Ret} yields complementarity $+0.162$ (95\% CI $[0.135, 0.188]$); \textsc{Hyp}$\to$\textsc{Atk} and \textsc{Hyp}$\to$\textsc{Rsn} each yield $+0.137$.
+Repeating \textsc{Hyp}$\to$\textsc{Hyp} shows directional interference ($-0.050$, CI $[-0.136, +0.035]$; not significant at $\alpha{=}0.05$).
+
+\textsc{Attack} and \textsc{Reason} have zero standalone quality gain.
+They contribute value only after \textsc{Hypothesize}, creating a prerequisite-like structure: hypothesis generation ``unlocks'' downstream operations.
+
+\paragraph{Interpretation.}
+This pattern is partially expected: only \textsc{Hypothesize} creates candidate hypotheses, so \textsc{Attack} and \textsc{Reason} have nothing to evaluate without prior hypothesis generation.
+The \emph{magnitude} of complementarity and its variation across regimes are the non-trivial findings, not the existence of prerequisite structure per se.
+The 2-vs-1 operation resource confound means complementarity values include some contribution from additional compute.
+
+%------------------------------------------------------------------
+\subsection{Adaptive Control Failure}
+\label{sec:results_adaptive}
+%------------------------------------------------------------------
+
+\paragraph{Adaptivity gap.}
+A state-conditioned sequence oracle achieves quality $0.622$; the best global fixed sequence (B1\_extended) achieves $0.527$; gap $= 0.096$ ($N{=}56$).
+Adaptive selection has theoretical room to improve.
+
+\paragraph{Policy failure.}
+A rule-based motif controller trained on state features achieves quality $0.323$---far below the best fixed strategy ($0.518$) and the oracle ($0.588$).
+Policy regret ($0.264$) exceeds fixed regret ($0.070$) by $3.8\times$.
+The controller produces only 2 distinct trajectory types.
+This represents a complete failure of our adaptive-control approach.
+
+\paragraph{Implications.}
+The existence of an adaptivity gap does not imply that a learned controller can exploit it.
+More expressive policy classes might succeed, but this remains a hypothesis.
+
+%------------------------------------------------------------------
+\subsection{LLM Execution}
+\label{sec:results_llm}
+%------------------------------------------------------------------
+
+\paragraph{Models.}
+Two LLM substrates pass a 10-operation capability gate ($\ge 0.73$ mean score, $N{=}24$ worlds each): Gemma~3 27B (Q4\_0 quantization) and Llama~3.2 11B (Q8\_0).
+Both served via Ollama on a Mac Studio; temperature $= 0$.
+
+\paragraph{Design.}
+We execute 8 cognitive sequences across $N{=}16$ worlds (8 regimes $\times$ 2 seeds) with each LLM.
+Quality is measured by the deterministic simulator---the LLM generates cognitive outputs but does \emph{not} affect the simulator's state transitions or quality evaluation.
+
+\paragraph{Key design limitation.}
+Because the simulator controls state transitions independently of LLM output, this experiment tests whether the structural complementarity effects \emph{persist when real LLMs perform the cognitive labor}, not whether LLM-generated cognition itself exhibits temporal complementarity.
+Quality scores are identical across both models because they are determined by the simulator.
+
+\paragraph{Results (Table~\ref{tab:replication}).}
+\begin{itemize}
+\item Complementarity: effect $+0.111$ (CI $[0.067, 0.156]$), consistent with V4 direction.
+\item Attack timing: standalone attack $= 0.000$; after hypothesis+evidence: $0.276$.
+\item Sequence superiority (B1\_extended vs.\ best primitive): $+0.003$, not significant.
+\item Order effect (forward vs.\ reversed B1): $-0.050$, not significant.
+\end{itemize}
+
+The two strongest controlled effects (complementarity, attack timing) survive; weaker effects do not.
+
+%------------------------------------------------------------------
+\subsection{Curated Evidence Tasks}
+\label{sec:results_real}
+%------------------------------------------------------------------
+
+\paragraph{Setup.}
+14 curated evidence summaries across 6 academic domains, with evaluator-defined ground truth (keyword-heuristic scoring against author-specified correct hypotheses).
+These are \emph{not} frozen real documents but literature-themed summaries with controlled structure.
+
+\paragraph{Results (Table~\ref{tab:real_evidence}).}
+Greedy primitive ($0.718$) achieves the highest mean score.
+Condition range is $0.030$ across 5 strategies.
+Cognitive sequence choice has negligible impact.
+
+\paragraph{Interpretation.}
+Multiple explanations are possible: (1) genuine non-transfer of complementarity effects; (2) insufficient task difficulty or strategy pressure in our curated packs; (3) LLMs may perform implicit hypothesis generation within single forward passes, reducing marginal value of explicit operations; (4) $N{=}14$ provides low statistical power (minimum detectable effect $\approx 0.05$).
+We cannot distinguish among these with current evidence.
+
+%------------------------------------------------------------------
+\subsection{Negative Findings Summary}
+\label{sec:results_negative}
+%------------------------------------------------------------------
+
+\begin{enumerate}
+\item \textbf{Sequence superiority not confirmed under LLM:} B1\_extended ($0.277$) $\approx$ single hypothesis generation ($0.273$).
+\item \textbf{Adaptive motif control failed:} Policy ($0.323$) $\ll$ best fixed ($0.518$).
+\item \textbf{Curated-evidence transfer not detected:} Condition range $= 0.030$.
+\item \textbf{Interference not significant:} $-0.050$, CI crosses zero.
+\item \textbf{Full REE $<$ simple baselines:} The most complex architecture ($0.356$) underperformed a fixed sequence ($0.594$).
+\end{enumerate}
+
+These findings bound the scope of cognitive sequencing: temporal complementarity is operation-pair-specific rather than a general ``more steps $=$ better'' principle.
+
+%------------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+%------------------------------------------------------------------
+
+\paragraph{The unit of metacognitive control.}
+Our data suggest that primitive step-level value can miss temporal interactions, but the failed motif controller shows that identifying sequence structure does not automatically yield a successful adaptive scheduler.
+This tension---real complementarity, unsuccessful exploitation---is a central open problem for agent design.
+
+\paragraph{Prerequisites vs.\ complementarity.}
+A skeptical reading of our complementarity results is that they merely reflect prerequisite structure: \textsc{Attack} needs hypotheses; \textsc{Reason} needs hypotheses.
+We partially agree---the \emph{existence} of these interactions is not surprising.
+What is measured is their \emph{magnitude}, \emph{state dependence}, and \emph{persistence under LLM execution}.
+
+\paragraph{Why transfer may fail.}
+Modern LLMs may perform implicit hypothesis generation and reasoning within single forward passes.
+Explicit cognitive operations may partially duplicate internal computation, reducing their marginal value on real tasks.
+
+%------------------------------------------------------------------
+\section{Limitations}
+\label{sec:limitations}
+%------------------------------------------------------------------
+
+\begin{enumerate}
+\item \textbf{Resource confound.} 2-operation sequences use $\sim$2$\times$ the tokens of single operations.
+\item \textbf{Benchmark circularity risk.} The simulator was designed by the experimenters; findings may not generalize beyond it.
+\item \textbf{Only two LLMs tested.} Both served from the same backend with the same prompts.
+\item \textbf{LLM does not affect quality measurement.} Phase 26 quality comes from the simulator, not LLM output.
+\item \textbf{Curated evidence, not real documents.} Phase 27 uses author-created summaries, not frozen source texts.
+\item \textbf{Small sample sizes.} $N{=}16$ (LLM), $N{=}14$ (curated evidence).
+\item \textbf{No formal hypothesis testing.} We report CIs but no formal tests; regime clustering likely makes CIs anti-conservative.
+\item \textbf{No live-web evaluation.}
+\item \textbf{Metric dependence.} Different quality scalarizations might yield different complementarity patterns.
+\item \textbf{Adaptive policy tested only one controller class.}
+\end{enumerate}
+
+%------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+%------------------------------------------------------------------
+
+We presented a controlled benchmark for measuring temporal-composition value of cognitive operations.
+Specific operation pairs exhibit measurable complementarity ($+0.162$) and prerequisite structure, and these effects persist under real LLM execution.
+Equally important, general sequence superiority, adaptive control, and curated-evidence transfer are not supported.
+The correct unit of metacognitive analysis appears to be the operation pair, not the full sequence or the individual primitive.
+
+%------------------------------------------------------------------
+% TABLES
+%------------------------------------------------------------------
+
+\begin{table}[t]
+\centering
+\caption{Pairwise complementarity matrix (Eq.~\ref{eq:complementarity}; $N{=}56$ worlds, 8 regimes). Bold: significant at 95\% CI.}
+\label{tab:complementarity}
+\small
+\begin{tabular}{lcccc}
+\toprule
+First $\to$ Second & \textsc{Ret} & \textsc{Hyp} & \textsc{Atk} & \textsc{Rsn} \\
+\midrule
+\textsc{Retrieve}    & $-0.002$ & $+0.078$ & $+0.025$ & $+0.025$ \\
+\textsc{Hypothesize} & $\mathbf{+0.162}$ & $-0.050$ & $\mathbf{+0.137}$ & $\mathbf{+0.137}$ \\
+\textsc{Attack}      & $+0.025$ & $\mathbf{+0.137}$ & $0.000$ & $0.000$ \\
+\textsc{Reason}      & $+0.025$ & $\mathbf{+0.137}$ & $0.000$ & $0.000$ \\
+\bottomrule
+\end{tabular}
+\vspace{-2mm}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{LLM execution results ($N{=}16$ worlds per model, 128 total evaluations). Quality from deterministic simulator.}
+\label{tab:replication}
+\small
+\begin{tabular}{lccl}
+\toprule
+Test & Effect & 95\% CI & Verdict \\
+\midrule
+Complementarity & $+0.111$ & $[0.067, 0.156]$ & Consistent \\
+Attack timing & $+0.276$ & $[0.179, 0.373]$ & Consistent \\
+Sequence $>$ primitive & $+0.003$ & $[-0.160, 0.166]$ & Not confirmed \\
+Order effect & $-0.050$ & $[-0.128, 0.028]$ & Not confirmed \\
+\bottomrule
+\end{tabular}
+\vspace{-2mm}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Curated evidence results ($N{=}14$ packs, Gemma~3 27B). Condition range $= 0.030$.}
+\label{tab:real_evidence}
+\small
+\begin{tabular}{lcc}
+\toprule
+Condition & Mean quality & Std \\
+\midrule
+Greedy primitive & $\mathbf{0.718}$ & $0.074$ \\
+Direct & $0.696$ & $0.058$ \\
+B1\_extended & $0.691$ & $0.112$ \\
+Full explore & $0.688$ & $0.112$ \\
+\bottomrule
+\end{tabular}
+\vspace{-2mm}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Cross-level claim ladder.}
+\label{tab:claim_ladder}
+\small
+\begin{tabular}{lcccl}
+\toprule
+Finding & Simulator & +LLM & +Curated & Level \\
+\midrule
+Complementarity & \checkmark & \checkmark & --- & 2 \\
+Attack timing & \checkmark & \checkmark & n/a & 2 \\
+Interference & $\sim$ & $\sim$ & --- & 1 \\
+Seq.\ $>$ prim. & \checkmark & --- & --- & 1 \\
+Order effects & \checkmark & --- & --- & 1 \\
+Adaptive ctrl. & gap exists & fails & n/a & 0 \\
+\bottomrule
+\end{tabular}
+\vspace{1mm}
+{\footnotesize \checkmark = supported, --- = not confirmed, $\sim$ = directional (CI crosses 0). \\
+Level 2: simulator + LLM. Level 1: simulator only. Level 0: unsupported.}
+\vspace{-3mm}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Comparison with related work. \checkmark = addressed, $\sim$ = partial, blank = not addressed.}
+\label{tab:prior_art}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lccccccc}
+\toprule
+& \rotatebox{70}{Adaptive} & \rotatebox{70}{Retrieval} & \rotatebox{70}{Op value} & \rotatebox{70}{Seq.\ value} & \rotatebox{70}{Same-state} & \rotatebox{70}{Compl.} & \rotatebox{70}{Hetero.\ ops} \\
+\midrule
+Self-RAG & $\sim$ & \checkmark & & & & & \\
+ToT & \checkmark & & $\sim$ & $\sim$ & & & \\
+LATS & \checkmark & & & \checkmark & & & \\
+Reflexion & \checkmark & & & $\sim$ & & & $\sim$ \\
+PRM & & & \checkmark & & & & \\
+Options & \checkmark & & & \checkmark & & & \\
+\textbf{This work} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\vspace{-3mm}
+\end{table}
+
+%------------------------------------------------------------------
+\bibliography{references}
+\bibliographystyle{iclr2025_conference}
+
+%------------------------------------------------------------------
+% APPENDIX
+%------------------------------------------------------------------
+\appendix
+
+\section{Reproducibility Statement}
+\label{app:repro}
+
+All experiments are deterministic given seeds and Python~3.11+.
+Simulator experiments require no external dependencies.
+LLM experiments used Gemma~3 27B QAT (digest \texttt{29eb0b9a...}) and Llama~3.2 11B Q8\_0 (digest \texttt{a5b7471a...}) via Ollama on a Mac Studio; temperature~$=0$.
+Model quantization, generation parameters, and prompt templates are documented in the supplementary material.
+Raw result artifacts (JSONL/JSON) are available for all experiments.
+
+\section{AI Use Statement}
+\label{app:ai_use}
+
+This research used large language models in two capacities: (1)~as experimental subjects---Gemma~3 27B and Llama~3.2 11B were evaluated as cognitive-operation executors in the LLM replication experiments; (2)~as research assistants---an LLM assistant was used during code development, experimental design iteration, and manuscript drafting.
+No LLM is listed as an author.
+All scientific claims, experimental designs, and analyses were reviewed and validated by human researchers.
+
+\section{Additional Experimental Details}
+\label{app:details}
+
+\paragraph{Capability gate.}
+Both models were evaluated on 10 operations $\times$ 24 worlds.
+Key scores: hypothesis generation (Gemma: $0.750$, Llama: $0.733$), reasoning (Gemma: $0.929$, Llama: $0.950$), all others $\ge 0.800$.
+Gate threshold: $0.30$ per core operation.
+
+\paragraph{Adaptive control details.}
+The policy used transparent rule-based features from epistemic state (evidence count, hypothesis count, regime indicators).
+Selection was among 5 motifs (explore, discriminate, full\_explore, integrate, evidence\_heavy).
+$N{=}56$ training worlds; no held-out validation split for policy selection.
+
+\paragraph{Curated evidence pack construction.}
+14 packs were authored programmatically with literature-themed content referencing real academic debates (dual-process theory, emergent abilities, minimum wage effects, etc.).
+Ground truth was defined by the pack author, not independently annotated.
+Quality scoring uses keyword heuristics against author-specified correct hypotheses.
+Packs are \emph{not} frozen real documents.
+
+\paragraph{Budget fairness.}
+2-operation sequences consume approximately $2\times$ the tokens of single operations (mean: 485 vs.\ 232 tokens).
+Longer experimental sequences (B1\_extended, 7~ops) consume approximately $10\times$ single-operation budgets.
+Complementarity measurements include this resource confound; see \S\ref{sec:formulation}.
+
+\end{document}

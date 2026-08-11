@@ -1,0 +1,55 @@
+{
+  "discovery_timestamp": "2026-08-10T19:36:40Z",
+  "service_url": "https://inference.ccrolabs.com/",
+  "backend": "ollama",
+  "proxy": "cloudflare",
+  "authentication": "none_required",
+  "models": [
+    {
+      "model_id": "gemma3:27b-it-qat",
+      "family": "gemma3",
+      "parameter_size": "27.4B",
+      "quantization": "Q4_0",
+      "format": "gguf",
+      "digest": "29eb0b9aeda35295ed728124d341b27e0c6771ea5c586fcabfb157884224fa93",
+      "size_bytes": 18087370898,
+      "type": "generation",
+      "suitable_for_experiment": true,
+      "smoke_test": "PASSED"
+    },
+    {
+      "model_id": "llama3.2-vision:11b-instruct-q8_0",
+      "family": "mllama",
+      "parameter_size": "10.7B",
+      "quantization": "Q8_0",
+      "format": "gguf",
+      "digest": "a5b7471a68aad08b09bc1e6203d895ff89410a7d04a1d04a328dcdf80576a23d",
+      "size_bytes": 12272822144,
+      "type": "generation",
+      "suitable_for_experiment": true,
+      "smoke_test": "PASSED"
+    },
+    {
+      "model_id": "nomic-embed-text:latest",
+      "family": "nomic-bert",
+      "parameter_size": "137M",
+      "quantization": "F16",
+      "format": "gguf",
+      "digest": "0a109f422b47e3a30ba2b10eca18548e944e8a23073ee3f3e947efcf3c45e59f",
+      "size_bytes": 274302450,
+      "type": "embedding",
+      "suitable_for_experiment": false
+    },
+    {
+      "model_id": "mxbai-embed-large:latest",
+      "family": "bert",
+      "parameter_size": "334M",
+      "quantization": "F16",
+      "format": "gguf",
+      "digest": "468836162de7f81e041c43663fedbbba921dcea9b9fefea135685a39b2d83dd8",
+      "size_bytes": 669615493,
+      "type": "embedding",
+      "suitable_for_experiment": false
+    }
+  ]
+}

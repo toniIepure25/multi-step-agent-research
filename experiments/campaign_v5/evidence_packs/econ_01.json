@@ -1,0 +1,112 @@
+{
+  "pack_id": "econ_01",
+  "domain": "economics",
+  "task_question": "Does minimum wage increase cause significant unemployment, or does the monopsony model better explain labor market responses?",
+  "evidence_count": 5,
+  "evidence_items": [
+    {
+      "item_id": "econ_01_e1",
+      "content": "Card & Krueger (1994) natural experiment comparing NJ and PA fast-food employment after NJ minimum wage increase found no negative employment effect.",
+      "source": "Card & Krueger, AER 1994",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "supporting",
+      "supports_claims": [
+        "no_unemployment_effect"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "econ_01_e2",
+      "content": "Neumark & Wascher (2008) meta-analysis of 100+ studies finds majority show small negative employment effects, especially for young and low-skilled workers.",
+      "source": "Neumark & Wascher, MIT Press",
+      "source_type": "review",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [
+        "negative_effect"
+      ],
+      "contradicts_claims": [
+        "no_unemployment_effect"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "econ_01_e3",
+      "content": "Dube, Lester & Reich (2010) using contiguous county-pairs across state borders find no significant disemployment effects, replicating Card & Krueger with modern methods.",
+      "source": "Dube et al., Review of Economics and Statistics",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "decisive",
+      "supports_claims": [
+        "no_unemployment_effect"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "econ_01_e4",
+      "content": "Jardim et al. (2022) study Seattle's $15 minimum wage using administrative data finds hours reduction offset wage gains for low-wage workers.",
+      "source": "Jardim et al., QJE 2022",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [],
+      "contradicts_claims": [
+        "no_unemployment_effect"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "econ_01_e5",
+      "content": "Political advocacy organization claims 'minimum wage destroys millions of jobs' citing no peer-reviewed evidence.",
+      "source": "Advocacy group press release",
+      "source_type": "news",
+      "reliability": 0.1,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "small_or_no_effect",
+      "context_dependent"
+    ],
+    "best_hypothesis": "context_dependent",
+    "verdict": "MIXED",
+    "support_relations": {
+      "no_unemployment_effect": [
+        "econ_01_e1",
+        "econ_01_e3"
+      ],
+      "negative_effect": [
+        "econ_01_e2",
+        "econ_01_e4"
+      ]
+    },
+    "contradiction_relations": {
+      "no_unemployment_effect": [
+        "econ_01_e2",
+        "econ_01_e4"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Natural experiments identify causal effects"
+    ],
+    "decisive_evidence": [
+      "econ_01_e3"
+    ],
+    "known_ambiguity": [
+      "Whether small cities behave like large metro areas"
+    ]
+  }
+}

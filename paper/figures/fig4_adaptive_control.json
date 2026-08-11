@@ -1,0 +1,36 @@
+{
+  "title": "Adaptive Control: Oracle vs. Fixed vs. Learned Policy",
+  "description": "Bar chart comparing three control strategies.",
+  "data": [
+    {
+      "strategy": "State-conditioned oracle",
+      "quality": 0.588,
+      "description": "Best sequence selected per world (hindsight optimal)",
+      "source": "experiments/campaign_v4/results/phase23_dev_regret.json mean_oracle_quality"
+    },
+    {
+      "strategy": "Best fixed sequence (B1_extended)",
+      "quality": 0.527,
+      "description": "Single best global sequence applied uniformly",
+      "source": "experiments/campaign_v4/results/adaptivity_gap.json best_global_quality"
+    },
+    {
+      "strategy": "Best fixed motif (FULL_EXPLORE)",
+      "quality": 0.518,
+      "description": "Best global motif-level policy",
+      "source": "experiments/campaign_v4/results/phase23_dev_regret.json mean_fixed_quality"
+    },
+    {
+      "strategy": "Learned motif policy",
+      "quality": 0.323,
+      "description": "Rule-based state-conditioned controller",
+      "source": "experiments/campaign_v4/results/phase23_dev_regret.json mean_policy_quality"
+    }
+  ],
+  "annotations": [
+    {"label": "Adaptivity gap = 0.096", "from": "Best fixed sequence", "to": "State-conditioned oracle"},
+    {"label": "Policy regret = 0.264", "from": "Learned motif policy", "to": "State-conditioned oracle"},
+    {"label": "Fixed regret = 0.070", "from": "Best fixed sequence", "to": "State-conditioned oracle"}
+  ],
+  "key_message": "Adaptive control has measurable theoretical value (gap=0.096) but the learned policy fails completely (quality 62% below best fixed)."
+}

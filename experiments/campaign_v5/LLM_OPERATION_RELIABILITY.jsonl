@@ -1,0 +1,20 @@
+{"model":"gemma3:27b-it-qat","operation":"evidence_interpretation","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"natural-language output, scored on substance and relevance"}
+{"model":"gemma3:27b-it-qat","operation":"hypothesis_generation","mean_score":0.75,"n":24,"std":0.1978,"status":"PASS","notes":"JSON compliance + ground-truth keyword recovery"}
+{"model":"gemma3:27b-it-qat","operation":"alternative_hypothesis","mean_score":0.8,"n":24,"std":0.2043,"status":"PASS","notes":"JSON compliance + ground-truth keyword recovery"}
+{"model":"gemma3:27b-it-qat","operation":"reasoning","mean_score":0.929,"n":24,"std":0.1429,"status":"PASS","notes":"correct direction identification"}
+{"model":"gemma3:27b-it-qat","operation":"contradiction_identification","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"JSON compliance + keyword detection"}
+{"model":"gemma3:27b-it-qat","operation":"attack_hypothesis","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"weakness/flaw/counter keyword detection"}
+{"model":"gemma3:27b-it-qat","operation":"missing_information","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"JSON compliance + keyword detection"}
+{"model":"gemma3:27b-it-qat","operation":"retrieval_query","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"JSON compliance + keyword detection"}
+{"model":"gemma3:27b-it-qat","operation":"synthesis","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"JSON compliance + keyword detection"}
+{"model":"gemma3:27b-it-qat","operation":"structured_output","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"pure JSON compliance"}
+{"model":"llama3.2-vision:11b-instruct-q8_0","operation":"evidence_interpretation","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"natural-language output, scored on substance and relevance"}
+{"model":"llama3.2-vision:11b-instruct-q8_0","operation":"hypothesis_generation","mean_score":0.733,"n":24,"std":0.2085,"status":"PASS","notes":"JSON compliance + ground-truth keyword recovery"}
+{"model":"llama3.2-vision:11b-instruct-q8_0","operation":"alternative_hypothesis","mean_score":0.833,"n":24,"std":0.1925,"status":"PASS","notes":"JSON compliance + ground-truth keyword recovery"}
+{"model":"llama3.2-vision:11b-instruct-q8_0","operation":"reasoning","mean_score":0.95,"n":24,"std":0.1175,"status":"PASS","notes":"correct direction identification"}
+{"model":"llama3.2-vision:11b-instruct-q8_0","operation":"contradiction_identification","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"JSON compliance + keyword detection"}
+{"model":"llama3.2-vision:11b-instruct-q8_0","operation":"attack_hypothesis","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"weakness/flaw/counter keyword detection"}
+{"model":"llama3.2-vision:11b-instruct-q8_0","operation":"missing_information","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"JSON compliance + keyword detection"}
+{"model":"llama3.2-vision:11b-instruct-q8_0","operation":"retrieval_query","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"JSON compliance + keyword detection"}
+{"model":"llama3.2-vision:11b-instruct-q8_0","operation":"synthesis","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"JSON compliance + keyword detection"}
+{"model":"llama3.2-vision:11b-instruct-q8_0","operation":"structured_output","mean_score":1.0,"n":24,"std":0.0,"status":"PASS","notes":"pure JSON compliance"}

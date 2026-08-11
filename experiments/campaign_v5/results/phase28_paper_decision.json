@@ -1,0 +1,68 @@
+{
+  "paper_classification": "CONTROLLED_BENCHMARK_PAPER",
+  "justification": "Findings remain simulator-level (Level 1). The benchmark methodology and controlled findings are publishable as a benchmark/methodology contribution. The negative adaptive control result strengthens the paper. LLM replication would elevate to Level 2.",
+  "evidence_levels": {
+    "temporal_complementarity": {
+      "simulator": "SUPPORTED (V3+V4)",
+      "llm_in_loop": "UNTESTED",
+      "static_real": "UNTESTED",
+      "level": 1
+    },
+    "order_effects": {
+      "simulator": "SUPPORTED (V3+V4)",
+      "llm_in_loop": "UNTESTED",
+      "static_real": "UNTESTED",
+      "level": 1
+    },
+    "attack_timing": {
+      "simulator": "SUPPORTED (V3)",
+      "llm_in_loop": "UNTESTED",
+      "static_real": "UNTESTED",
+      "level": 1
+    },
+    "fixed_beats_greedy": {
+      "simulator": "SUPPORTED (V3+V4)",
+      "llm_in_loop": "UNTESTED",
+      "static_real": "UNTESTED",
+      "level": 1
+    },
+    "adaptive_necessity": {
+      "simulator": "SUPPORTED (V4, gap=0.096)",
+      "llm_in_loop": "UNTESTED",
+      "static_real": "N/A",
+      "level": 1
+    },
+    "sequence_beats_primitive": {
+      "simulator": "SUPPORTED (V4, 56/56)",
+      "llm_in_loop": "UNTESTED",
+      "static_real": "UNTESTED",
+      "level": 1
+    },
+    "adaptive_control_failure": {
+      "simulator": "SUPPORTED (V4, policy=0.323 vs fixed=0.518)",
+      "llm_in_loop": "N/A",
+      "static_real": "N/A",
+      "level": 1
+    }
+  },
+  "max_claim_level": 1,
+  "primary_experiments": [
+    "Experiment 1: Controlled sequence complementarity (Level 1)",
+    "Experiment 2: Order effects (Level 1)",
+    "Experiment 3: Greedy primitive scheduler failure (Level 1)",
+    "Experiment 4: Adaptive necessity / oracle gap (Level 1)",
+    "Experiment 5: LLM-in-loop replication (Level 2, if available)",
+    "Experiment 6: Static real-evidence transfer (Level 3, if available)"
+  ],
+  "negative_results_to_report": [
+    "Adaptive motif policy quality = 0.323 vs best fixed = 0.518",
+    "Oracle gap exists (0.096) but cannot be exploited by current methods",
+    "Hierarchical controller matches but does not exceed best fixed sequence"
+  ],
+  "benchmark_artifact_ready": true,
+  "benchmark_name_candidates": [
+    "EpSeq-Bench (Epistemic Sequence Benchmark)",
+    "CogSeq-Eval (Cognitive Sequence Evaluation)",
+    "ECOB (Epistemic Cognitive Operation Benchmark)"
+  ]
+}

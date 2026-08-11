@@ -1,0 +1,90 @@
+{
+  "pack_id": "soc_03",
+  "domain": "social_science",
+  "task_question": "Is implicit bias (as measured by IAT) a valid predictor of discriminatory behavior?",
+  "evidence_count": 4,
+  "evidence_items": [
+    {
+      "item_id": "soc_03_e1",
+      "content": "Key empirical study on Is implicit bias (as measured by IAT) a valid pred...",
+      "source": "Top social science journal",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "main_claim"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "soc_03_e2",
+      "content": "Large-scale counter-evidence on Is implicit bias (as measured by IAT) a valid pred...",
+      "source": "Preregistered replication",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "contradictory",
+      "supports_claims": [],
+      "contradicts_claims": [
+        "main_claim"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "soc_03_e3",
+      "content": "Systematic review providing balanced assessment of Is implicit bias (as measured by IAT) a valid pred...",
+      "source": "Psychological Bulletin meta-analysis",
+      "source_type": "review",
+      "reliability": 0.9,
+      "role": "decisive",
+      "supports_claims": [
+        "nuanced_view"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "soc_03_e4",
+      "content": "Media coverage oversimplifying Is implicit bias (as measured by IAT) a valid pred...",
+      "source": "News article",
+      "source_type": "news",
+      "reliability": 0.2,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "nuanced_view",
+      "main_claim_limited"
+    ],
+    "best_hypothesis": "nuanced_view",
+    "verdict": "MIXED",
+    "support_relations": {
+      "main_claim": [
+        "soc_03_e1"
+      ]
+    },
+    "contradiction_relations": {
+      "main_claim": [
+        "soc_03_e2"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Measurement validity"
+    ],
+    "decisive_evidence": [
+      "soc_03_e3"
+    ],
+    "known_ambiguity": [
+      "Definitional boundaries of key constructs"
+    ]
+  }
+}

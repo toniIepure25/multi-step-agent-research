@@ -1,0 +1,34 @@
+{
+  "title": "Attack Value vs. Epistemic Stage",
+  "description": "Bar chart showing attack quality at different stages of reasoning.",
+  "data": [
+    {
+      "condition": "attack_isolated",
+      "stage": "No prior context",
+      "quality": 0.000,
+      "source": "V4 complementarity_matrix.json single_means.attack"
+    },
+    {
+      "condition": "attack_early",
+      "stage": "Before hypothesis generation",
+      "quality": 0.000,
+      "source": "V5 phase26_verdicts_gemma3.json means.attack_early"
+    },
+    {
+      "condition": "attack_after_gen_hyp",
+      "stage": "After hypothesis generation",
+      "quality": 0.273,
+      "source": "V4 complementarity_matrix.json gen_hyp->attack quality"
+    },
+    {
+      "condition": "attack_late",
+      "stage": "After hypothesis + evidence + reasoning",
+      "quality": 0.276,
+      "source": "V5 phase26_verdicts_gemma3.json means.attack_late"
+    }
+  ],
+  "key_message": "Attack value increases monotonically with epistemic context. Zero value without prior hypothesis formation.",
+  "effect_size": "+0.276 (late vs early)",
+  "replicated": true,
+  "cross_model": "Identical across Gemma 3 27B and Llama 3.2 11B"
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Temporal Complementarity Matrix (V4, N=56)",
+  "description": "Heatmap of pairwise complementarity values. Rows = first operation, columns = second operation.",
+  "operations": ["retrieve", "gen_hyp", "attack", "reason"],
+  "matrix": [
+    [-0.002,  0.078,  0.025,  0.025],
+    [ 0.162, -0.050,  0.137,  0.137],
+    [ 0.025,  0.137,  0.000,  0.000],
+    [ 0.025,  0.137,  0.000,  0.000]
+  ],
+  "quality_matrix": [
+    [0.048, 0.240, 0.050, 0.050],
+    [0.323, 0.223, 0.273, 0.273],
+    [0.050, 0.273, 0.000, 0.000],
+    [0.050, 0.273, 0.000, 0.000]
+  ],
+  "single_means": {
+    "retrieve": 0.050,
+    "gen_hyp": 0.273,
+    "attack": 0.000,
+    "reason": 0.000
+  },
+  "source": "experiments/campaign_v4/results/complementarity_matrix.json",
+  "colorscale": "diverging: red (interference) - white (neutral) - blue (synergy)",
+  "note": "gen_hyp is the catalytic operation; every pair involving it shows synergy"
+}

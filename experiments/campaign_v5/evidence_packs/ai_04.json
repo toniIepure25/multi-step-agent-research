@@ -1,0 +1,107 @@
+{
+  "pack_id": "ai_04",
+  "domain": "ai_research",
+  "task_question": "Does in-context learning in transformers implement genuine learning algorithms (e.g., gradient descent in forward pass), or is it sophisticated pattern matching from pretraining?",
+  "evidence_count": 5,
+  "evidence_items": [
+    {
+      "item_id": "ai_04_e1",
+      "content": "Aky\u00fcrek et al. (2023) provide evidence that transformers trained on linear regression tasks implement an algorithm equivalent to one step of gradient descent in their forward pass.",
+      "source": "Aky\u00fcrek et al., ICLR 2023",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "implicit_learning"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_04_e2",
+      "content": "von Oswald et al. (2023) construct transformers that provably implement gradient descent on in-context examples, showing this is mechanistically possible.",
+      "source": "von Oswald et al., ICML 2023",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "implicit_learning"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_04_e3",
+      "content": "Chan et al. (2022) show that in-context learning only emerges when pretraining data has 'bursty' distributions (many examples of few concepts), suggesting it leverages pretraining structure.",
+      "source": "Chan et al., NeurIPS 2022",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "pretraining_dependent"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_04_e4",
+      "content": "Olsson et al. (2022) identify 'induction heads' \u2014 specific attention patterns that implement in-context copying and are necessary for in-context learning.",
+      "source": "Olsson et al., 2022",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "decisive",
+      "supports_claims": [
+        "mechanism_identified"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_04_e5",
+      "content": "Blog claims 'Transformers literally learn like humans during inference' \u2014 overstatement of the gradient descent analogy.",
+      "source": "AI blog post",
+      "source_type": "news",
+      "reliability": 0.15,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "implicit_learning",
+      "pretraining_dependent"
+    ],
+    "best_hypothesis": "implicit_learning",
+    "verdict": "SUPPORTED",
+    "support_relations": {
+      "implicit_learning": [
+        "ai_04_e1",
+        "ai_04_e2"
+      ],
+      "pretraining_dependent": [
+        "ai_04_e3"
+      ],
+      "mechanism_identified": [
+        "ai_04_e4"
+      ]
+    },
+    "contradiction_relations": {},
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Synthetic task findings transfer to natural language ICL"
+    ],
+    "decisive_evidence": [
+      "ai_04_e4"
+    ],
+    "known_ambiguity": [
+      "Whether the mechanism is the same for regression tasks and natural language"
+    ]
+  }
+}

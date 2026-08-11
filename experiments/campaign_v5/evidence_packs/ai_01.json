@@ -1,0 +1,136 @@
+{
+  "pack_id": "ai_01",
+  "domain": "ai_research",
+  "task_question": "Do large language models exhibit genuine emergent abilities at scale, or are apparent emergent transitions artifacts of evaluation methodology?",
+  "evidence_count": 6,
+  "evidence_items": [
+    {
+      "item_id": "ai_01_e1",
+      "content": "Wei et al. (2022) document abilities (arithmetic, word unscrambling, multi-step reasoning) that appear absent below a threshold model size and suddenly emerge above it, across multiple model families.",
+      "source": "Wei et al., TMLR 2022",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "genuine_emergence"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_01_e2",
+      "content": "Schaeffer, Miranda & Koyejo (2024) demonstrate that all claimed emergent abilities can be explained by nonlinear or discontinuous evaluation metrics. Using linear metrics (e.g., edit distance), performance improves smoothly with scale.",
+      "source": "Schaeffer et al., NeurIPS 2024",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "contradictory",
+      "supports_claims": [
+        "metric_artifact"
+      ],
+      "contradicts_claims": [
+        "genuine_emergence"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_01_e3",
+      "content": "Lu et al. (2024) show that for some tasks, performance genuinely transitions from near-random to near-perfect within a narrow range of model sizes, even with continuous metrics, but only for tasks requiring compositional generalization.",
+      "source": "Lu et al., ICLR 2024",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "decisive",
+      "supports_claims": [
+        "partial_emergence"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_01_e4",
+      "content": "Blog post claims 'AGI will emerge at 10T parameters' based on extrapolation of the Wei et al. findings.",
+      "source": "AI hype blog",
+      "source_type": "news",
+      "reliability": 0.1,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_01_e5",
+      "content": "Kaplan et al. (2020) show smooth power-law scaling of cross-entropy loss with model size, data, and compute, suggesting underlying capability growth is continuous.",
+      "source": "Kaplan et al., OpenAI scaling laws",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "supporting",
+      "supports_claims": [
+        "smooth_scaling"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_01_e6",
+      "content": "A tech news article repeats claims from the Wei et al. paper without mentioning the Schaeffer rebuttal.",
+      "source": "Tech journalism, 2023",
+      "source_type": "news",
+      "reliability": 0.3,
+      "role": "dependent",
+      "supports_claims": [
+        "genuine_emergence"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": "Wei et al., TMLR 2022",
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "metric_artifact",
+      "partial_emergence"
+    ],
+    "best_hypothesis": "partial_emergence",
+    "verdict": "MIXED",
+    "support_relations": {
+      "genuine_emergence": [
+        "ai_01_e1",
+        "ai_01_e6"
+      ],
+      "metric_artifact": [
+        "ai_01_e2"
+      ],
+      "partial_emergence": [
+        "ai_01_e3"
+      ],
+      "smooth_scaling": [
+        "ai_01_e5"
+      ]
+    },
+    "contradiction_relations": {
+      "genuine_emergence": [
+        "ai_01_e2"
+      ]
+    },
+    "source_dependencies": [
+      [
+        "ai_01_e6",
+        "ai_01_e1"
+      ]
+    ],
+    "critical_assumptions": [
+      "Evaluation metric choice does not constitute the phenomenon"
+    ],
+    "decisive_evidence": [
+      "ai_01_e2",
+      "ai_01_e3"
+    ],
+    "known_ambiguity": [
+      "Whether metric sensitivity invalidates the emergent framing entirely"
+    ]
+  }
+}

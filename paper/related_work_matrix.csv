@@ -1,0 +1,15 @@
+Work,Adaptive Compute,Retrieval Decision,Primitive Op Value,Sequence Value,Counterfactual Same-State,Temporal Complementarity,Heterogeneous Epistemic Ops
+"Self-RAG (Asai et al., 2024)",Partial,Yes,No,No,No,No,No
+"FLARE (Jiang et al., 2023)",No,Yes,No,No,No,No,No
+"Tree of Thoughts (Yao et al., 2024)",Yes,No,Partial,Partial,No,No,No
+"Graph of Thoughts (Besta et al., 2024)",Yes,No,No,Partial,No,No,No
+"Reflexion (Shinn et al., 2023)",Yes,No,No,Partial,No,No,Partial
+"LATS (Zhou et al., 2024)",Yes,No,No,Yes,No,No,No
+"Self-Refine (Madaan et al., 2023)",Partial,No,No,No,No,No,Partial
+"Toolformer (Schick et al., 2023)",Partial,No,Partial,No,No,No,Yes
+"ART (Paranjape et al., 2023)",Partial,No,Partial,No,No,No,Yes
+"PRM (Lightman et al., 2024)",No,No,Yes,No,No,No,No
+"Math-Shepherd (Wang et al., 2024)",No,No,Yes,No,No,No,No
+"Options Framework (Sutton et al., 1999)",Yes,No,No,Yes,No,No,No
+"ACT (Graves, 2016)",Yes,No,No,No,No,No,No
+"This work",Yes,Yes,Yes,Yes,Yes,Yes,Yes

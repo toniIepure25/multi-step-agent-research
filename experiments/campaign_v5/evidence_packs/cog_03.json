@@ -1,0 +1,128 @@
+{
+  "pack_id": "cog_03",
+  "domain": "cognitive_science",
+  "task_question": "Is working memory capacity fixed at approximately 4 items (Cowan's limit), or is it resource-based and continuously variable?",
+  "evidence_count": 6,
+  "evidence_items": [
+    {
+      "item_id": "cog_03_e1",
+      "content": "Cowan (2001) meta-analysis of change detection, running span, and visual array tasks converges on a limit of 3-5 items across modalities and age groups.",
+      "source": "Cowan, Behavioral and Brain Sciences",
+      "source_type": "review",
+      "reliability": 0.9,
+      "role": "supporting",
+      "supports_claims": [
+        "fixed_slots"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_03_e2",
+      "content": "Ma, Husain & Bays (2014) show that recall precision decreases continuously with set size in a manner inconsistent with discrete slots but well-fit by a shared resource model.",
+      "source": "Ma et al., Nature Neuroscience",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "contradictory",
+      "supports_claims": [
+        "continuous_resource"
+      ],
+      "contradicts_claims": [
+        "fixed_slots"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_03_e3",
+      "content": "Zhang & Luck (2008) find mixture-model evidence: responses are either precise or random guesses, consistent with discrete slots rather than graded resource.",
+      "source": "Zhang & Luck, Nature",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "fixed_slots"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_03_e4",
+      "content": "van den Berg et al. (2012) show that a variable-precision model (neither pure slots nor pure resource) fits data better than both fixed-slot and continuous-resource models.",
+      "source": "van den Berg et al., Psychological Review",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "decisive",
+      "supports_claims": [
+        "hybrid_model"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_03_e5",
+      "content": "Textbook states 'Miller's magic number 7\u00b12 defines working memory capacity', conflating chunk capacity with item capacity.",
+      "source": "Introductory Psychology textbook",
+      "source_type": "secondary",
+      "reliability": 0.3,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": "outdated Miller 1956 interpretation",
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_03_e6",
+      "content": "Neural recording in macaque PFC shows discrete attractor states corresponding to remembered items, supporting a slot-like mechanism (Lundqvist et al., 2016).",
+      "source": "Lundqvist et al., Neuron",
+      "source_type": "primary",
+      "reliability": 0.8,
+      "role": "supporting",
+      "supports_claims": [
+        "fixed_slots"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "hybrid_model",
+      "continuous_resource"
+    ],
+    "best_hypothesis": "hybrid_model",
+    "verdict": "MIXED",
+    "support_relations": {
+      "fixed_slots": [
+        "cog_03_e1",
+        "cog_03_e3",
+        "cog_03_e6"
+      ],
+      "continuous_resource": [
+        "cog_03_e2"
+      ],
+      "hybrid_model": [
+        "cog_03_e4"
+      ]
+    },
+    "contradiction_relations": {
+      "fixed_slots": [
+        "cog_03_e2"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Visual WM paradigms generalize to verbal/spatial WM"
+    ],
+    "decisive_evidence": [
+      "cog_03_e4"
+    ],
+    "known_ambiguity": [
+      "Whether 'variable precision' is slots with noise or resource with discretization"
+    ]
+  }
+}

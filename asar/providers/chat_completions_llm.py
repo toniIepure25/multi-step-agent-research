@@ -29,11 +29,13 @@ class ChatCompletionsLLMClient:
         api_key: str | None = None,
         base_url: str | None = None,
         timeout: float = 120.0,
+        default_headers: dict[str, str] | None = None,
     ) -> None:
         resolved_key = api_key or os.environ.get("OPENAI_API_KEY", "local")
         resolved_url = base_url or os.environ.get(
             "ASAR_OPENAI_BASE_URL", "http://localhost:11434/v1",
         )
+        headers = default_headers or {"User-Agent": "ASAR-REE/1.0"}
 
         try:
             from openai import AsyncOpenAI
@@ -46,6 +48,7 @@ class ChatCompletionsLLMClient:
             api_key=resolved_key,
             base_url=resolved_url,
             timeout=timeout,
+            default_headers=headers,
         )
 
     async def generate(self, request: LLMGenerationRequest) -> LLMGenerationResponse:

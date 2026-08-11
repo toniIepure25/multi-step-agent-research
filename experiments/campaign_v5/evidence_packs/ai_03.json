@@ -1,0 +1,116 @@
+{
+  "pack_id": "ai_03",
+  "domain": "ai_research",
+  "task_question": "Does RLHF (Reinforcement Learning from Human Feedback) produce genuinely aligned models, or does it primarily teach surface compliance that breaks under distribution shift?",
+  "evidence_count": 5,
+  "evidence_items": [
+    {
+      "item_id": "ai_03_e1",
+      "content": "Ouyang et al. (2022) show InstructGPT with RLHF significantly improves helpfulness and safety ratings compared to base GPT-3, with human evaluators preferring RLHF outputs 85% of the time.",
+      "source": "Ouyang et al., NeurIPS 2022",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "supporting",
+      "supports_claims": [
+        "genuine_alignment"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_03_e2",
+      "content": "Casper et al. (2023) catalog fundamental limitations of RLHF including reward hacking, distributional shift vulnerability, and inability to express complex value structures.",
+      "source": "Casper et al., TMLR 2023",
+      "source_type": "review",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [
+        "surface_compliance"
+      ],
+      "contradicts_claims": [
+        "genuine_alignment"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_03_e3",
+      "content": "Wolf et al. (2024) demonstrate that jailbreaking RLHF-aligned models is trivially easy with adversarial suffixes, suggesting alignment is a shallow pattern match.",
+      "source": "Wolf et al., 2024",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "decisive",
+      "supports_claims": [
+        "surface_compliance"
+      ],
+      "contradicts_claims": [
+        "genuine_alignment"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_03_e4",
+      "content": "Bai et al. (2022) find that RLHF models trained with Constitutional AI show improved robustness to adversarial attacks compared to standard RLHF.",
+      "source": "Bai et al., 2022",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "improvable_alignment"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_03_e5",
+      "content": "Reddit user claims 'RLHF is just censorship' based on a single refused request.",
+      "source": "Reddit comment",
+      "source_type": "news",
+      "reliability": 0.05,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "surface_compliance",
+      "improvable_alignment"
+    ],
+    "best_hypothesis": "surface_compliance",
+    "verdict": "MIXED",
+    "support_relations": {
+      "genuine_alignment": [
+        "ai_03_e1"
+      ],
+      "surface_compliance": [
+        "ai_03_e2",
+        "ai_03_e3"
+      ],
+      "improvable_alignment": [
+        "ai_03_e4"
+      ]
+    },
+    "contradiction_relations": {
+      "genuine_alignment": [
+        "ai_03_e2",
+        "ai_03_e3"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Human preference ratings measure alignment"
+    ],
+    "decisive_evidence": [
+      "ai_03_e3"
+    ],
+    "known_ambiguity": [
+      "Whether any training method can produce deep alignment"
+    ]
+  }
+}

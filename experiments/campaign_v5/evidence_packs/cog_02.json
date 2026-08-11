@@ -1,0 +1,131 @@
+{
+  "pack_id": "cog_02",
+  "domain": "cognitive_science",
+  "task_question": "Does abstract mathematical reasoning require embodied/sensorimotor grounding, or can it operate independently of perceptual systems?",
+  "evidence_count": 6,
+  "evidence_items": [
+    {
+      "item_id": "cog_02_e1",
+      "content": "Lakoff & N\u00fa\u00f1ez (2000) argue all mathematical concepts derive from embodied metaphors (e.g., numbers as positions along a path). Cross-linguistic evidence shows spatial metaphors for arithmetic in all studied languages.",
+      "source": "Lakoff & N\u00fa\u00f1ez, Where Mathematics Comes From",
+      "source_type": "primary",
+      "reliability": 0.7,
+      "role": "supporting",
+      "supports_claims": [
+        "embodied_math"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_02_e2",
+      "content": "Congenitally blind mathematicians perform equivalently to sighted peers on abstract algebra tasks, with fMRI showing activation in visual cortex repurposed for mathematical reasoning (Kanjlia et al., 2016).",
+      "source": "Kanjlia et al., PNAS",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "contradictory",
+      "supports_claims": [
+        "abstract_independent"
+      ],
+      "contradicts_claims": [
+        "embodied_math"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_02_e3",
+      "content": "Motor cortex TMS disruption impairs numerical magnitude comparison but not symbolic arithmetic, suggesting grounding is operation-specific (Sato et al., 2007).",
+      "source": "Sato et al., Neuropsychologia",
+      "source_type": "primary",
+      "reliability": 0.8,
+      "role": "decisive",
+      "supports_claims": [
+        "partial_grounding"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_02_e4",
+      "content": "Review of 47 behavioral studies finds spatial-numerical associations (SNARC effect) are robust but culturally variable and dissociable from mathematical competence (Wood et al., 2008).",
+      "source": "Wood et al., Cognition",
+      "source_type": "review",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "partial_grounding"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_02_e5",
+      "content": "Blog post claims 'Math is just body movements' based on misreading of Lakoff.",
+      "source": "Popular science blog",
+      "source_type": "news",
+      "reliability": 0.15,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_02_e6",
+      "content": "Large language models perform graduate-level mathematics without any sensorimotor experience, challenging strong embodiment claims (Trinh et al., 2024).",
+      "source": "Trinh et al., Nature",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [
+        "abstract_independent"
+      ],
+      "contradicts_claims": [
+        "embodied_math"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "partial_grounding",
+      "abstract_independent"
+    ],
+    "best_hypothesis": "partial_grounding",
+    "verdict": "MIXED",
+    "support_relations": {
+      "embodied_math": [
+        "cog_02_e1"
+      ],
+      "partial_grounding": [
+        "cog_02_e3",
+        "cog_02_e4"
+      ],
+      "abstract_independent": [
+        "cog_02_e2",
+        "cog_02_e6"
+      ]
+    },
+    "contradiction_relations": {
+      "embodied_math": [
+        "cog_02_e2",
+        "cog_02_e6"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Spatial metaphors imply causal grounding"
+    ],
+    "decisive_evidence": [
+      "cog_02_e3"
+    ],
+    "known_ambiguity": [
+      "Whether LLM math counts as evidence about human cognition"
+    ]
+  }
+}

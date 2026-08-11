@@ -1,0 +1,75 @@
+{
+  "model": "gemma3:27b-it-qat",
+  "n_packs": 14,
+  "conditions": {
+    "direct": {
+      "mean": 0.6956,
+      "std": 0.0583,
+      "n": 14
+    },
+    "reflection": {
+      "mean": 0.6956,
+      "std": 0.0583,
+      "n": 14
+    },
+    "B1_extended": {
+      "mean": 0.6911,
+      "std": 0.1116,
+      "n": 14
+    },
+    "FULL_EXPLORE": {
+      "mean": 0.6875,
+      "std": 0.1121,
+      "n": 14
+    },
+    "greedy_primitive": {
+      "mean": 0.7179,
+      "std": 0.0741,
+      "n": 14
+    }
+  },
+  "domains": {
+    "cognitive_science": {
+      "direct": 0.735,
+      "reflection": 0.735,
+      "B1_extended": 0.685,
+      "FULL_EXPLORE": 0.675,
+      "greedy_primitive": 0.7676
+    },
+    "ai_research": {
+      "direct": 0.66,
+      "reflection": 0.66,
+      "B1_extended": 0.69,
+      "FULL_EXPLORE": 0.7,
+      "greedy_primitive": 0.69
+    },
+    "biomedical": {
+      "direct": 0.7,
+      "reflection": 0.7,
+      "B1_extended": 0.7,
+      "FULL_EXPLORE": 0.7,
+      "greedy_primitive": 0.7
+    },
+    "economics": {
+      "direct": 0.7,
+      "reflection": 0.7,
+      "B1_extended": 0.7,
+      "FULL_EXPLORE": 0.7,
+      "greedy_primitive": 0.7
+    },
+    "history_of_science": {
+      "direct": 0.663,
+      "reflection": 0.663,
+      "B1_extended": 0.7,
+      "FULL_EXPLORE": 0.65,
+      "greedy_primitive": 0.663
+    },
+    "social_science": {
+      "direct": 0.7,
+      "reflection": 0.7,
+      "B1_extended": 0.7,
+      "FULL_EXPLORE": 0.7,
+      "greedy_primitive": 0.7
+    }
+  }
+}

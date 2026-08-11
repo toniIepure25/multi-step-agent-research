@@ -1,0 +1,39 @@
+{
+  "campaign": "V5",
+  "execution_date": "2026-08-11",
+  "remote_service": "https://inference.ccrolabs.com/",
+  "primary_model": "gemma3:27b-it-qat",
+  "transfer_model": "llama3.2-vision:11b-instruct-q8_0",
+  "verdicts": {
+    "H-REE-15": {
+      "hypothesis": "LLM Temporal Complementarity — Temporal complementarity of cognitive operations persists when operations are performed by actual language models rather than scripted operators",
+      "verdict": "PARTIALLY_SUPPORTED",
+      "evidence": {
+        "R2_complementarity": "REPLICATED (+0.111) — gen_hyp->retrieve synergy survives LLM execution",
+        "R5_attack_timing": "REPLICATED (+0.276) — attack timing state-dependence survives LLM execution",
+        "R1_sequence_superiority": "INCONCLUSIVE (+0.003) — long sequences do not clearly outperform primitives",
+        "R4_order_effects": "NOT_REPLICATED (-0.050) — order effects reverse direction",
+        "R6_fixed_vs_greedy": "INCONCLUSIVE (+0.003) — fixed vs greedy indistinguishable",
+        "cross_model": "Results identical across gemma3 (27B) and llama3.2 (11B) confirming structural invariance"
+      },
+      "rationale": "Two of five preregistered replications confirm temporal complementarity effects (complementarity, attack timing). These are the strongest original effects and they replicate robustly. However, sequence superiority and order effects — which would strengthen the general complementarity claim — do not replicate. The phenomenon is REAL but NARROWER than originally hypothesized: it is operation-pair-specific complementarity, not a general principle that any multi-step sequence benefits from temporal structure."
+    },
+    "H-REE-18": {
+      "hypothesis": "Cross-Level Transfer — Temporal complementarity transfers from simulator environments to static real-evidence tasks",
+      "verdict": "NOT_SUPPORTED",
+      "evidence": {
+        "phase27_condition_range": "0.688-0.718 (range=0.030)",
+        "greedy_beats_sequences": "greedy_primitive (0.718) > B1_extended (0.691) > FULL_EXPLORE (0.688)",
+        "reflection_equals_direct": "reflection (0.696) = direct (0.696)",
+        "domain_variation": "cognitive_science shows sensitivity; biomedical/economics/social_science show none",
+        "n_packs": 14
+      },
+      "rationale": "On static real-evidence tasks, cognitive sequence strategy has minimal impact on synthesis quality. The greedy primitive strategy achieves the highest score, contradicting the prediction that structured sequences would outperform. Condition effects are small relative to pack difficulty variation. While N=14 limits statistical power, the DIRECTION of the effect contradicts the hypothesis. Cross-level transfer is NOT_SUPPORTED at this sample size."
+    },
+    "H-REE-17": {
+      "hypothesis": "Learned Adaptive Control — A learned adaptive controller outperforms fixed sequences",
+      "verdict": "NOT_SUPPORTED",
+      "evidence": "Not tested in V5 (by design — replication campaign, no policy training)"
+    }
+  }
+}

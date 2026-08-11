@@ -1,0 +1,148 @@
+{
+  "adaptive_test_time_compute": {
+    "description": "Methods that allocate more compute to harder inputs",
+    "key_works": [
+      "Adaptive Computation Time (Graves, 2016)",
+      "AdapTime (2024) \u2014 variable inference steps",
+      "PonderNet (Banino et al., 2021)",
+      "Scaling LLM Test-Time Compute (Snell et al., 2024)"
+    ],
+    "similarity": "MECHANISM_OVERLAP",
+    "distinction": "ASAR measures quality of heterogeneous cognitive operations, not homogeneous compute steps. Test-time compute scales amount; ASAR studies composition and ordering of qualitatively different operations.",
+    "shared": "Both consider state-dependent resource allocation",
+    "unique_to_asar": "Counterfactual measurement of operation-type value; temporal complementarity between operation types"
+  },
+  "adaptive_retrieval": {
+    "description": "Systems that decide when and what to retrieve",
+    "key_works": [
+      "Self-RAG (Asai et al., 2024)",
+      "FLARE (Jiang et al., 2023)",
+      "ReaLM-Retrieve (2024)",
+      "Adaptive-RAG (Jeong et al., 2024)"
+    ],
+    "similarity": "CLOSE_CONCEPTUAL_PRIOR_ART",
+    "distinction": "Adaptive retrieval is one of several cognitive operations in ASAR. ASAR studies the interaction between retrieval and non-retrieval operations (hypothesis generation, reasoning, attack). Retrieval alone is a component, not the research object.",
+    "shared": "State-dependent retrieval decisions",
+    "unique_to_asar": "Multi-operation composition; complementarity between retrieval and other cognitive types"
+  },
+  "process_reward_models": {
+    "description": "Models that score intermediate reasoning steps",
+    "key_works": [
+      "Lightman et al. (2024) \u2014 step-level reward in math",
+      "Wang et al. (2024) \u2014 Math-Shepherd",
+      "ORM vs PRM comparisons"
+    ],
+    "similarity": "EVALUATION_OVERLAP",
+    "distinction": "PRMs evaluate steps within a homogeneous reasoning chain. ASAR evaluates heterogeneous cognitive operations (retrieve, hypothesize, attack, reason) and their interactions. PRMs score quality; ASAR measures downstream epistemic gain.",
+    "shared": "Step-level evaluation during multi-step reasoning",
+    "unique_to_asar": "Operations differ in kind, not just quality; complementarity/interference between operations"
+  },
+  "reasoning_trajectory_evaluation": {
+    "description": "Evaluating and selecting among reasoning paths",
+    "key_works": [
+      "Tree of Thoughts (Yao et al., 2024)",
+      "Graph of Thoughts (Besta et al., 2024)",
+      "Beam Search for Reasoning"
+    ],
+    "similarity": "MECHANISM_OVERLAP",
+    "distinction": "ToT/GoT branch within a single operation type (reasoning). ASAR composes across operation types. The search space is qualitatively different: operation-type sequences vs reasoning-step trees.",
+    "shared": "Multi-path evaluation, search over cognitive strategies",
+    "unique_to_asar": "Heterogeneous operations; temporal complementarity measurement"
+  },
+  "hierarchical_llm_planning": {
+    "description": "Hierarchical task decomposition and planning",
+    "key_works": [
+      "AdaPlan-H (2024) \u2014 hierarchical adaptive planning",
+      "HuggingGPT (Shen et al., 2023)",
+      "Voyager (Wang et al., 2023)"
+    ],
+    "similarity": "MECHANISM_OVERLAP",
+    "distinction": "Hierarchical planning selects sub-tasks. ASAR measures the value of cognitive operation sequences independently of hierarchical decomposition. The benchmark measures operation-level effects, not task-level planning.",
+    "shared": "Multi-level decision making about cognitive strategies",
+    "unique_to_asar": "Controlled counterfactual measurement; operation-type complementarity"
+  },
+  "agent_planning_search_decoupling": {
+    "description": "Separating planning from execution in agents",
+    "key_works": [
+      "DecoupleSearch (2024)",
+      "Reflexion (Shinn et al., 2023)",
+      "LATS (Zhou et al., 2024)"
+    ],
+    "similarity": "CLOSE_CONCEPTUAL_PRIOR_ART",
+    "distinction": "These decouple planning from execution. ASAR decouples generation from verification (invariant 4) and studies the value of different operation orderings. The benchmark measures why certain orderings outperform others.",
+    "shared": "Generation != verification principle",
+    "unique_to_asar": "Systematic complementarity measurement; controlled epistemic environment"
+  },
+  "learned_skills_options": {
+    "description": "Option/skill frameworks in RL and agents",
+    "key_works": [
+      "Options Framework (Sutton et al., 1999)",
+      "Skill discovery in RL",
+      "TACO (Shiarlis et al., 2018)"
+    ],
+    "similarity": "MECHANISM_OVERLAP",
+    "distinction": "Options/skills are learned from reward. ASAR cognitive motifs are empirically derived from sequence analysis. The research question is whether motif composition is valuable, not whether motifs can be learned.",
+    "shared": "Temporal abstraction of primitive actions into reusable sequences",
+    "unique_to_asar": "Epistemic (rather than reward-based) evaluation; counterfactual measurement of motif value"
+  },
+  "reasoning_strategy_routing": {
+    "description": "Routing inputs to different reasoning strategies",
+    "key_works": [
+      "Mixture of Experts for reasoning",
+      "RouteLLM (Ong et al., 2024)",
+      "LLM routing/cascading systems"
+    ],
+    "similarity": "EVALUATION_OVERLAP",
+    "distinction": "Strategy routing selects a strategy at input time. ASAR studies sequential composition of operations within a single task. The temporal dimension (what comes after what) is the key research object.",
+    "shared": "Adaptive strategy selection",
+    "unique_to_asar": "Sequential composition; temporal complementarity; order effects"
+  },
+  "long_horizon_search_agents": {
+    "description": "Agents performing extended multi-step search",
+    "key_works": [
+      "WebArena (Zhou et al., 2024)",
+      "WebAnchor (2024)",
+      "SWE-Agent (Yang et al., 2024)"
+    ],
+    "similarity": "EVALUATION_OVERLAP",
+    "distinction": "These are applied agent systems. ASAR provides a controlled benchmark for understanding why certain cognitive sequences work. The distinction is scientific instrument vs. engineering system.",
+    "shared": "Multi-step agent decision-making",
+    "unique_to_asar": "Controlled epistemic environment with ground truth; mechanism measurement"
+  },
+  "metacognitive_agents": {
+    "description": "Agents with explicit self-monitoring and strategy adjustment",
+    "key_works": [
+      "Metacognitive Prompting (Wang et al., 2024)",
+      "Self-Refine (Madaan et al., 2023)",
+      "Meta-cognitive LLM agents"
+    ],
+    "similarity": "CLOSE_CONCEPTUAL_PRIOR_ART",
+    "distinction": "Metacognitive agents add self-reflection loops. ASAR asks whether metacognitive control (adaptive operation selection) actually helps, and found it currently does NOT outperform fixed sequences. This negative result is itself a contribution.",
+    "shared": "Self-monitoring and strategy adjustment",
+    "unique_to_asar": "Quantified failure of adaptive metacognitive control; adaptivity gap measurement"
+  },
+  "dynamic_reasoning_graphs": {
+    "description": "Dynamic construction of reasoning structures",
+    "key_works": [
+      "Dynamic reasoning graphs (various 2024)",
+      "Entailer (Tafjord et al., 2022)",
+      "Reasoning graph construction"
+    ],
+    "similarity": "MECHANISM_OVERLAP",
+    "distinction": "Dynamic graphs construct reasoning structures. ASAR measures the value of the construction process itself \u2014 which operations to use and in what order. The graph is an artifact; the construction sequence is the research object.",
+    "shared": "Structured multi-step reasoning",
+    "unique_to_asar": "Process-level measurement; temporal complementarity of construction operations"
+  },
+  "tool_use_scheduling": {
+    "description": "Scheduling tool calls in LLM agents",
+    "key_works": [
+      "Toolformer (Schick et al., 2023)",
+      "Tool scheduling in agents",
+      "ART (Paranjape et al., 2023)"
+    ],
+    "similarity": "CLOSE_CONCEPTUAL_PRIOR_ART",
+    "distinction": "Tool scheduling decides when to call external tools. ASAR's cognitive operations are analogous to tool types, but the benchmark measures the epistemic value of operation sequences, not tool call efficiency. The operations differ in cognitive kind, not just API endpoint.",
+    "shared": "Sequential tool/operation selection",
+    "unique_to_asar": "Epistemic quality measurement; temporal complementarity between operation types"
+  }
+}

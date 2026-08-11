@@ -1,0 +1,25 @@
+{
+  "similarity_distribution": {
+    "MECHANISM_OVERLAP": 5,
+    "CLOSE_CONCEPTUAL_PRIOR_ART": 4,
+    "EVALUATION_OVERLAP": 3
+  },
+  "unique_contributions": [
+    "Controlled counterfactual benchmark for cognitive operation sequences",
+    "Temporal complementarity measurement between heterogeneous operations",
+    "Quantified adaptivity gap (oracle vs best fixed)",
+    "Documented failure of adaptive metacognitive control despite adaptivity gap",
+    "Order effect measurement for cognitive operation types",
+    "Epistemic regime-specific optimal sequence identification",
+    "Operation-type interference and synergy quantification",
+    "Attack timing state-dependence discovery"
+  ],
+  "overlapping_concepts": [
+    "State-dependent operation/strategy selection",
+    "Multi-step reasoning evaluation",
+    "Temporal abstraction of actions",
+    "Search over cognitive strategies"
+  ],
+  "novelty_assessment": "DISTINCT_CONTRIBUTION",
+  "rationale": "No existing work provides a controlled counterfactual benchmark for measuring the downstream epistemic value of composing qualitatively different cognitive operations. The closest neighbors (adaptive retrieval, process reward models, metacognitive agents) each address a subset of the ASAR research question. The key distinction is that ASAR studies the interaction structure between operation types, not just individual operation quality or scheduling. The negative adaptive control result (policy quality 0.323 vs fixed 0.518 despite oracle 0.588) is itself a novel finding with no direct prior art."
+}

@@ -1,0 +1,111 @@
+{
+  "pack_id": "cog_04",
+  "domain": "cognitive_science",
+  "task_question": "Is the brain primarily a prediction engine that minimizes prediction error (predictive processing), and does this framework explain perception, action, and cognition?",
+  "evidence_count": 5,
+  "evidence_items": [
+    {
+      "item_id": "cog_04_e1",
+      "content": "Clark (2013) synthesizes evidence from perception, motor control, and attention showing hierarchical predictive coding can unify these domains. Mismatch negativity (MMN) directly measures prediction error.",
+      "source": "Clark, Behavioral and Brain Sciences",
+      "source_type": "review",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "predictive_processing"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_04_e2",
+      "content": "Keller & Mrsic-Flogel (2018) show that visual cortex neurons in mice carry prediction-error signals that update with learning, providing cellular-level evidence for predictive coding.",
+      "source": "Keller & Mrsic-Flogel, Neuron",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "supporting",
+      "supports_claims": [
+        "predictive_processing"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_04_e3",
+      "content": "Bowers & Davis (2012) argue that predictive coding models are unfalsifiable because any neural response can be reinterpreted as either a prediction or a prediction error.",
+      "source": "Bowers & Davis, Psychological Review",
+      "source_type": "primary",
+      "reliability": 0.8,
+      "role": "contradictory",
+      "supports_claims": [],
+      "contradicts_claims": [
+        "predictive_processing"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_04_e4",
+      "content": "Walsh et al. (2020) demonstrate that predictive processing cannot account for creative imagination or counterfactual reasoning without additional generative mechanisms not included in the standard framework.",
+      "source": "Walsh et al., Cognitive Science",
+      "source_type": "primary",
+      "reliability": 0.75,
+      "role": "weak",
+      "supports_claims": [],
+      "contradicts_claims": [
+        "predictive_processing_universal"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_04_e5",
+      "content": "Rao & Ballard (1999) computational model replicates V1 receptive field properties using hierarchical predictive coding, establishing computational plausibility.",
+      "source": "Rao & Ballard, Nature Neuroscience",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "supporting",
+      "supports_claims": [
+        "predictive_processing"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "predictive_processing",
+      "predictive_processing_limited"
+    ],
+    "best_hypothesis": "predictive_processing_limited",
+    "verdict": "SUPPORTED",
+    "support_relations": {
+      "predictive_processing": [
+        "cog_04_e1",
+        "cog_04_e2",
+        "cog_04_e5"
+      ]
+    },
+    "contradiction_relations": {
+      "predictive_processing": [
+        "cog_04_e3"
+      ],
+      "predictive_processing_universal": [
+        "cog_04_e4"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Prediction error signals in neurons = predictive coding architecture"
+    ],
+    "decisive_evidence": [
+      "cog_04_e2"
+    ],
+    "known_ambiguity": [
+      "Whether predictive processing is a complete theory or a useful framework"
+    ]
+  }
+}

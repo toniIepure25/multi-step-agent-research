@@ -1,0 +1,29 @@
+{
+  "status": "PROTOCOL_READY",
+  "packs_generated": 30,
+  "domains": [
+    "ai_research",
+    "social_science",
+    "biomedical",
+    "history_of_science",
+    "cognitive_science",
+    "economics"
+  ],
+  "conditions": [
+    "direct",
+    "reflection",
+    "B1_extended",
+    "FULL_EXPLORE",
+    "greedy_primitive"
+  ],
+  "metrics": [
+    "claim_correctness",
+    "evidence_support",
+    "decisive_coverage",
+    "contradiction_handling",
+    "calibration",
+    "source_independence"
+  ],
+  "model_required": true,
+  "model_available": false
+}

@@ -33,6 +33,7 @@ All REE phases (0-9) and scientific validation (10-24) are **completed**.
 | 14-16 | Campaign V2 (semantic benchmark, causal ablation) | completed |
 | 17-20 | Campaign V3 (temporal complementarity, motifs) | completed |
 | 21-24 | Campaign V4 (adaptive necessity, LLM protocol, policy, paper) | completed |
+| 25-28 | Campaign V5 (LLM transfer, real-evidence, prior art, paper) | **COMPLETE** |
 
 ## Campaign Summary
 
@@ -45,9 +46,16 @@ Semantic benchmark. B1 (0.594) > Full REE (0.356). Hypothesis ecology d~1.4.
 ### Campaign V3 (SHA: cd91d54) — Frozen
 Temporal complementarity. B1_extended (0.672) = best. gen_hyp+reason = +0.228.
 
-### Campaign V4 (Current)
+### Campaign V4 (SHA: 2f63cf9) — Frozen
 Adaptive necessity established (gap=0.096). Motif policy NOT SUPPORTED.
 Controlled paper JUSTIFIED. LLM-in-loop UNTESTED.
+
+### Campaign V5 (COMPLETE)
+LLM transfer and real-evidence validation via remote Mac Studio (`inference.ccrolabs.com`).
+Models: gemma3:27b-it-qat (primary), llama3.2-vision:11b-instruct-q8_0 (transfer).
+Phase 25: Both models VALID_EXPERIMENTAL_SUBSTRATE. Phase 26: R2 complementarity REPLICATED (+0.111), R5 attack timing REPLICATED (+0.276). Phase 27: greedy_primitive (0.718) outperforms sequences on real evidence.
+H-REE-15: PARTIALLY_SUPPORTED. H-REE-18: NOT_SUPPORTED.
+Paper decision: CONTROLLED_MECHANISM / LLM PAPER (Level 2 evidence for complementarity/attack timing).
 
 ## Headline Findings Across All Campaigns
 
@@ -62,7 +70,10 @@ Controlled paper JUSTIFIED. LLM-in-loop UNTESTED.
 | Order effects exist but modest | V3-V4 | Moderate |
 | Adaptivity gap = 0.096 | V4 | Moderate |
 | Motif policy fails | V4 | Negative, important |
-| LLM effects untested | — | Critical gap |
+| LLM complementarity replicates | V5 | Strong (model-invariant) |
+| LLM attack timing replicates | V5 | Strong (+0.276) |
+| Real-evidence sequence effects weak | V5 | Negative, important |
+| Reflection adds no value | V5 | Negative |
 
 ## Hypothesis Verdicts (Final)
 
@@ -77,12 +88,14 @@ Controlled paper JUSTIFIED. LLM-in-loop UNTESTED.
 | H-REE-14: Adaptive necessity | **SUPPORTED** |
 | H-REE-16: Sequence > primitive | **PARTIALLY_SUPPORTED** |
 | H-REE-17: Adaptive motif control | NOT_SUPPORTED |
-| H-REE-15, 18: LLM transfer | UNTESTED |
+| H-REE-15: LLM complementarity | **PARTIALLY_SUPPORTED** |
+| H-REE-18: Cross-level transfer | NOT_SUPPORTED |
 
 ## Next Steps (Future Work)
 
-1. **LLM-in-the-loop validation** — Run cognitive operations with actual LLM (ChatCompletionsLLMClient is built). Test whether temporal complementarity survives.
-2. **Nonlinear motif selector** — Test tree/neural models for motif prediction. Current transparent rules fail.
-3. **Richer state features** — Information-theoretic features, uncertainty estimates, evidence graph statistics.
-4. **External validation** — Static evidence packs and live research with blinded architecture IDs.
-5. **Paper preparation** — Controlled-mechanism paper on epistemic sequence benchmark is justified.
+1. **Paper writing** — Controlled-mechanism / LLM paper is justified (Level 2 evidence for complementarity/attack timing). Frame around operation-pair-specific complementarity rather than general sequence superiority.
+2. **Stronger real-evidence validation** — Increase N beyond 14 packs with more diverse/challenging tasks. Current Phase 27 may lack discriminative power.
+3. **Nonlinear motif selector** — Test tree/neural models for motif prediction. Current transparent rules fail. Only pursue after preregistered experiment.
+4. **Richer state features** — Information-theoretic features, uncertainty estimates, evidence graph statistics.
+5. **Phase 29 (optional)** — Learned control only if H-REE-15 upgrades to SUPPORTED, adaptivity gap persists, and enough trajectories exist. H-REE-17 remains NOT_SUPPORTED.
+6. **Larger model comparison** — Test with frontier-class models to determine if sequence effects strengthen with model capability.

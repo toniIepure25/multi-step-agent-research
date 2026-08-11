@@ -1,0 +1,97 @@
+{
+  "pack_id": "hist_01",
+  "domain": "history_of_science",
+  "task_question": "Did Kuhn's paradigm shift model accurately describe the Copernican revolution, or was the transition more gradual and multi-causal than his account suggests?",
+  "evidence_count": 4,
+  "evidence_items": [
+    {
+      "item_id": "hist_01_e1",
+      "content": "Kuhn (1962) argues the shift from Ptolemaic to Copernican astronomy exemplifies paradigm shift: crisis accumulation, revolutionary break, new normal science.",
+      "source": "Kuhn, Structure of Scientific Revolutions",
+      "source_type": "primary",
+      "reliability": 0.8,
+      "role": "supporting",
+      "supports_claims": [
+        "paradigm_shift_model"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "hist_01_e2",
+      "content": "Westman (1975) shows only ~10 astronomers accepted heliocentrism by 1600 (60 years after Copernicus), and most adopted it for computational convenience rather than physical conviction.",
+      "source": "Westman, in The Copernican Achievement",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [
+        "gradual_transition"
+      ],
+      "contradicts_claims": [
+        "paradigm_shift_model"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "hist_01_e3",
+      "content": "Gingerich (2004) analysis of 600 surviving copies of De Revolutionibus shows annotation patterns indicating gradual, selective adoption of Copernican mathematical methods without accepting heliocentrism.",
+      "source": "Gingerich, The Book Nobody Read",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "decisive",
+      "supports_claims": [
+        "gradual_transition"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "hist_01_e4",
+      "content": "Popular science article states 'Copernicus single-handedly overthrew the medieval worldview', dramatizing the transition.",
+      "source": "Popular science magazine",
+      "source_type": "news",
+      "reliability": 0.2,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "gradual_transition",
+      "modified_paradigm_shift"
+    ],
+    "best_hypothesis": "gradual_transition",
+    "verdict": "SUPPORTED",
+    "support_relations": {
+      "paradigm_shift_model": [
+        "hist_01_e1"
+      ],
+      "gradual_transition": [
+        "hist_01_e2",
+        "hist_01_e3"
+      ]
+    },
+    "contradiction_relations": {
+      "paradigm_shift_model": [
+        "hist_01_e2",
+        "hist_01_e3"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Kuhn intended literal rather than ideal-type description"
+    ],
+    "decisive_evidence": [
+      "hist_01_e3"
+    ],
+    "known_ambiguity": [
+      "Whether 'paradigm shift' is meant as precise history or useful heuristic"
+    ]
+  }
+}

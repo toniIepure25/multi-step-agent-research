@@ -1,0 +1,90 @@
+{
+  "pack_id": "bio_04",
+  "domain": "biomedical",
+  "task_question": "Do antioxidant supplements reduce cancer risk, or can they paradoxically promote tumor growth?",
+  "evidence_count": 4,
+  "evidence_items": [
+    {
+      "item_id": "bio_04_e1",
+      "content": "Primary study supporting the main claim in domain-specific context for question about Do antioxidant supplements reduce cancer risk, or ...",
+      "source": "Primary research journal",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "main_claim"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "bio_04_e2",
+      "content": "Contradictory evidence from large-scale study challenging the main claim regarding Do antioxidant supplements reduce cancer risk, or ...",
+      "source": "Large cohort study",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "contradictory",
+      "supports_claims": [],
+      "contradicts_claims": [
+        "main_claim"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "bio_04_e3",
+      "content": "Meta-analysis providing nuanced view of the question about Do antioxidant supplements reduce cancer risk, or ...",
+      "source": "Systematic review",
+      "source_type": "review",
+      "reliability": 0.85,
+      "role": "decisive",
+      "supports_claims": [
+        "nuanced_view"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "bio_04_e4",
+      "content": "Media oversimplification of findings regarding Do antioxidant supplements reduce cancer risk, or ...",
+      "source": "Health news website",
+      "source_type": "news",
+      "reliability": 0.2,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "nuanced_view",
+      "main_claim_partial"
+    ],
+    "best_hypothesis": "nuanced_view",
+    "verdict": "REFUTED",
+    "support_relations": {
+      "main_claim": [
+        "bio_04_e1"
+      ]
+    },
+    "contradiction_relations": {
+      "main_claim": [
+        "bio_04_e2"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Study populations are representative"
+    ],
+    "decisive_evidence": [
+      "bio_04_e3"
+    ],
+    "known_ambiguity": [
+      "Generalizability across populations"
+    ]
+  }
+}

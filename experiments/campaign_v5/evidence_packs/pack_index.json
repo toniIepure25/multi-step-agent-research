@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "description": "Static Real-Evidence Packs for ASAR Campaign V5 Phase 27",
+  "pack_count": 30,
+  "domains": [
+    "cognitive_science",
+    "ai_research",
+    "biomedical",
+    "economics",
+    "history_of_science",
+    "social_science"
+  ],
+  "evidence_structure": {
+    "supporting": "Evidence supporting the correct conclusion",
+    "contradictory": "Evidence contradicting the correct conclusion",
+    "dependent": "Evidence from sources that copy/depend on each other",
+    "irrelevant": "Plausible but non-discriminating evidence",
+    "weak": "Low-reliability or ambiguous evidence",
+    "decisive": "Highly discriminating evidence items"
+  },
+  "ground_truth_schema": {
+    "claims": "Acceptable conclusions with support levels",
+    "support_relations": "Which evidence supports which claims",
+    "contradiction_relations": "Which evidence contradicts which claims",
+    "source_dependencies": "Which sources are independent vs dependent",
+    "critical_assumptions": "What must be true for conclusions to hold",
+    "acceptable_hypotheses": "All defensible positions given evidence",
+    "decisive_evidence": "Items that should change conclusions",
+    "known_ambiguity": "Where genuine uncertainty exists",
+    "verdict": "SUPPORTED | REFUTED | MIXED | UNDERDETERMINED"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "model": "llama3.2-vision:11b-instruct-q8_0",
+  "classification": "VALID_EXPERIMENTAL_SUBSTRATE",
+  "gate_passed": true,
+  "summary": {
+    "evidence_interpretation": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "hypothesis_generation": {
+      "mean": 0.7333,
+      "n": 24,
+      "std": 0.1926,
+      "status": "PASS"
+    },
+    "alternative_hypothesis": {
+      "mean": 0.8333,
+      "n": 24,
+      "std": 0.2014,
+      "status": "PASS"
+    },
+    "reasoning": {
+      "mean": 0.95,
+      "n": 24,
+      "std": 0.1351,
+      "status": "PASS"
+    },
+    "contradiction_identification": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "attack_hypothesis": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "missing_information": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "retrieval_query": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "synthesis": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "structured_output": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    }
+  },
+  "total_calls": 240,
+  "total_input_tokens": 22528,
+  "total_output_tokens": 17599,
+  "rescore_note": "evidence_interpretation re-scored with natural-language rubric (v2)"
+}

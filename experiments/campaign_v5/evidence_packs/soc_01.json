@@ -1,0 +1,112 @@
+{
+  "pack_id": "soc_01",
+  "domain": "social_science",
+  "task_question": "Is the replication crisis in social psychology primarily due to p-hacking and QRPs, or does it reveal deeper problems with effect size estimation in behavioral science?",
+  "evidence_count": 5,
+  "evidence_items": [
+    {
+      "item_id": "soc_01_e1",
+      "content": "Open Science Collaboration (2015) replicated 100 psychology studies: only 36% reached significance, with mean effect sizes halved.",
+      "source": "Open Science Collaboration, Science",
+      "source_type": "primary",
+      "reliability": 0.95,
+      "role": "supporting",
+      "supports_claims": [
+        "overestimated_effects"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "soc_01_e2",
+      "content": "Simmons et al. (2011) demonstrate that standard 'researcher degrees of freedom' can produce p<.05 for almost any hypothesis, showing QRPs are sufficient to explain many false positives.",
+      "source": "Simmons et al., Psychological Science",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "supporting",
+      "supports_claims": [
+        "qrp_primary_cause"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "soc_01_e3",
+      "content": "Protzko et al. (2024) pre-registered replications of 16 classic effects with transparent methods: 11/16 replicated, suggesting the crisis is concentrated in specific subfields.",
+      "source": "Protzko et al., Nature Human Behaviour",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "decisive",
+      "supports_claims": [
+        "concentrated_not_universal"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "soc_01_e4",
+      "content": "Blog post claims 'All of social psychology is fake' based on selective reading of failed replications.",
+      "source": "Blog post",
+      "source_type": "news",
+      "reliability": 0.1,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "soc_01_e5",
+      "content": "Van Bavel et al. (2016) argue many replication failures reflect hidden moderators and contextual sensitivity rather than original fraud or error.",
+      "source": "Van Bavel et al., PNAS",
+      "source_type": "primary",
+      "reliability": 0.75,
+      "role": "weak",
+      "supports_claims": [
+        "hidden_moderators"
+      ],
+      "contradicts_claims": [
+        "qrp_primary_cause"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "concentrated_not_universal",
+      "multiple_causes"
+    ],
+    "best_hypothesis": "multiple_causes",
+    "verdict": "SUPPORTED",
+    "support_relations": {
+      "overestimated_effects": [
+        "soc_01_e1"
+      ],
+      "qrp_primary_cause": [
+        "soc_01_e2"
+      ],
+      "concentrated_not_universal": [
+        "soc_01_e3"
+      ]
+    },
+    "contradiction_relations": {
+      "qrp_primary_cause": [
+        "soc_01_e5"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Direct replications share the relevant causal features"
+    ],
+    "decisive_evidence": [
+      "soc_01_e3"
+    ],
+    "known_ambiguity": [
+      "Whether hidden moderators are real or a deflection strategy"
+    ]
+  }
+}

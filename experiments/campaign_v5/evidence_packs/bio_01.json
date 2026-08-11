@@ -1,0 +1,132 @@
+{
+  "pack_id": "bio_01",
+  "domain": "biomedical",
+  "task_question": "Does the gut microbiome causally influence depression, or are observed correlations explained by confounders (diet, medication, lifestyle)?",
+  "evidence_count": 6,
+  "evidence_items": [
+    {
+      "item_id": "bio_01_e1",
+      "content": "Valles-Colomer et al. (2019) metagenomic study of 1,054 individuals finds significant association between Coprococcus and Dialister depletion and depression, controlling for antidepressant use.",
+      "source": "Valles-Colomer et al., Nature Microbiology",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "causal_influence"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "bio_01_e2",
+      "content": "Fecal microbiota transplant (FMT) from depressed humans to germ-free mice induces depressive-like behavior (Kelly et al., 2016), providing experimental causal evidence.",
+      "source": "Kelly et al., Journal of Psychiatric Research",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "decisive",
+      "supports_claims": [
+        "causal_influence"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "bio_01_e3",
+      "content": "Large-scale Mendelian randomization study (Liu et al., 2023) finds no significant causal effect of gut microbiome composition on depression risk, suggesting confounding explains associations.",
+      "source": "Liu et al., Nature Genetics",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "contradictory",
+      "supports_claims": [
+        "confounded"
+      ],
+      "contradicts_claims": [
+        "causal_influence"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "bio_01_e4",
+      "content": "Probiotic supplementation meta-analysis (Nikolova et al., 2019) finds small but significant improvement in depression symptoms (SMD = -0.24, 95% CI [-0.38, -0.09]).",
+      "source": "Nikolova et al., JAMA Psychiatry",
+      "source_type": "review",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "causal_influence"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "bio_01_e5",
+      "content": "Supplement company website claims 'Cure your depression with probiotics!' citing one small uncontrolled study.",
+      "source": "Commercial website",
+      "source_type": "news",
+      "reliability": 0.05,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "bio_01_e6",
+      "content": "Depression itself alters eating behavior and medication use, both of which change microbiome composition (reverse causation pathway documented in Marx et al., 2021).",
+      "source": "Marx et al., Molecular Psychiatry",
+      "source_type": "review",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [
+        "reverse_causation"
+      ],
+      "contradicts_claims": [
+        "causal_influence"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "bidirectional",
+      "partial_causal"
+    ],
+    "best_hypothesis": "bidirectional",
+    "verdict": "MIXED",
+    "support_relations": {
+      "causal_influence": [
+        "bio_01_e1",
+        "bio_01_e2",
+        "bio_01_e4"
+      ],
+      "confounded": [
+        "bio_01_e3"
+      ],
+      "reverse_causation": [
+        "bio_01_e6"
+      ]
+    },
+    "contradiction_relations": {
+      "causal_influence": [
+        "bio_01_e3",
+        "bio_01_e6"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Mouse models of depression translate to humans"
+    ],
+    "decisive_evidence": [
+      "bio_01_e2",
+      "bio_01_e3"
+    ],
+    "known_ambiguity": [
+      "Whether FMT mouse results generalize to human depression"
+    ]
+  }
+}

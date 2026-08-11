@@ -1,0 +1,159 @@
+{
+  "pack_id": "cog_01",
+  "domain": "cognitive_science",
+  "task_question": "Does the evidence support dual-process theory (System 1/System 2) as distinct cognitive systems, or as a continuum of processing?",
+  "evidence_count": 7,
+  "evidence_items": [
+    {
+      "item_id": "cog_01_e1",
+      "content": "Kahneman (2011) presents extensive behavioral evidence for two distinct modes of thinking: fast/intuitive (System 1) and slow/deliberative (System 2). Response time data shows bimodal distributions on conjunction fallacy tasks.",
+      "source": "Kahneman, Thinking Fast and Slow",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "supporting",
+      "supports_claims": [
+        "dual_systems"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_01_e2",
+      "content": "Neuroimaging meta-analysis (Goel, 2007) shows overlapping activation patterns for intuitive and deliberative reasoning, with no clear anatomical boundary between proposed System 1 and System 2 regions.",
+      "source": "Goel, Cognitive Neuroscience Review",
+      "source_type": "review",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [
+        "continuum"
+      ],
+      "contradicts_claims": [
+        "dual_systems"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_01_e3",
+      "content": "Melnikoff & Bargh (2018) argue that dual-process theories are unfalsifiable as stated, and that cognitive control exists on a continuum of automaticity.",
+      "source": "Melnikoff & Bargh, Trends in Cognitive Sciences",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [
+        "continuum"
+      ],
+      "contradicts_claims": [
+        "dual_systems"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_01_e4",
+      "content": "De Neys (2021) proposes an integrative model where logical intuitions and heuristic intuitions compete, preserving the phenomenology of dual processing without requiring discrete systems.",
+      "source": "De Neys, Perspectives on Psychological Science",
+      "source_type": "primary",
+      "reliability": 0.8,
+      "role": "decisive",
+      "supports_claims": [
+        "continuum",
+        "integrative"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_01_e5",
+      "content": "A news article claims 'Scientists prove brain has two distinct thinking systems' based on a single fMRI study with N=12.",
+      "source": "Science Daily rewrite of preliminary study",
+      "source_type": "news",
+      "reliability": 0.3,
+      "role": "weak",
+      "supports_claims": [
+        "dual_systems"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_01_e6",
+      "content": "General educational psychology textbook repeats the dual-process framework as established fact, citing only Kahneman.",
+      "source": "Intro Psychology textbook, 2019 edition",
+      "source_type": "secondary",
+      "reliability": 0.5,
+      "role": "dependent",
+      "supports_claims": [
+        "dual_systems"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": "Kahneman, Thinking Fast and Slow",
+      "information_value": 0.5
+    },
+    {
+      "item_id": "cog_01_e7",
+      "content": "Recent computational modeling shows that a single neural network can exhibit both fast/automatic and slow/controlled processing modes depending on task demands and training, without separate systems.",
+      "source": "Musslick et al., 2023, PNAS",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "decisive",
+      "supports_claims": [
+        "continuum"
+      ],
+      "contradicts_claims": [
+        "dual_systems"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "continuum",
+      "integrative",
+      "dual_systems_modified"
+    ],
+    "best_hypothesis": "continuum",
+    "verdict": "MIXED",
+    "support_relations": {
+      "dual_systems": [
+        "cog_01_e1",
+        "cog_01_e5",
+        "cog_01_e6"
+      ],
+      "continuum": [
+        "cog_01_e2",
+        "cog_01_e3",
+        "cog_01_e4",
+        "cog_01_e7"
+      ]
+    },
+    "contradiction_relations": {
+      "dual_systems": [
+        "cog_01_e2",
+        "cog_01_e3",
+        "cog_01_e7"
+      ],
+      "continuum": []
+    },
+    "source_dependencies": [
+      [
+        "cog_01_e6",
+        "cog_01_e1"
+      ]
+    ],
+    "critical_assumptions": [
+      "behavioral bimodality implies architectural distinction"
+    ],
+    "decisive_evidence": [
+      "cog_01_e4",
+      "cog_01_e7"
+    ],
+    "known_ambiguity": [
+      "Whether 'systems' is metaphorical or literal"
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "pack_id": "ai_05",
+  "domain": "ai_research",
+  "task_question": "Do vision-language models achieve genuine visual understanding, or do they exploit statistical shortcuts in image-text training data?",
+  "evidence_count": 4,
+  "evidence_items": [
+    {
+      "item_id": "ai_05_e1",
+      "content": "Thrush et al. (2022) show CLIP and similar models fail on compositional understanding: 'a cat on a mat' vs 'a mat on a cat' are indistinguishable despite high benchmark scores.",
+      "source": "Thrush et al., 2022",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "shortcut_exploitation"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_05_e2",
+      "content": "Yuksekgonul et al. (2023) create ARO benchmark showing VLMs treat image-text matching as bag-of-words, ignoring relations and attributes.",
+      "source": "Yuksekgonul et al., NeurIPS 2023",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "decisive",
+      "supports_claims": [
+        "shortcut_exploitation"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_05_e3",
+      "content": "GPT-4V achieves near-human performance on visual question answering and can describe complex scenes with accurate spatial reasoning (OpenAI, 2023).",
+      "source": "OpenAI GPT-4V technical report",
+      "source_type": "primary",
+      "reliability": 0.8,
+      "role": "contradictory",
+      "supports_claims": [
+        "genuine_understanding_emerging"
+      ],
+      "contradicts_claims": [
+        "shortcut_exploitation"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_05_e4",
+      "content": "Tong et al. (2024) show that even GPT-4V fails systematically on tasks requiring precise spatial reasoning, counting, and fine-grained attribute binding.",
+      "source": "Tong et al., CVPR 2024",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "partial_understanding"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "partial_understanding",
+      "shortcut_plus_emerging"
+    ],
+    "best_hypothesis": "partial_understanding",
+    "verdict": "MIXED",
+    "support_relations": {
+      "shortcut_exploitation": [
+        "ai_05_e1",
+        "ai_05_e2"
+      ],
+      "genuine_understanding_emerging": [
+        "ai_05_e3"
+      ],
+      "partial_understanding": [
+        "ai_05_e4"
+      ]
+    },
+    "contradiction_relations": {
+      "shortcut_exploitation": [
+        "ai_05_e3"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Compositional understanding tests measure genuine understanding"
+    ],
+    "decisive_evidence": [
+      "ai_05_e2"
+    ],
+    "known_ambiguity": [
+      "Whether newer models have genuinely overcome shortcut reliance"
+    ]
+  }
+}

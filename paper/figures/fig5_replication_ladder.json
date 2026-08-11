@@ -1,0 +1,46 @@
+{
+  "title": "Replication Ladder: Simulator → LLM → Real Evidence",
+  "description": "Stacked bar or ladder diagram showing which findings survive each validation level.",
+  "levels": [
+    {
+      "level": "Level 1: Controlled Simulator",
+      "findings_supported": [
+        "Temporal complementarity (+0.162)",
+        "gen_hyp + reason super-additivity (+0.228)",
+        "Attack timing dependence",
+        "gen_hyp interference (-0.050)",
+        "Sequence > primitive",
+        "Order effects",
+        "Fixed > greedy",
+        "Adaptivity gap (0.096)"
+      ],
+      "n_supported": 8
+    },
+    {
+      "level": "Level 2: LLM Replication",
+      "findings_supported": [
+        "Temporal complementarity (+0.111)",
+        "Attack timing (+0.276)",
+        "Cross-model consistency"
+      ],
+      "findings_lost": [
+        "Sequence > primitive (INCONCLUSIVE +0.003)",
+        "Order effects (NOT REPLICATED -0.050)",
+        "Fixed > greedy (INCONCLUSIVE +0.003)"
+      ],
+      "n_supported": 3,
+      "n_lost": 3
+    },
+    {
+      "level": "Level 3: Static Real Evidence",
+      "findings_supported": [],
+      "findings_lost": [
+        "All sequence effects (range=0.030)",
+        "greedy outperforms sequences"
+      ],
+      "n_supported": 0,
+      "n_lost": 2
+    }
+  ],
+  "key_message": "The strongest controlled effects survive LLM replication but not transfer to real documents. Weaker effects do not survive LLM replication."
+}

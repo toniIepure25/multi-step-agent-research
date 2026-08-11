@@ -1,0 +1,90 @@
+{
+  "pack_id": "econ_04",
+  "domain": "economics",
+  "task_question": "Does financial literacy education significantly improve financial outcomes?",
+  "evidence_count": 4,
+  "evidence_items": [
+    {
+      "item_id": "econ_04_e1",
+      "content": "Primary empirical study supporting the main position on Does financial literacy education significantly im...",
+      "source": "Top economics journal",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "main_claim"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "econ_04_e2",
+      "content": "Counter-evidence from natural experiment or RCT regarding Does financial literacy education significantly im...",
+      "source": "Experimental economics study",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "contradictory",
+      "supports_claims": [],
+      "contradicts_claims": [
+        "main_claim"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "econ_04_e3",
+      "content": "Comprehensive review synthesizing evidence on Does financial literacy education significantly im...",
+      "source": "Annual Review of Economics",
+      "source_type": "review",
+      "reliability": 0.85,
+      "role": "decisive",
+      "supports_claims": [
+        "nuanced_view"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "econ_04_e4",
+      "content": "Op-ed using selective evidence about Does financial literacy education significantly im...",
+      "source": "Newspaper opinion section",
+      "source_type": "news",
+      "reliability": 0.2,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "nuanced_view",
+      "main_claim_qualified"
+    ],
+    "best_hypothesis": "nuanced_view",
+    "verdict": "MIXED",
+    "support_relations": {
+      "main_claim": [
+        "econ_04_e1"
+      ]
+    },
+    "contradiction_relations": {
+      "main_claim": [
+        "econ_04_e2"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Identification strategy is valid"
+    ],
+    "decisive_evidence": [
+      "econ_04_e3"
+    ],
+    "known_ambiguity": [
+      "Context/time period sensitivity"
+    ]
+  }
+}

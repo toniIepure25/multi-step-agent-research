@@ -1,0 +1,111 @@
+{
+  "pack_id": "ai_02",
+  "domain": "ai_research",
+  "task_question": "Are chain-of-thought (CoT) traces in large language models faithful representations of the model's reasoning process, or post-hoc rationalizations?",
+  "evidence_count": 5,
+  "evidence_items": [
+    {
+      "item_id": "ai_02_e1",
+      "content": "Turpin et al. (2024) show that biasing features (answer order, user opinion) change model answers without appearing in CoT traces, demonstrating systematic unfaithfulness.",
+      "source": "Turpin et al., NeurIPS 2024",
+      "source_type": "primary",
+      "reliability": 0.9,
+      "role": "supporting",
+      "supports_claims": [
+        "unfaithful"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_02_e2",
+      "content": "Lanham et al. (2023) find that truncating or corrupting CoT traces often does not change the final answer, suggesting the model may not depend on its own generated reasoning.",
+      "source": "Lanham et al., 2023",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "supporting",
+      "supports_claims": [
+        "unfaithful"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_02_e3",
+      "content": "Wei et al. (2022) show that CoT prompting dramatically improves accuracy on math/logic tasks only for large models, suggesting CoT does participate in computation.",
+      "source": "Wei et al., NeurIPS 2022",
+      "source_type": "primary",
+      "reliability": 0.85,
+      "role": "contradictory",
+      "supports_claims": [
+        "partially_faithful"
+      ],
+      "contradicts_claims": [
+        "unfaithful"
+      ],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_02_e4",
+      "content": "Anthropic (2025) mechanistic interpretability work identifies circuits that track CoT reasoning steps, showing some internal computation aligns with the trace.",
+      "source": "Anthropic, 2025 interpretability blog",
+      "source_type": "primary",
+      "reliability": 0.75,
+      "role": "supporting",
+      "supports_claims": [
+        "partially_faithful"
+      ],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    },
+    {
+      "item_id": "ai_02_e5",
+      "content": "Press release claims 'AI can now explain its reasoning' based on CoT results, without discussing faithfulness concerns.",
+      "source": "Corporate press release",
+      "source_type": "news",
+      "reliability": 0.2,
+      "role": "irrelevant",
+      "supports_claims": [],
+      "contradicts_claims": [],
+      "depends_on_source": null,
+      "information_value": 0.5
+    }
+  ],
+  "ground_truth": {
+    "acceptable_hypotheses": [
+      "partially_faithful",
+      "task_dependent_faithfulness"
+    ],
+    "best_hypothesis": "partially_faithful",
+    "verdict": "MIXED",
+    "support_relations": {
+      "unfaithful": [
+        "ai_02_e1",
+        "ai_02_e2"
+      ],
+      "partially_faithful": [
+        "ai_02_e3",
+        "ai_02_e4"
+      ]
+    },
+    "contradiction_relations": {
+      "unfaithful": [
+        "ai_02_e3"
+      ]
+    },
+    "source_dependencies": [],
+    "critical_assumptions": [
+      "Faithfulness is a property of the trace-answer relationship"
+    ],
+    "decisive_evidence": [
+      "ai_02_e1"
+    ],
+    "known_ambiguity": [
+      "Whether partial faithfulness is sufficient for reliability"
+    ]
+  }
+}

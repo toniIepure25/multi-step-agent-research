@@ -1,0 +1,71 @@
+{
+  "model": "gemma3:27b-it-qat",
+  "classification": "VALID_EXPERIMENTAL_SUBSTRATE",
+  "gate_passed": true,
+  "summary": {
+    "evidence_interpretation": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "hypothesis_generation": {
+      "mean": 0.75,
+      "n": 24,
+      "std": 0.1978,
+      "status": "PASS"
+    },
+    "alternative_hypothesis": {
+      "mean": 0.8,
+      "n": 24,
+      "std": 0.2043,
+      "status": "PASS"
+    },
+    "reasoning": {
+      "mean": 0.9292,
+      "n": 24,
+      "std": 0.1429,
+      "status": "PASS"
+    },
+    "contradiction_identification": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "attack_hypothesis": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "missing_information": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "retrieval_query": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "synthesis": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    },
+    "structured_output": {
+      "mean": 1.0,
+      "n": 24,
+      "std": 0.0,
+      "status": "PASS"
+    }
+  },
+  "total_calls": 240,
+  "total_input_tokens": 29211,
+  "total_output_tokens": 39289,
+  "rescore_note": "evidence_interpretation re-scored with natural-language rubric (v2)"
+}
