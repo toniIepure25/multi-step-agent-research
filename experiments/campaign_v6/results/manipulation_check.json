@@ -1,0 +1,264 @@
+{
+  "mean_real_relevance": 0.0,
+  "mean_shuffled_relevance": 0.0,
+  "mean_length_ratio": 1.0,
+  "pass": false,
+  "per_world": [
+    {
+      "world_id": "regime_a_exploration_deficit_314159_0",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_a_exploration_deficit_314159_1",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_a_exploration_deficit_314159_2",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_a_exploration_deficit_314159_3",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_b_evidence_deficit_314159_0",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_b_evidence_deficit_314159_1",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_b_evidence_deficit_314159_2",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_b_evidence_deficit_314159_3",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_c_discrimination_deficit_314159_0",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_c_discrimination_deficit_314159_1",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_c_discrimination_deficit_314159_2",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_c_discrimination_deficit_314159_3",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_d_integration_deficit_314159_0",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_d_integration_deficit_314159_1",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_d_integration_deficit_314159_2",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_d_integration_deficit_314159_3",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_e_misleading_evidence_314159_0",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_e_misleading_evidence_314159_1",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_e_misleading_evidence_314159_2",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_e_misleading_evidence_314159_3",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_f_hidden_alternative_314159_0",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_f_hidden_alternative_314159_1",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_f_hidden_alternative_314159_2",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_f_hidden_alternative_314159_3",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_g_source_dependency_314159_0",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_g_source_dependency_314159_1",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_g_source_dependency_314159_2",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_g_source_dependency_314159_3",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_h_low_resolvability_314159_0",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_h_low_resolvability_314159_1",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_h_low_resolvability_314159_2",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    },
+    {
+      "world_id": "regime_h_low_resolvability_314159_3",
+      "real_relevance": 0.0,
+      "shuf_relevance": 0.0,
+      "real_len": 59,
+      "shuf_len": 59,
+      "length_ratio": 1.0
+    }
+  ]
+}

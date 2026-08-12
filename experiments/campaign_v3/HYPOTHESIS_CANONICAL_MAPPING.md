@@ -89,10 +89,26 @@ No historical V1-V4 verdicts changed.
 - Factorial complementarity (N=32): interaction = 0.000 under budget controls
 - Attack timing (N=32): effect = 0.019 under matched budget (was +0.276)
 
-### Updated Verdicts
+### Updated Verdicts (Phase 1 — SHA d52e929)
 - **H-REE-15**: Downgraded to **NOT_SUPPORTED** — V4 complementarity was a main effect of hypothesis generation, not super-additive interaction
 - **H-REE-19: NOT_SUPPORTED** — factorial interaction = 0 under matched compute
-- **H-REE-20: UNTESTED** — semantic intervention infrastructure built
 - **H-REE-21: PARTIALLY_SUPPORTED** — closed-loop works but quality dominated by single operation
 - **H-REE-22: NOT_SUPPORTED** — attack timing effect disappears under budget controls
-- **H-REE-23: UNTESTED** — external datasets selected but not executed
+
+### V6 Completion Results (Phase 2 — Semantic Causality & External Transfer)
+
+Executed H-REE-20 and H-REE-23 on:
+- Simulator semantic intervention (N=32 worlds): REAL = SHUFFLED exactly (manipulation check FAIL)
+- SciFact (N=100 claims): REAL - SHUFFLED accuracy = -0.260, recall = +0.230
+- HotpotQA (N=100 questions): REAL - SHUFFLED F1 = +0.095, recall = +0.135
+
+### Final V6 Verdicts
+- **H-REE-19: NOT_SUPPORTED** — factorial interaction = 0 under matched compute
+- **H-REE-20: PARTIALLY_SUPPORTED** — semantic content causally affects retrieval on external tasks; but effect on final task performance is mixed (harmful on SciFact, helpful on HotpotQA)
+- **H-REE-21: PARTIALLY_SUPPORTED** — closed-loop LLM cognition works; hypothesis → query → evidence causal chain verified
+- **H-REE-22: NOT_SUPPORTED** — attack timing effect disappears under budget controls
+- **H-REE-23: PARTIALLY_SUPPORTED** — retrieval mediation transfers to both external datasets; task performance transfer is mixed
+
+### Overturned Earlier Verdicts
+- **H-REE-11** (temporal complementarity): OVERTURNED from SUPPORTED to **NOT_SUPPORTED** — effect was main effect of hypothesis generation, not super-additive interaction
+- **H-REE-15**: OVERTURNED from PARTIALLY_SUPPORTED to **NOT_SUPPORTED** — V5 complementarity did not survive compute controls

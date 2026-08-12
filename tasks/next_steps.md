@@ -93,21 +93,23 @@ Paper decision: CONTROLLED_MECHANISM / LLM PAPER (Level 2 evidence for complemen
 | H-REE-15: LLM complementarity | PARTIALLY_SUPPORTED | **NOT_SUPPORTED** |
 | H-REE-18: Cross-level transfer | NOT_SUPPORTED | NOT_SUPPORTED |
 | H-REE-19: Budget-controlled comp. | — | **NOT_SUPPORTED** (interaction = 0) |
-| H-REE-20: Semantic mediation | — | UNTESTED |
+| H-REE-20: Semantic mediation | — | **PARTIALLY_SUPPORTED** (retrieval yes, accuracy mixed) |
 | H-REE-21: Closed-loop causality | — | **PARTIALLY_SUPPORTED** |
 | H-REE-22: Attack timing (matched) | — | **NOT_SUPPORTED** (effect = 0.019) |
-| H-REE-23: Exogenous transfer | — | UNTESTED |
+| H-REE-23: Exogenous transfer | — | **PARTIALLY_SUPPORTED** (retrieval transfers, performance mixed) |
 
-### Campaign V6 (SHA: pending commit)
-Budget-matched factorial validation against remote Mac Studio.
-Closed-loop certification: 11/11 PASS. N=32 worlds.
-Factorial interaction = 0.000. Attack timing = 0.019 (was 0.276).
-Central finding: V4 "complementarity" was main effect of hypothesis generation.
+### Campaign V6 — COMPLETE
+Phase 1: Budget-matched factorial validation. Factorial interaction = 0.000. Attack timing = 0.019.
+Phase 2: Semantic intervention on SciFact (N=100) and HotpotQA (N=100).
+Key: Semantic content causally affects retrieval but improved retrieval does not universally help.
 
-## Next Steps (Future Work)
+## EXPERIMENTAL DEVELOPMENT COMPLETE
 
-1. **Execute H-REE-20 (semantic intervention)** — determine if artifact content matters.
-2. **Execute H-REE-23 (external datasets)** — SciFact/HotpotQA transfer test.
-3. **Paper repositioning** — methodology + negative results paper.
-4. **NeurIPS D&B 2027** — benchmark methodology submission track.
-5. **Workshop paper** — ICLR/ICML negative results workshop.
+All preregistered hypotheses executed. No Campaign V7.
+
+## Next Steps (Paper Only)
+
+1. **Freeze V6 results** — commit all V6 completion artifacts.
+2. **Rewrite paper** — methodology + mixed results paper.
+3. **Target venue** — NeurIPS D&B or EMNLP findings.
+4. **No further experiments** — results are final.

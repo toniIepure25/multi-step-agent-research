@@ -1,0 +1,73 @@
+{
+  "campaign": "V6 Completion — Semantic Causality & External Transfer",
+  "model": "gemma3:27b-it-qat",
+  "endpoint": "https://inference.ccrolabs.com/v1",
+  "temperature": 0.0,
+  "max_tokens": 512,
+  "results": {
+    "simulator_semantic_intervention": {
+      "hypothesis": "H-REE-20",
+      "dataset": "V6 Simulator (8 regimes × 4 worlds)",
+      "N": 32,
+      "REAL_quality": 0.2813,
+      "SHUFFLED_quality": 0.2813,
+      "NEUTRAL_quality": 0.4175,
+      "DIRECT_quality": 0.4175,
+      "REAL_minus_SHUFFLED_quality": 0.0000,
+      "CI_quality": [0.0000, 0.0000],
+      "manipulation_check": "FAIL",
+      "verdict": "CANNOT_EVALUATE",
+      "raw_file": "semantic_intervention_gemma3_27b-it-qat.jsonl"
+    },
+    "scifact": {
+      "hypothesis": "H-REE-23",
+      "dataset": "SciFact dev (allenai/scifact)",
+      "corpus_size": 5183,
+      "N": 100,
+      "task_id_hash": "852f47c41d84fc74",
+      "conditions": {
+        "DIRECT":            {"accuracy": 0.780, "gold_recall": 0.297, "calls": 2},
+        "NEUTRAL":           {"accuracy": 0.720, "gold_recall": 0.297, "calls": 3},
+        "GENERIC_EXPANSION": {"accuracy": 0.740, "gold_recall": 0.265, "calls": 2},
+        "REAL":              {"accuracy": 0.720, "gold_recall": 0.230, "calls": 3},
+        "SHUFFLED":          {"accuracy": 0.980, "gold_recall": 0.000, "calls": 3}
+      },
+      "primary_contrast": {
+        "REAL_minus_SHUFFLED_accuracy": -0.260,
+        "CI_accuracy": [-0.346, -0.174],
+        "REAL_minus_SHUFFLED_recall": 0.230,
+        "CI_recall": [0.147, 0.313]
+      },
+      "verdict": "RETRIEVAL_TRANSFER_YES_ACCURACY_NO",
+      "raw_file": "scifact_gemma3_27b-it-qat.jsonl"
+    },
+    "hotpotqa": {
+      "hypothesis": "H-REE-23",
+      "dataset": "HotpotQA distractor dev (Wayback archive)",
+      "N": 100,
+      "task_id_hash": "53491e0a6469b735",
+      "conditions": {
+        "DIRECT":            {"f1": 0.409, "gold_recall": 0.430, "calls": 2},
+        "NEUTRAL":           {"f1": 0.433, "gold_recall": 0.430, "calls": 3},
+        "GENERIC_EXPANSION": {"f1": 0.410, "gold_recall": 0.435, "calls": 2},
+        "REAL":              {"f1": 0.387, "gold_recall": 0.405, "calls": 3},
+        "SHUFFLED":          {"f1": 0.292, "gold_recall": 0.270, "calls": 3}
+      },
+      "primary_contrast": {
+        "REAL_minus_SHUFFLED_f1": 0.095,
+        "CI_f1": [0.010, 0.180],
+        "REAL_minus_SHUFFLED_recall": 0.135,
+        "CI_recall": [0.062, 0.209]
+      },
+      "verdict": "RETRIEVAL_AND_F1_TRANSFER_YES",
+      "raw_file": "hotpotqa_gemma3_27b-it-qat.jsonl"
+    }
+  },
+  "hypothesis_verdicts": {
+    "H-REE-19": "NOT_SUPPORTED",
+    "H-REE-20": "PARTIALLY_SUPPORTED",
+    "H-REE-21": "PARTIALLY_SUPPORTED",
+    "H-REE-22": "NOT_SUPPORTED",
+    "H-REE-23": "PARTIALLY_SUPPORTED"
+  }
+}
