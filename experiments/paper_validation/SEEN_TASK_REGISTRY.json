@@ -1,0 +1,2293 @@
+{
+  "meta": {
+    "created": "2026-08-12",
+    "purpose": "Track all tasks seen during V1-V6 to prevent contamination",
+    "total_seen": 231,
+    "datasets": {
+      "scifact": 100,
+      "hotpotqa": 100,
+      "static_evidence": 0
+    }
+  },
+  "tasks": [
+    {
+      "dataset": "scifact",
+      "task_id": 3,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 5,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 42,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 48,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 49,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 50,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 51,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 53,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 54,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 56,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 57,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 70,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 100,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 113,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 115,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 118,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 124,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 129,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 130,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 133,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 137,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 141,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 142,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 143,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 146,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 148,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 163,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 171,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 179,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 180,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 183,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 185,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 208,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 212,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 216,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 217,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 218,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 219,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 230,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 233,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 236,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 239,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 248,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 249,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 261,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 274,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 275,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 279,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 295,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 298,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 314,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 327,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 338,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 343,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 380,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 385,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 386,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 399,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 415,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 431,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 436,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 443,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 452,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 475,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 501,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 513,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 516,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 521,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 525,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 528,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 532,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 533,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 536,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 539,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 540,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 549,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 569,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 578,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 589,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 593,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 597,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 598,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 613,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 619,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 636,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 641,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 674,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 692,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 693,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 718,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 721,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 723,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 728,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 729,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 742,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 743,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 744,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 756,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 759,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "scifact",
+      "task_id": 770,
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8b57f25542995d1e6f1371",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8c7595554299585d9e36b6",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a85ea095542994775f606a8",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5adbf0a255429947ff17385a",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8e3ea95542995a26add48d",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5abd94525542992ac4f382d2",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a85b2d95542997b5ce40028",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a87ab905542996e4f3088c1",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a7bbb64554299042af8f7cc",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8db19d5542994ba4e3dd00",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a7166395542994082a3e814",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a877e5d5542993e715abf7d",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ab3b0bf5542992ade7c6e39",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ab56e32554299637185c594",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ab6d09255429954757d337d",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a75e05c55429976ec32bc5f",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ab3e45655429976abd1bcd4",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ab29c24554299449642c932",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae0d4c9554299603e418468",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8133725542995ce29dcbdb",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae7a8175542993210983ed8",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae6050f55429929b0807a5e",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5adddccd5542997dc7907069",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae2070a5542994d89d5b313",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae22b8d554299234fd0440f",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a722b8655429971e9dc9329",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5adf37a95542995ec70e8f97",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5abd259d55429924427fcf1a",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a828c8355429966c78a6a50",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8a3e745542996c9b8d5e70",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ac23ff0554299636651994d",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae4a3265542995ad6573de5",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae0361155429925eb1afc2c",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5abc0a5d5542993f40c73c64",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a7cc50e554299452d57ba3e",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5abf63f15542997ec76fd3ea",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8ef2a75542995a26add583",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a80721b554299485f5985ef",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ab51dae5542991779162d82",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a7571135542992d0ec05f98",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a7a0e1e5542990783324e1a",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a74106b55429979e288289e",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a79311755429970f5fffe67",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ab2d3df554299194fa9352c",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a760ab65542994ccc918697",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a7d54165542995f4f402256",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ab859a955429934fafe6d7b",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5add61d65542995b365fab21",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8e068b5542995085b37384",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5abbf698554299114383a0b5",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8e1027554299653c1aa15f",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ab84bf555429916710eb01f",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a77724455429972597f153e",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a87c13f5542996e4f30890c",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ab96ab755429970cfb8eacd",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8a43eb5542996c9b8d5e82",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae73acb5542991e8301cc07",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a7320565542991f9a20c61d",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae32e125542991a06ce9946",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5adc53f75542996e6852530a",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8b20335542996c9b8d5fb3",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a85fb085542994775f606de",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a7be2595542997c3ec972ac",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a77152355429966f1a36c2e",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8f4c8d554299458435d5a3",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a80840f554299485f59863b",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8361b65542992ef85e22a0",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae7ba7a5542993210983f12",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ac2acff55429921a00ab02b",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5aba7cfe554299232ef4a2fd",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae5aba0554299546bf82f17",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae1f4cb554299234fd0436d",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae7e1fc55429952e35ea9cc",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae37c765542992f92d822d4",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae33c4d5542992f92d82262",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a77cb335542997042120b3a",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8979f4554299669944a52e",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a713ea95542994082a3e6e4",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a78bd9b554299078472774a",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a7625e8554299109176e66a",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae2dd2055429928c423950d",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5abdf12255429976d4830a2f",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a88658955429938390d3f47",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a86ebac55429960ec39b6d6",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5aba5d2e55429901930fa799",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae5736e5542990ba0bbb2b3",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae005b555429942ec259bec",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a7759fc5542993569682d60",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a835478554299123d8c20ed",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5aba749055429901930fa7d8",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5abfb3425542990832d3a1c0",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ac3165c5542995ef918c10a",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae53b545542990ba0bbb23c",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae224da554299234fd043ee",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ae2b770554299495565db0f",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a80b3a9554299485f5986cc",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a8e0a005542995085b373a1",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5ac1b8ee5542994d76dccedc",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5adccd795542990d50227d2c",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "hotpotqa",
+      "task_id": "5a84c4135542994c784dda31",
+      "first_seen_campaign": "v6",
+      "usage": [
+        "locked_experiment",
+        "condition_execution"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "ai_01",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "ai_02",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "ai_03",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "ai_04",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "ai_05",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "bio_01",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "bio_02",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "bio_03",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "bio_04",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "bio_05",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "cog_01",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "cog_02",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "cog_03",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "cog_04",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "cog_05",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "econ_01",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "econ_02",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "econ_03",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "econ_04",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "econ_05",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "hist_01",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "hist_02",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "hist_03",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "hist_04",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "hist_05",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "pack_index",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "soc_01",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "soc_02",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "soc_03",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "soc_04",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    },
+    {
+      "dataset": "static_evidence_pack",
+      "task_id": "soc_05",
+      "first_seen_campaign": "v5",
+      "usage": [
+        "static_evidence_evaluation"
+      ],
+      "eligible_for_locked_validation": false
+    }
+  ]
+}

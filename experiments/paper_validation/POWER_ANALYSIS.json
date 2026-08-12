@@ -1,0 +1,48 @@
+{
+  "scifact": {
+    "real_vs_shuffled_recall": {
+      "observed_effect": 0.23,
+      "sd_paired": 0.423,
+      "sesoi": 0.06,
+      "required_n_80pct": 391,
+      "available_unseen": 88
+    },
+    "real_vs_shuffled_accuracy": {
+      "observed_effect": -0.26,
+      "sd_paired": 0.4408,
+      "sesoi": 0.08,
+      "required_n_80pct": 239,
+      "available_unseen": 88
+    },
+    "real_vs_generic_recall": {
+      "observed_effect": -0.035,
+      "sd_paired": 0.5038,
+      "sesoi": 0.04,
+      "required_n_80pct": 1246,
+      "available_unseen": 88
+    }
+  },
+  "hotpotqa": {
+    "real_vs_shuffled_recall": {
+      "observed_effect": 0.135,
+      "sd_paired": 0.3751,
+      "sesoi": 0.06,
+      "required_n_80pct": 307,
+      "available_unseen": 7305
+    },
+    "real_vs_shuffled_f1": {
+      "observed_effect": 0.0948,
+      "sd_paired": 0.4351,
+      "sesoi": 0.05,
+      "required_n_80pct": 595,
+      "available_unseen": 7305
+    },
+    "real_vs_generic_recall": {
+      "observed_effect": -0.03,
+      "sd_paired": 0.3468,
+      "sesoi": 0.04,
+      "required_n_80pct": 591,
+      "available_unseen": 7305
+    }
+  }
+}

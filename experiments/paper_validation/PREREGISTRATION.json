@@ -1,0 +1,91 @@
+{
+  "study": "Paper Validation — Causal Auditing of Semantic Artifacts",
+  "discovery_sha": "f603a9ca22483e54bfaf798a4b5fe5a6fc960c8e",
+  "hypotheses": {
+    "PV-H1": {
+      "name": "Semantic Retrieval Effect",
+      "comparison": "REAL vs SHUFFLED",
+      "dv": "gold_evidence_recall",
+      "sesoi": 0.06,
+      "test": "paired_bootstrap_10000",
+      "correction": "holm",
+      "family": "primary"
+    },
+    "PV-H2": {
+      "name": "Semantic Specificity",
+      "comparison": "REAL vs GENERIC_EXPANSION",
+      "dv": "gold_evidence_recall",
+      "sesoi": 0.04,
+      "test": "paired_bootstrap_10000",
+      "correction": "holm",
+      "family": "primary"
+    },
+    "PV-H3": {
+      "name": "Downstream Utility Heterogeneity",
+      "comparison": "REAL-SHUFFLED interaction x dataset",
+      "dv": "accuracy_or_f1",
+      "sesoi": 0.10,
+      "test": "bootstrap_interaction",
+      "family": "primary"
+    },
+    "PV-H4": {
+      "name": "Model Transfer",
+      "comparison": "REAL vs SHUFFLED on llama3.2",
+      "dv": "gold_evidence_recall",
+      "sesoi": "directional_replication",
+      "test": "sign_test_plus_bootstrap",
+      "family": "primary"
+    },
+    "PV-H5": {
+      "name": "SciFact Failure Mechanism",
+      "comparison": "diagnostic_conditions",
+      "dv": "answer_flip_rates",
+      "test": "descriptive_plus_bootstrap_CI",
+      "family": "exploratory"
+    }
+  },
+  "datasets": {
+    "scifact": {
+      "locked_n": 88,
+      "same_task_transfer_n": 100,
+      "split_hash": "931f19dfe5f8a8e3"
+    },
+    "hotpotqa": {
+      "locked_n": 300,
+      "same_task_transfer_n": 100,
+      "split_hash": "03a4b9fe90988271"
+    }
+  },
+  "models": {
+    "primary": "gemma3:27b-it-qat",
+    "transfer": "llama3.2-vision:11b-instruct-q8_0"
+  },
+  "conditions": ["REAL", "SHUFFLED", "NEUTRAL", "GENERIC_EXPANSION", "DIRECT",
+                  "PARAMETRIC_ONLY", "REAL_ARTIFACT_HIDDEN"],
+  "generation": {
+    "temperature": 0.0,
+    "max_tokens": 512,
+    "endpoint_type": "openai_compatible"
+  },
+  "retrieval": {
+    "method": "bm25_keyword",
+    "top_k": 5,
+    "corpus": "dataset_native"
+  },
+  "statistics": {
+    "bootstrap_resamples": 10000,
+    "ci_level": 0.95,
+    "correction": "holm",
+    "primary_family_size": 6
+  },
+  "exclusion_rules": {
+    "max_exclusion_rate": 0.05,
+    "retry_on_network_error": true,
+    "retry_on_format_error": false,
+    "max_retries": 3
+  },
+  "artifact_length_matching": {
+    "acceptable_ratio_range": [0.90, 1.10]
+  },
+  "shuffle_method": "deterministic_offset_7_modular"
+}

@@ -1,0 +1,9 @@
+condition_id,artifact_calls,query_calls,retrieval_calls,reason_calls,answer_calls,total_calls,max_output_budget,retrieval_top_k,artifact_length_target,query_length_target
+REAL,1,1,1,0,1,3,512,5,match,match
+SHUFFLED,1,1,1,0,1,3,512,5,match,match
+NEUTRAL,1,1,1,0,1,3,512,5,match,match
+GENERIC_EXPANSION,1,0,1,0,1,3,512,5,match,match
+DIRECT,1,1,1,0,1,3,512,5,n/a,match
+PARAMETRIC_ONLY,0,0,0,0,1,1,512,0,n/a,n/a
+REAL_ARTIFACT_HIDDEN,1,1,1,0,1,3,512,5,match,match
+GOLD_RATIONALE_ONLY,0,0,0,0,1,1,512,0,n/a,n/a
