@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\caption{SciFact answer flip analysis. CC = correct$\to$correct, CW = correct$\to$wrong (harmful), WC = wrong$\to$correct (helpful), WW = wrong$\to$wrong. Baseline: \textsc{Parametric-Only}.}
+\label{tab:flips}
+\small
+\begin{tabular}{llrrrrrr}
+\toprule
+Model & Condition & Acc. & Recall & CC & CW & WC & WW \\
+\midrule
+Gemma & \textsc{Real} & 0.773 & 0.281 & 9 & 2 & 59 & 18 \\
+Gemma & \textsc{Shuffled} & 1.000 & 0.000 & 11 & 0 & 77 & 0 \\
+Gemma & \textsc{Neutral} & 0.909 & 0.216 & 11 & 0 & 69 & 8 \\
+Gemma & \textsc{Direct} & 0.852 & 0.253 & 9 & 2 & 66 & 11 \\
+Gemma & \textsc{Generic} & 0.705 & 0.463 & 9 & 2 & 53 & 24 \\
+Gemma & \textsc{Real-Hid.} & 0.818 & 0.281 & 10 & 1 & 62 & 15 \\
+Llama & \textsc{Real} & 0.570 & 0.511 & 24 & 8 & 33 & 35 \\
+Llama & \textsc{Shuffled} & 0.960 & 0.000 & 32 & 0 & 64 & 4 \\
+Llama & \textsc{Neutral} & 0.590 & 0.558 & 19 & 13 & 40 & 28 \\
+Llama & \textsc{Direct} & 0.420 & 0.720 & 14 & 18 & 28 & 40 \\
+Llama & \textsc{Generic} & 0.460 & 0.578 & 18 & 14 & 28 & 40 \\
+Llama & \textsc{Real-Hid.} & 0.630 & 0.511 & 25 & 7 & 38 & 30 \\
+\bottomrule
+\end{tabular}
+\end{table}

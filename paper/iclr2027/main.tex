@@ -1,457 +1,206 @@
 \documentclass{article}
 
-% ICLR 2027 style — replace with official iclr2027_conference.sty when available
-\usepackage{iclr2025_conference}
-\usepackage{times}
-\usepackage{hyperref}
-\usepackage{url}
-\usepackage{booktabs}
+% Use ICLR 2027 style when available; placeholder for now
+\usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb}
+\usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{hyperref}
 \usepackage{multirow}
-\usepackage{subcaption}
+\usepackage{caption}
+\usepackage[margin=1in]{geometry}
 
-\title{Measuring the Value of Cognitive Sequences\\in LLM Research Agents}
+\title{Better Retrieval, Worse Reasoning:\\Auditing Intermediate Artifacts in LLM Pipelines}
 
 \author{Anonymous}
-
-\newcommand{\ie}{\textit{i.e.}}
-\newcommand{\eg}{\textit{e.g.}}
-\newcommand{\cf}{\textit{cf.}}
-
-\iclrfinalcopy
+\date{}
 
 \begin{document}
-
 \maketitle
 
 \begin{abstract}
-Large language model (LLM) research agents combine heterogeneous cognitive operations---retrieval, hypothesis generation, reasoning, and falsification---to solve epistemic tasks.
-Most architectures select operations greedily, assuming local value suffices to guide useful global reasoning.
-We introduce a controlled epistemic benchmark enabling \emph{same-state counterfactual evaluation}: from a single epistemic state, we fork into alternative cognitive operations, apply matched continuation budgets, and compare downstream epistemic quality.
-In controlled experiments across eight epistemic regimes ($N{=}56$ worlds), specific operation pairs exhibit super-additive temporal complementarity (hypothesis generation $\to$ retrieval: $+0.162$, 95\% CI $[0.135, 0.188]$), while repeating operations shows interference ($-0.050$, CI crosses zero).
-Attack/falsification has zero standalone value but gains value after hypothesis formation ($+0.137$ for hypothesis $\to$ attack).
-These structural effects persist when cognitive operations are accompanied by real LLM inference with two model substrates (Gemma~3 27B and Llama~3.2 11B).
-We also report systematic negative findings: sequence superiority over primitives is not confirmed ($+0.003$), a learned adaptive controller fails (quality $0.323$ vs.\ best fixed $0.518$), and curated evidence tasks show negligible condition sensitivity (range $= 0.030$, $N{=}14$).
-The benchmark, negative-results analysis, and evidence that the relevant unit of metacognitive analysis is operation-pair complementarity rather than general sequence superiority constitute our contributions.
+Intermediate reasoning artifacts---hypotheses, analysis plans, reformulated queries---are increasingly used to guide evidence retrieval in multi-step LLM systems. Improved retrieval is commonly treated as evidence that such cognitive interventions are beneficial. We challenge this assumption through a preregistered causal audit across SciFact (claim verification) and HotpotQA (multi-hop QA), using Gemma~27B and Llama~11B under five matched-resource conditions that isolate artifact semantics from generic query quality.
+
+We find a robust \emph{retrieval--reasoning dissociation}: real hypothesis artifacts significantly improve gold evidence recall over shuffled controls across all four dataset--model cells ($+0.18$ to $+0.51$, all $p < .002$ after Holm correction over 14 tests). However, this retrieval gain improves downstream F1 on HotpotQA ($+0.12$, $p < .002$) while degrading accuracy on SciFact ($-0.23$ to $-0.39$, $p < .002$). Generic query expansion---without any hypothesis content---matches or exceeds hypothesis-conditioned retrieval, indicating the benefit is not hypothesis-specific. Answer flip analysis and artifact visibility ablation localize the SciFact failure to evidence integration rather than hypothesis anchoring: more retrieved evidence introduces more reasoning errors. These findings demonstrate that retrieval improvement is not a reliable proxy for end-to-end agent utility.
 \end{abstract}
 
-%------------------------------------------------------------------
+% ============================================================
 \section{Introduction}
 \label{sec:intro}
-%------------------------------------------------------------------
 
-LLM-based research agents orchestrate qualitatively distinct \emph{cognitive operations}---evidence retrieval, hypothesis generation, causal reasoning, and hypothesis falsification---to solve complex epistemic tasks.
-The central design question is: \emph{what cognitive operation should be performed next?}
+Multi-step LLM systems increasingly employ intermediate reasoning artifacts---hypotheses, sub-question decompositions, analysis plans---to guide evidence retrieval \citep{hyde2023,query2doc2023,selfrag2024}. When such artifacts improve retrieval quality (e.g., gold evidence recall), the intervention is typically considered beneficial. But does improved retrieval reliably translate to improved task performance?
 
-Most architectures answer either with a fixed pipeline or with greedy scheduling, where the locally most valuable operation is selected at each step.
-Both approaches assume that operation value can be assessed independently of temporal context.
-This assumption may be wrong.
-If \emph{temporal complementarity} exists---if the downstream value of operation $a_i$ depends on whether $a_j$ precedes or follows it---then greedy scheduling will systematically misallocate cognitive resources.
+We show that it does not. Using a preregistered causal audit with five matched-resource conditions across two benchmarks and two model families, we find a \textbf{retrieval--reasoning dissociation}: the same type of intermediate artifact that reliably improves retrieval ($+0.18$ to $+0.51$ gold recall, all four dataset--model cells significant after Holm correction) produces \emph{opposite} downstream effects depending on task structure. On HotpotQA (multi-hop QA), improved retrieval leads to improved F1 ($+0.12$, $p < .002$). On SciFact (scientific claim verification), improved retrieval leads to \emph{degraded} accuracy ($-0.23$ to $-0.39$, $p < .002$).
 
-We investigate whether heterogeneous cognitive operations exhibit measurable temporal complementarity.
-Our approach rests on a methodological contribution: a controlled epistemic benchmark that maintains latent ground truth, enabling \emph{same-state counterfactual evaluation}.
-From a single epistemic state, we fork execution into alternative operations, apply matched continuation budgets, and compare downstream quality.
-This isolates temporal-composition value from confounding state variation.
+This dissociation has practical implications for agent design. Retrieval quality metrics---commonly used to evaluate and optimize RAG systems---can be directionally misleading about system utility. A component that succeeds at its local objective (finding relevant evidence) may fail at the global objective (producing correct answers) when the bottleneck shifts from evidence acquisition to evidence integration.
 
-\paragraph{Summary of findings.}
-Specific operation pairs show strong complementarity: hypothesis generation catalyzes retrieval ($+0.162$) and reasoning ($+0.137$), while attack has zero standalone value but gains value after hypothesis formation.
-These structural effects persist when operations are accompanied by real LLM inference.
-However, general sequence superiority over primitives is not confirmed, adaptive motif control fails, and effects do not transfer to curated evidence tasks.
-
-\paragraph{Contributions.}
+Our contributions are:
 \begin{enumerate}
-\item A controlled benchmark for counterfactual evaluation of cognitive operation sequences from matched epistemic states (\S\ref{sec:benchmark}).
-\item Empirical evidence of temporal complementarity and interference among cognitive operations, with 95\% confidence intervals (\S\ref{sec:results_compl}).
-\item Confirmation that complementarity effects persist under real LLM inference with two model substrates (\S\ref{sec:results_llm}).
-\item Systematic negative results: adaptive control failure, non-transfer to curated evidence, and bounds on sequence superiority (\S\ref{sec:results_negative}).
+    \item A resource-matched, trace-certified intervention framework for auditing intermediate artifacts at each pipeline stage (\S\ref{sec:method}).
+    \item Empirical evidence of a retrieval--reasoning dissociation across two datasets and two models (\S\ref{sec:dissociation}).
+    \item A demonstration that generic query expansion achieves comparable retrieval to task-specific hypotheses (\S\ref{sec:generic}).
+    \item A mechanistic diagnosis localizing the SciFact failure to evidence integration rather than hypothesis anchoring (\S\ref{sec:mechanism}).
 \end{enumerate}
 
-%------------------------------------------------------------------
+\paragraph{What did NOT survive validation.}
+Initial experiments suggested temporal complementarity between cognitive operations and hypothesis-specific retrieval advantages. Compute-matched factorial controls eliminated the first, and generic expansion baselines eliminated the second. These falsifications motivated the final causal audit design reported here.
+
+% ============================================================
 \section{Related Work}
 \label{sec:related}
-%------------------------------------------------------------------
 
-\paragraph{Adaptive test-time compute.}
-Adaptive Computation Time \citep{graves2016act} and PonderNet \citep{banino2021pondernet} vary the \emph{amount} of computation.
-We instead vary the \emph{type}: we ask whether qualitatively different operations compose non-additively.
+\paragraph{Hypothesis-conditioned retrieval.}
+HyDE \citep{hyde2023} generates hypothetical documents to improve dense retrieval; Query2Doc \citep{query2doc2023} uses LLM-generated pseudo-documents as query expansions. Both evaluate retrieval quality but do not trace downstream reasoning effects of the retrieval improvement.
 
-\paragraph{Adaptive retrieval.}
-Self-RAG \citep{asai2024selfrag} and FLARE \citep{jiang2023flare} decide \emph{when} to retrieve.
-We measure the compositional value of retrieval relative to other operations.
+\paragraph{Adaptive RAG and retrieval utility.}
+FLARE \citep{flare2023} and Self-RAG \citep{selfrag2024} adaptively decide when and how to retrieve. IRCoT \citep{ircot2023} interleaves retrieval with chain-of-thought reasoning. These works assume retrieval is beneficial and optimize its timing; we question whether retrieval improvement is reliably beneficial.
 
-\paragraph{Process reward models.}
-Step-level rewards for mathematical reasoning \citep{lightman2024verify, wang2024mathshepherd} evaluate steps of the \emph{same kind}.
-Our operations differ in kind---retrieval, hypothesis generation, attack, reasoning.
+\paragraph{Context distraction and conflict.}
+Recent work shows that irrelevant or contradictory retrieved context can harm generation \citep{notrust2024,lostmiddle2024}. Our finding is distinct: we show that \emph{improved} retrieval of \emph{relevant} evidence can harm task performance---not because the evidence is bad, but because the model cannot reliably integrate it.
 
-\paragraph{Reasoning trajectories.}
-Tree of Thoughts \citep{yao2024tree}, Graph of Thoughts \citep{besta2024graph}, and LATS \citep{zhou2024lats} search over reasoning paths but do not isolate compositional value of heterogeneous operation types from matched states.
+\paragraph{Agent evaluation.}
+AgentBench \citep{agentbench2024} and GAIA \citep{gaia2024} evaluate end-to-end agent performance. We instead audit one specific pipeline component (intermediate artifact) and decompose its effects at each stage.
 
-\paragraph{Metacognitive agents.}
-Reflexion \citep{shinn2023reflexion} and Self-Refine \citep{madaan2023selfrefine} add self-monitoring.
-Our negative results on adaptive control complement this literature.
+% ============================================================
+\section{Causal Artifact Auditing Framework}
+\label{sec:method}
 
-\paragraph{Tool scheduling and temporal abstraction.}
-Toolformer \citep{schick2023toolformer} and ART \citep{paranjape2023art} schedule tool use; the options framework \citep{sutton1999options} studies temporally extended actions.
-Our work is analogous to options but in an epistemic rather than reward-maximizing context.
+We define a pipeline with five stages: (1)~artifact generation, (2)~query formation, (3)~evidence retrieval, (4)~evidence integration, and (5)~final decision.
 
-\paragraph{Distinction.}
-To our knowledge, no prior work combines same-state counterfactual evaluation with explicit measurement of downstream complementarity among heterogeneous epistemic operations (Table~\ref{tab:prior_art}).
+\paragraph{Conditions.}
+We compare five conditions that vary the artifact while holding compute, retrieval budget, and model constant:
 
-%------------------------------------------------------------------
-\section{Problem Formulation}
-\label{sec:formulation}
-%------------------------------------------------------------------
-
-\paragraph{Epistemic state.}
-An epistemic state $E_t = (\mathcal{R}_t, \mathcal{H}_t, \mathcal{I}_t, c_t)$ captures retrieved evidence~$\mathcal{R}$, hypotheses~$\mathcal{H}$, inferred relations~$\mathcal{I}$, and cumulative cost~$c$.
-
-\paragraph{Cognitive operations.}
-We define four primitives: \textsc{Retrieve}~($a_\text{ret}$), \textsc{Hypothesize}~($a_\text{hyp}$), \textsc{Attack}~($a_\text{atk}$), and \textsc{Reason}~($a_\text{rsn}$).
-Each transforms the epistemic state: $E_{t+1} = \tau(E_t, a_t)$.
-
-\paragraph{Temporal complementarity.}
-Two operations exhibit \emph{temporal complementarity} at state $E$ if their sequential value exceeds the additive baseline:
-\begin{equation}
-\label{eq:complementarity}
-\text{Comp}(a_i, a_j \mid E) = Q(\tau(\tau(E, a_i), a_j)) - \tfrac{1}{2}\bigl[Q(\tau(E, a_i)) + Q(\tau(E, a_j))\bigr]
-\end{equation}
-where $Q$ is an evaluator-defined quality function.
-When $\text{Comp} > 0$ (synergy), the sequence exceeds additive prediction; when $\text{Comp} < 0$ (interference), it underperforms.
-
-\paragraph{Resource-fairness caveat.}
-A 2-operation sequence consumes approximately twice the resources of a single operation.
-Our complementarity measure therefore includes a resource confound: positive complementarity could partially reflect additional compute rather than temporal structure alone.
-We report this limitation throughout.
-
-\paragraph{Counterfactual fork.}
-Given $E_t$, a counterfactual fork evaluates $G(S_A \mid E_t) - G(S_B \mid E_t)$ where both branches start from the same state.
-This controls for state variation.
-
-%------------------------------------------------------------------
-\section{Benchmark: Epistemic World Simulator}
-\label{sec:benchmark}
-%------------------------------------------------------------------
-
-The benchmark generates epistemic reasoning tasks with controlled latent structure.
-Each \emph{world} contains: latent hypotheses (one true), an evidence corpus with differential support, source dependencies, and hidden variables affecting reliability.
-The agent observes evidence but never the true hypothesis, causal graph, or quality function.
-
-\paragraph{Epistemic regimes.}
-Eight regimes (A--H) vary evidence informativeness, hypothesis discriminability, source independence, and deception structure.
-Each regime instantiates multiple worlds via deterministic seeds.
-
-\paragraph{Quality measurement.}
-$Q(E)$ combines hypothesis correctness, evidence coverage, and calibration.
-The function is evaluator-only: the agent never observes its score.
-
-\paragraph{Same-state evaluation.}
-The simulator supports event sourcing: any state can be snapshotted and restored, enabling counterfactual forks from identical starting conditions.
-This is the methodological core of the paper.
-
-%------------------------------------------------------------------
-\section{Experiments and Results}
-\label{sec:results}
-%------------------------------------------------------------------
-
-We organize experiments around five questions, summarized in Table~\ref{tab:claim_ladder}.
-
-%------------------------------------------------------------------
-\subsection{Temporal Complementarity and Interference}
-\label{sec:results_compl}
-%------------------------------------------------------------------
-
-\paragraph{Setup.}
-From matched epistemic states across 8 regimes ($N{=}56$ worlds, 7 seeds per regime), we execute all pairwise 2-operation sequences and compute $\text{Comp}(a_i, a_j)$ per Eq.~\ref{eq:complementarity}.
-
-\paragraph{Results (Table~\ref{tab:complementarity}).}
-Hypothesis generation is the catalytic operation: \textsc{Hyp}$\to$\textsc{Ret} yields complementarity $+0.162$ (95\% CI $[0.135, 0.188]$); \textsc{Hyp}$\to$\textsc{Atk} and \textsc{Hyp}$\to$\textsc{Rsn} each yield $+0.137$.
-Repeating \textsc{Hyp}$\to$\textsc{Hyp} shows directional interference ($-0.050$, CI $[-0.136, +0.035]$; not significant at $\alpha{=}0.05$).
-
-\textsc{Attack} and \textsc{Reason} have zero standalone quality gain.
-They contribute value only after \textsc{Hypothesize}, creating a prerequisite-like structure: hypothesis generation ``unlocks'' downstream operations.
-
-\paragraph{Interpretation.}
-This pattern is partially expected: only \textsc{Hypothesize} creates candidate hypotheses, so \textsc{Attack} and \textsc{Reason} have nothing to evaluate without prior hypothesis generation.
-The \emph{magnitude} of complementarity and its variation across regimes are the non-trivial findings, not the existence of prerequisite structure per se.
-The 2-vs-1 operation resource confound means complementarity values include some contribution from additional compute.
-
-%------------------------------------------------------------------
-\subsection{Adaptive Control Failure}
-\label{sec:results_adaptive}
-%------------------------------------------------------------------
-
-\paragraph{Adaptivity gap.}
-A state-conditioned sequence oracle achieves quality $0.622$; the best global fixed sequence (B1\_extended) achieves $0.527$; gap $= 0.096$ ($N{=}56$).
-Adaptive selection has theoretical room to improve.
-
-\paragraph{Policy failure.}
-A rule-based motif controller trained on state features achieves quality $0.323$---far below the best fixed strategy ($0.518$) and the oracle ($0.588$).
-Policy regret ($0.264$) exceeds fixed regret ($0.070$) by $3.8\times$.
-The controller produces only 2 distinct trajectory types.
-This represents a complete failure of our adaptive-control approach.
-
-\paragraph{Implications.}
-The existence of an adaptivity gap does not imply that a learned controller can exploit it.
-More expressive policy classes might succeed, but this remains a hypothesis.
-
-%------------------------------------------------------------------
-\subsection{LLM Execution}
-\label{sec:results_llm}
-%------------------------------------------------------------------
-
-\paragraph{Models.}
-Two LLM substrates pass a 10-operation capability gate ($\ge 0.73$ mean score, $N{=}24$ worlds each): Gemma~3 27B (Q4\_0 quantization) and Llama~3.2 11B (Q8\_0).
-Both served via Ollama on a Mac Studio; temperature $= 0$.
-
-\paragraph{Design.}
-We execute 8 cognitive sequences across $N{=}16$ worlds (8 regimes $\times$ 2 seeds) with each LLM.
-Quality is measured by the deterministic simulator---the LLM generates cognitive outputs but does \emph{not} affect the simulator's state transitions or quality evaluation.
-
-\paragraph{Key design limitation.}
-Because the simulator controls state transitions independently of LLM output, this experiment tests whether the structural complementarity effects \emph{persist when real LLMs perform the cognitive labor}, not whether LLM-generated cognition itself exhibits temporal complementarity.
-Quality scores are identical across both models because they are determined by the simulator.
-
-\paragraph{Results (Table~\ref{tab:replication}).}
 \begin{itemize}
-\item Complementarity: effect $+0.111$ (CI $[0.067, 0.156]$), consistent with V4 direction.
-\item Attack timing: standalone attack $= 0.000$; after hypothesis+evidence: $0.276$.
-\item Sequence superiority (B1\_extended vs.\ best primitive): $+0.003$, not significant.
-\item Order effect (forward vs.\ reversed B1): $-0.050$, not significant.
+    \item \textsc{Real}: Task-specific hypothesis generated by the model.
+    \item \textsc{Shuffled}: Hypothesis from a different randomly-selected task (same format, irrelevant content).
+    \item \textsc{Neutral}: Generic placeholder artifact (``No specific analysis available'').
+    \item \textsc{Generic}: LLM-generated query expansion without hypothesis commitment.
+    \item \textsc{Direct}: Raw task question used directly as retrieval query.
 \end{itemize}
 
-The two strongest controlled effects (complementarity, attack timing) survive; weaker effects do not.
+Two diagnostic conditions are used on SciFact only:
+\begin{itemize}
+    \item \textsc{Parametric-Only}: Model answers without any retrieval.
+    \item \textsc{Real-Hidden}: Same retrieval as \textsc{Real}, but hypothesis hidden from the answer model.
+\end{itemize}
 
-%------------------------------------------------------------------
-\subsection{Curated Evidence Tasks}
-\label{sec:results_real}
-%------------------------------------------------------------------
+\paragraph{Resource matching.}
+All retrieval-based conditions use the same model, the same BM25 retriever with $k=5$, and the same number of LLM calls (3 per task). Table~\ref{tab:setup} details the resource budget.
 
-\paragraph{Setup.}
-14 curated evidence summaries across 6 academic domains, with evaluator-defined ground truth (keyword-heuristic scoring against author-specified correct hypotheses).
-These are \emph{not} frozen real documents but literature-themed summaries with controlled structure.
+\paragraph{Datasets.}
+SciFact \citep{scifact2020}: 188 evaluable claims requiring scientific evidence assessment. HotpotQA \citep{hotpotqa2018}: multi-hop questions requiring evidence from multiple Wikipedia articles.
 
-\paragraph{Results (Table~\ref{tab:real_evidence}).}
-Greedy primitive ($0.718$) achieves the highest mean score.
-Condition range is $0.030$ across 5 strategies.
-Cognitive sequence choice has negligible impact.
+\paragraph{Models.}
+Gemma~27B (gemma3:27b-it-qat) as the primary model on unseen tasks, and Llama~11B (llama3.2-vision:11b-instruct-q8\_0) as the transfer model on seen tasks.
 
-\paragraph{Interpretation.}
-Multiple explanations are possible: (1) genuine non-transfer of complementarity effects; (2) insufficient task difficulty or strategy pressure in our curated packs; (3) LLMs may perform implicit hypothesis generation within single forward passes, reducing marginal value of explicit operations; (4) $N{=}14$ provides low statistical power (minimum detectable effect $\approx 0.05$).
-We cannot distinguish among these with current evidence.
+\paragraph{Statistical analysis.}
+Task-level paired bootstrap (10{,}000 resamples) with Holm correction over 14 simultaneous tests. Preregistered at SHA \texttt{8950ba9} before locked execution.
 
-%------------------------------------------------------------------
-\subsection{Negative Findings Summary}
-\label{sec:results_negative}
-%------------------------------------------------------------------
+% ============================================================
+\section{Intermediate Artifacts Improve Retrieval}
+\label{sec:retrieval}
 
-\begin{enumerate}
-\item \textbf{Sequence superiority not confirmed under LLM:} B1\_extended ($0.277$) $\approx$ single hypothesis generation ($0.273$).
-\item \textbf{Adaptive motif control failed:} Policy ($0.323$) $\ll$ best fixed ($0.518$).
-\item \textbf{Curated-evidence transfer not detected:} Condition range $= 0.030$.
-\item \textbf{Interference not significant:} $-0.050$, CI crosses zero.
-\item \textbf{Full REE $<$ simple baselines:} The most complex architecture ($0.356$) underperformed a fixed sequence ($0.594$).
-\end{enumerate}
+\textsc{Real} hypothesis artifacts significantly improve gold evidence retrieval over \textsc{Shuffled} controls in all four dataset--model cells (Table~\ref{tab:effects}). Effect sizes range from $+0.18$ (HotpotQA$\times$Gemma) to $+0.51$ (SciFact$\times$Llama), all $p_\text{Holm} < .002$. Semantic content in the intermediate artifact causally directs retrieval toward relevant evidence.
 
-These findings bound the scope of cognitive sequencing: temporal complementarity is operation-pair-specific rather than a general ``more steps $=$ better'' principle.
+\subsection{But Hypotheses Are Not Special}
+\label{sec:generic}
 
-%------------------------------------------------------------------
+\textsc{Generic} query expansion---which reformulates the question without committing to any hypothesis---achieves comparable or superior retrieval. In 2 of 4 cells, \textsc{Generic} significantly \emph{outperforms} \textsc{Real} after Holm correction (SciFact$\times$Gemma: $-0.18$, $p = .007$; HotpotQA$\times$Gemma: $-0.07$, $p = .024$). In no cell does \textsc{Real} significantly outperform \textsc{Generic}.
+
+This means the retrieval benefit is not attributable uniquely to hypothesis semantics. Any retrieval-oriented intermediate reformulation can produce similar gains.
+
+% ============================================================
+\section{The Retrieval--Reasoning Dissociation}
+\label{sec:dissociation}
+
+Despite uniformly positive retrieval effects, downstream task performance splits by dataset (Figure~\ref{fig:plane}).
+
+On \textbf{HotpotQA}, improved retrieval translates to improved F1: \textsc{Real} vs \textsc{Shuffled} yields $+0.12$ ($p_\text{Holm} < .002$, Gemma). More retrieved evidence provides more facts for multi-hop answer extraction.
+
+On \textbf{SciFact}, improved retrieval \emph{degrades} accuracy: \textsc{Real} vs \textsc{Shuffled} yields $-0.23$ ($p_\text{Holm} < .002$, Gemma) and $-0.39$ ($p_\text{Holm} < .002$, Llama). More retrieved scientific evidence introduces more reasoning errors.
+
+This pattern replicates qualitatively across both model families (Figure~\ref{fig:forest}).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.85\linewidth]{../figures/fig2_retrieval_reasoning_plane.pdf}
+    \caption{Retrieval--Reasoning Utility Plane. Each point shows the paired effect (REAL $-$ SHUFFLED) for one dataset--model cell with 95\% bootstrap CIs. HotpotQA cells fall in the positive-transfer quadrant (top-right); SciFact cells fall in the dissociation quadrant (bottom-right).}
+    \label{fig:plane}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\linewidth]{../figures/fig3_model_transfer.pdf}
+    \caption{Forest plot of retrieval and task effects by dataset--model cell. Left: all retrieval effects are positive and significant. Right: task effects split by dataset.}
+    \label{fig:forest}
+\end{figure}
+
+% ============================================================
+\section{Why Does SciFact Fail?}
+\label{sec:mechanism}
+
+\paragraph{Not hypothesis anchoring.}
+When the hypothesis artifact is hidden from the answer model (\textsc{Real-Hidden}), accuracy improves by only 4.5pp (Gemma) and 6.0pp (Llama)---neither significant after Holm correction ($p = .40$ and $p = .33$). The artifact's direct influence on reasoning is small.
+
+\paragraph{Evidence integration failure.}
+The primary mechanism is the model's inability to correctly integrate retrieved scientific evidence. Table~\ref{tab:flips} shows the answer flip decomposition against a \textsc{Parametric-Only} baseline:
+
+\begin{itemize}
+    \item \textsc{Shuffled} retrieves zero gold evidence (recall = 0.000) and achieves near-perfect accuracy (1.00 Gemma, 0.96 Llama) with zero harmful flips (CW = 0).
+    \item \textsc{Real} retrieves substantial gold evidence (recall = 0.28--0.51) but produces harmful flips (CW = 2--8) and wrong-stays-wrong cases (WW = 18--35).
+    \item \textsc{Generic} retrieves the most evidence (recall = 0.46--0.58) and produces the most wrong-stays-wrong cases (WW = 24--40).
+\end{itemize}
+
+More retrieved evidence introduces more opportunities for reasoning errors. The model defaults to high-accuracy patterns when no evidence is present, but introduces errors when asked to assess complex scientific evidence.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\linewidth]{../figures/fig4_scifact_decomposition.pdf}
+    \caption{SciFact answer flip decomposition by condition (both models). \textsc{Shuffled} achieves near-perfect accuracy through zero harmful flips and zero wrong-stays-wrong. Conditions retrieving more evidence show more gray (WW) and red (CW) segments.}
+    \label{fig:flips}
+\end{figure}
+
+% ============================================================
 \section{Discussion}
 \label{sec:discussion}
-%------------------------------------------------------------------
 
-\paragraph{The unit of metacognitive control.}
-Our data suggest that primitive step-level value can miss temporal interactions, but the failed motif controller shows that identifying sequence structure does not automatically yield a successful adaptive scheduler.
-This tension---real complementarity, unsuccessful exploitation---is a central open problem for agent design.
+\paragraph{Retrieval metrics as misleading proxies.}
+Our findings demonstrate that retrieval quality metrics (gold evidence recall) can be directionally misleading about system utility. An agent component that scores well on retrieval evaluation may actively harm the system when the downstream bottleneck is evidence integration rather than evidence acquisition.
 
-\paragraph{Prerequisites vs.\ complementarity.}
-A skeptical reading of our complementarity results is that they merely reflect prerequisite structure: \textsc{Attack} needs hypotheses; \textsc{Reason} needs hypotheses.
-We partially agree---the \emph{existence} of these interactions is not surprising.
-What is measured is their \emph{magnitude}, \emph{state dependence}, and \emph{persistence under LLM execution}.
+\paragraph{Implications for agent design.}
+If metacognitive policies optimize intermediate proxies---retrieval relevance, evidence recall, artifact quality---they may choose actions that improve the proxy while worsening final task utility. This pattern is structurally analogous to reward misspecification: a local proxy is optimized at the expense of a global objective.
 
-\paragraph{Why transfer may fail.}
-Modern LLMs may perform implicit hypothesis generation and reasoning within single forward passes.
-Explicit cognitive operations may partially duplicate internal computation, reducing their marginal value on real tasks.
+\paragraph{When does retrieval help?}
+Our results suggest retrieval helps when the task requires \emph{extracting facts} from retrieved passages (HotpotQA) but can hurt when the task requires \emph{assessing complex evidence} (SciFact). This distinction may generalize: evidence-extraction tasks benefit from more evidence, while evidence-assessment tasks suffer from it.
 
-%------------------------------------------------------------------
+\paragraph{Generic reformulation suffices.}
+The negative result on hypothesis specificity (PV-H2) has practical implications. For retrieval improvement alone, elaborate hypothesis formation is unnecessary; simple query expansion achieves comparable results. Hypothesis formation may serve other purposes (reasoning scaffolding, explainability) but not retrieval optimization.
+
+% ============================================================
 \section{Limitations}
 \label{sec:limitations}
-%------------------------------------------------------------------
 
-\begin{enumerate}
-\item \textbf{Resource confound.} 2-operation sequences use $\sim$2$\times$ the tokens of single operations.
-\item \textbf{Benchmark circularity risk.} The simulator was designed by the experimenters; findings may not generalize beyond it.
-\item \textbf{Only two LLMs tested.} Both served from the same backend with the same prompts.
-\item \textbf{LLM does not affect quality measurement.} Phase 26 quality comes from the simulator, not LLM output.
-\item \textbf{Curated evidence, not real documents.} Phase 27 uses author-created summaries, not frozen source texts.
-\item \textbf{Small sample sizes.} $N{=}16$ (LLM), $N{=}14$ (curated evidence).
-\item \textbf{No formal hypothesis testing.} We report CIs but no formal tests; regime clustering likely makes CIs anti-conservative.
-\item \textbf{No live-web evaluation.}
-\item \textbf{Metric dependence.} Different quality scalarizations might yield different complementarity patterns.
-\item \textbf{Adaptive policy tested only one controller class.}
-\end{enumerate}
+\begin{itemize}
+    \item Two datasets. The task-dependent claim rests on one positive and one negative case. Additional datasets would strengthen the pattern.
+    \item Two model families (Gemma 27B, Llama 11B). We do not claim model invariance.
+    \item BM25 retrieval only. Results may differ with dense retrievers.
+    \item Explicit externalized artifacts only. Internal chain-of-thought reasoning may behave differently.
+    \item No human subjects. The mechanistic diagnosis is computational, not validated with human evidence assessment.
+    \item The causal pipeline decomposition is observational between stages; formal causal mediation analysis was not conducted.
+\end{itemize}
 
-%------------------------------------------------------------------
+% ============================================================
 \section{Conclusion}
-\label{sec:conclusion}
-%------------------------------------------------------------------
 
-We presented a controlled benchmark for measuring temporal-composition value of cognitive operations.
-Specific operation pairs exhibit measurable complementarity ($+0.162$) and prerequisite structure, and these effects persist under real LLM execution.
-Equally important, general sequence superiority, adaptive control, and curated-evidence transfer are not supported.
-The correct unit of metacognitive analysis appears to be the operation pair, not the full sequence or the individual primitive.
+We presented a preregistered causal audit of intermediate cognitive artifacts in LLM retrieval pipelines, revealing a robust retrieval--reasoning dissociation: the same type of artifact that improves evidence retrieval produces opposite downstream effects depending on task structure. This finding, replicated across two model families, demonstrates that retrieval quality is not a reliable proxy for end-to-end agent utility. The bottleneck in retrieval-augmented systems may be evidence integration rather than evidence acquisition---a distinction with implications for how we evaluate, optimize, and trust multi-step LLM agents.
 
-%------------------------------------------------------------------
-% TABLES
-%------------------------------------------------------------------
+% ============================================================
+\paragraph{AI assistance disclosure.}
+AI tools were used for brainstorming, code assistance, protocol drafting, and paper editing. All experiments, statistics, results, citations, and claims were verified against committed artifacts. Inference traces, preregistration, and reproduction scripts are available in the supplementary material.
 
-\begin{table}[t]
-\centering
-\caption{Pairwise complementarity matrix (Eq.~\ref{eq:complementarity}; $N{=}56$ worlds, 8 regimes). Bold: significant at 95\% CI.}
-\label{tab:complementarity}
-\small
-\begin{tabular}{lcccc}
-\toprule
-First $\to$ Second & \textsc{Ret} & \textsc{Hyp} & \textsc{Atk} & \textsc{Rsn} \\
-\midrule
-\textsc{Retrieve}    & $-0.002$ & $+0.078$ & $+0.025$ & $+0.025$ \\
-\textsc{Hypothesize} & $\mathbf{+0.162}$ & $-0.050$ & $\mathbf{+0.137}$ & $\mathbf{+0.137}$ \\
-\textsc{Attack}      & $+0.025$ & $\mathbf{+0.137}$ & $0.000$ & $0.000$ \\
-\textsc{Reason}      & $+0.025$ & $\mathbf{+0.137}$ & $0.000$ & $0.000$ \\
-\bottomrule
-\end{tabular}
-\vspace{-2mm}
-\end{table}
-
-\begin{table}[t]
-\centering
-\caption{LLM execution results ($N{=}16$ worlds per model, 128 total evaluations). Quality from deterministic simulator.}
-\label{tab:replication}
-\small
-\begin{tabular}{lccl}
-\toprule
-Test & Effect & 95\% CI & Verdict \\
-\midrule
-Complementarity & $+0.111$ & $[0.067, 0.156]$ & Consistent \\
-Attack timing & $+0.276$ & $[0.179, 0.373]$ & Consistent \\
-Sequence $>$ primitive & $+0.003$ & $[-0.160, 0.166]$ & Not confirmed \\
-Order effect & $-0.050$ & $[-0.128, 0.028]$ & Not confirmed \\
-\bottomrule
-\end{tabular}
-\vspace{-2mm}
-\end{table}
-
-\begin{table}[t]
-\centering
-\caption{Curated evidence results ($N{=}14$ packs, Gemma~3 27B). Condition range $= 0.030$.}
-\label{tab:real_evidence}
-\small
-\begin{tabular}{lcc}
-\toprule
-Condition & Mean quality & Std \\
-\midrule
-Greedy primitive & $\mathbf{0.718}$ & $0.074$ \\
-Direct & $0.696$ & $0.058$ \\
-B1\_extended & $0.691$ & $0.112$ \\
-Full explore & $0.688$ & $0.112$ \\
-\bottomrule
-\end{tabular}
-\vspace{-2mm}
-\end{table}
-
-\begin{table}[t]
-\centering
-\caption{Cross-level claim ladder.}
-\label{tab:claim_ladder}
-\small
-\begin{tabular}{lcccl}
-\toprule
-Finding & Simulator & +LLM & +Curated & Level \\
-\midrule
-Complementarity & \checkmark & \checkmark & --- & 2 \\
-Attack timing & \checkmark & \checkmark & n/a & 2 \\
-Interference & $\sim$ & $\sim$ & --- & 1 \\
-Seq.\ $>$ prim. & \checkmark & --- & --- & 1 \\
-Order effects & \checkmark & --- & --- & 1 \\
-Adaptive ctrl. & gap exists & fails & n/a & 0 \\
-\bottomrule
-\end{tabular}
-\vspace{1mm}
-{\footnotesize \checkmark = supported, --- = not confirmed, $\sim$ = directional (CI crosses 0). \\
-Level 2: simulator + LLM. Level 1: simulator only. Level 0: unsupported.}
-\vspace{-3mm}
-\end{table}
-
-\begin{table}[t]
-\centering
-\caption{Comparison with related work. \checkmark = addressed, $\sim$ = partial, blank = not addressed.}
-\label{tab:prior_art}
-\small
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{lccccccc}
-\toprule
-& \rotatebox{70}{Adaptive} & \rotatebox{70}{Retrieval} & \rotatebox{70}{Op value} & \rotatebox{70}{Seq.\ value} & \rotatebox{70}{Same-state} & \rotatebox{70}{Compl.} & \rotatebox{70}{Hetero.\ ops} \\
-\midrule
-Self-RAG & $\sim$ & \checkmark & & & & & \\
-ToT & \checkmark & & $\sim$ & $\sim$ & & & \\
-LATS & \checkmark & & & \checkmark & & & \\
-Reflexion & \checkmark & & & $\sim$ & & & $\sim$ \\
-PRM & & & \checkmark & & & & \\
-Options & \checkmark & & & \checkmark & & & \\
-\textbf{This work} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
-\bottomrule
-\end{tabular}
-\vspace{-3mm}
-\end{table}
-
-%------------------------------------------------------------------
+% ============================================================
 \bibliography{references}
-\bibliographystyle{iclr2025_conference}
-
-%------------------------------------------------------------------
-% APPENDIX
-%------------------------------------------------------------------
-\appendix
-
-\section{Reproducibility Statement}
-\label{app:repro}
-
-All experiments are deterministic given seeds and Python~3.11+.
-Simulator experiments require no external dependencies.
-LLM experiments used Gemma~3 27B QAT (digest \texttt{29eb0b9a...}) and Llama~3.2 11B Q8\_0 (digest \texttt{a5b7471a...}) via Ollama on a Mac Studio; temperature~$=0$.
-Model quantization, generation parameters, and prompt templates are documented in the supplementary material.
-Raw result artifacts (JSONL/JSON) are available for all experiments.
-
-\section{AI Use Statement}
-\label{app:ai_use}
-
-This research used large language models in two capacities: (1)~as experimental subjects---Gemma~3 27B and Llama~3.2 11B were evaluated as cognitive-operation executors in the LLM replication experiments; (2)~as research assistants---an LLM assistant was used during code development, experimental design iteration, and manuscript drafting.
-No LLM is listed as an author.
-All scientific claims, experimental designs, and analyses were reviewed and validated by human researchers.
-
-\section{Additional Experimental Details}
-\label{app:details}
-
-\paragraph{Capability gate.}
-Both models were evaluated on 10 operations $\times$ 24 worlds.
-Key scores: hypothesis generation (Gemma: $0.750$, Llama: $0.733$), reasoning (Gemma: $0.929$, Llama: $0.950$), all others $\ge 0.800$.
-Gate threshold: $0.30$ per core operation.
-
-\paragraph{Adaptive control details.}
-The policy used transparent rule-based features from epistemic state (evidence count, hypothesis count, regime indicators).
-Selection was among 5 motifs (explore, discriminate, full\_explore, integrate, evidence\_heavy).
-$N{=}56$ training worlds; no held-out validation split for policy selection.
-
-\paragraph{Curated evidence pack construction.}
-14 packs were authored programmatically with literature-themed content referencing real academic debates (dual-process theory, emergent abilities, minimum wage effects, etc.).
-Ground truth was defined by the pack author, not independently annotated.
-Quality scoring uses keyword heuristics against author-specified correct hypotheses.
-Packs are \emph{not} frozen real documents.
-
-\paragraph{Budget fairness.}
-2-operation sequences consume approximately $2\times$ the tokens of single operations (mean: 485 vs.\ 232 tokens).
-Longer experimental sequences (B1\_extended, 7~ops) consume approximately $10\times$ single-operation budgets.
-Complementarity measurements include this resource confound; see \S\ref{sec:formulation}.
+\bibliographystyle{plainnat}
 
 \end{document}

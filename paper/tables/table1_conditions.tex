@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\caption{Performance across conditions. Retrieval = gold evidence recall. Task = accuracy (SciFact) or F1 (HotpotQA). $N$: SciFact--Gemma = 88 unseen, SciFact--Llama = 100, HotpotQA--Gemma = 300 unseen, HotpotQA--Llama = 100.}
+\label{tab:conditions}
+\small
+\begin{tabular}{lcccccccc}
+\toprule
+& \multicolumn{2}{c}{SciFact$\times$Gemma} & \multicolumn{2}{c}{SciFact$\times$Llama} & \multicolumn{2}{c}{HotpotQA$\times$Gemma} & \multicolumn{2}{c}{HotpotQA$\times$Llama} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
+Condition & Retr. & Task & Retr. & Task & Retr. & Task & Retr. & Task \\
+\midrule
+\textsc{Direct} & 0.253 & 0.852 & 0.720 & 0.420 & 0.437 & 0.336 & 0.485 & 0.425 \\
+\textsc{Neutral} & 0.216 & 0.909 & 0.558 & 0.590 & 0.413 & 0.357 & 0.525 & 0.460 \\
+\textsc{Generic} & 0.463 & 0.705 & 0.578 & 0.460 & 0.525 & 0.372 & 0.535 & 0.438 \\
+\textsc{Real} & 0.281 & 0.773 & 0.511 & 0.570 & 0.460 & 0.393 & 0.585 & 0.468 \\
+\textsc{Shuffled} & 0.000 & 1.000 & 0.000 & 0.960 & 0.278 & 0.269 & 0.270 & 0.381 \\
+\bottomrule
+\end{tabular}
+\end{table}

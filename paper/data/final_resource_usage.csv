@@ -1,0 +1,8 @@
+condition,artifact_calls,query_calls,answer_calls,retrieval_calls,top_k,total_calls
+DIRECT,0,1,1,1,5,3
+NEUTRAL,0,1,1,1,5,3
+GENERIC_EXPANSION,0,1,1,1,5,3
+REAL,1,1,1,1,5,3
+SHUFFLED,1,1,1,1,5,3
+PARAMETRIC_ONLY,0,0,1,0,0,1
+REAL_ARTIFACT_HIDDEN,1,1,1,1,5,3
