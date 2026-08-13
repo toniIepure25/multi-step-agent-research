@@ -103,13 +103,25 @@ Phase 1: Budget-matched factorial validation. Factorial interaction = 0.000. Att
 Phase 2: Semantic intervention on SciFact (N=100) and HotpotQA (N=100).
 Key: Semantic content causally affects retrieval but improved retrieval does not universally help.
 
-## EXPERIMENTAL DEVELOPMENT COMPLETE
+## PAPER VALIDATION — COMPLETE
 
-All preregistered hypotheses executed. No Campaign V7.
+Preregistered causal audit (SHA: 8950ba9) executed on unseen tasks.
+4 runs: SciFact×Gemma (88), SciFact×Llama (100), HotpotQA×Gemma (300), HotpotQA×Llama (100).
+14 formal tests with Holm correction. 8/14 significant.
+
+### Paper Validation Hypotheses
+
+| ID | Name | Verdict |
+|----|------|---------|
+| PV-H1 | Semantic retrieval effect | **SUPPORTED** (4/4 cells) |
+| PV-H2 | Semantic specificity | **NOT_SUPPORTED** (generic = better) |
+| PV-H3 | Downstream heterogeneity | **SUPPORTED** (3/4 cells) |
+| PV-H4 | Model transfer | **SUPPORTED** (qualitative replication) |
+| PV-H5 | SciFact failure mechanism | **CHARACTERIZED** (evidence integration) |
 
 ## Next Steps (Paper Only)
 
-1. **Freeze V6 results** — commit all V6 completion artifacts.
-2. **Rewrite paper** — methodology + mixed results paper.
-3. **Target venue** — NeurIPS D&B or EMNLP findings.
-4. **No further experiments** — results are final.
+1. **Write final paper** — "Retrieval-Reasoning Dissociation" framing
+2. **Target venue** — ICLR 2027 or ACL 2027
+3. **No further experiments** — validation results are final
+4. All results in `experiments/paper_validation/`

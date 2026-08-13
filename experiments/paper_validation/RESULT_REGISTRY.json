@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "preregistration_sha": "8950ba9",
+    "discovery_sha": "f603a9c",
+    "primary_model": "gemma3:27b-it-qat",
+    "transfer_model": "llama3.2-vision:11b-instruct-q8_0",
+    "endpoint": "https://inference.ccrolabs.com/v1",
+    "completion_timestamp": "2026-08-13T20:48:14Z"
+  },
+  "completed_runs": {
+    "scifact_locked_gemma": {"n": 88, "status": "COMPLETE"},
+    "scifact_transfer_llama": {"n": 100, "status": "COMPLETE"},
+    "hotpotqa_locked_gemma": {"n": 300, "status": "COMPLETE"},
+    "hotpotqa_transfer_llama": {"n": 100, "status": "COMPLETE"}
+  },
+  "hypotheses": {
+    "PV-H1": {
+      "name": "Semantic Retrieval Effect (REAL > SHUFFLED on retrieval)",
+      "verdict": "SUPPORTED",
+      "evidence": {
+        "scifact_gemma_88": {
+          "metric": "gold_doc_recall",
+          "effect": 0.281,
+          "ci": [0.193, 0.375],
+          "significant": true
+        },
+        "scifact_llama_100": {
+          "metric": "gold_doc_recall",
+          "effect": 0.511,
+          "ci": [0.413, 0.608],
+          "significant": true
+        },
+        "hotpotqa_gemma_300": {
+          "metric": "gold_title_recall",
+          "effect": 0.182,
+          "ci": [0.138, 0.227],
+          "significant": true
+        },
+        "hotpotqa_llama_100": {
+          "metric": "gold_title_recall",
+          "effect": 0.315,
+          "ci": [0.240, 0.390],
+          "significant": true
+        }
+      },
+      "summary": "Replicated across 2 datasets x 2 models. All 4 CIs exclude zero. Effect sizes range 0.18-0.51."
+    },
+    "PV-H2": {
+      "name": "Semantic Specificity (REAL > GENERIC on retrieval)",
+      "verdict": "NOT_SUPPORTED",
+      "evidence": {
+        "scifact_gemma_88": {
+          "metric": "gold_doc_recall",
+          "effect": -0.182,
+          "ci": [-0.296, -0.071],
+          "significant": true,
+          "direction": "GENERIC better"
+        },
+        "scifact_llama_100": {
+          "metric": "gold_doc_recall",
+          "effect": -0.068,
+          "ci": [-0.190, 0.053],
+          "significant": false,
+          "direction": "trending GENERIC better"
+        },
+        "hotpotqa_gemma_300": {
+          "metric": "gold_title_recall",
+          "effect": -0.065,
+          "ci": [-0.108, -0.022],
+          "significant": true,
+          "direction": "GENERIC better"
+        },
+        "hotpotqa_llama_100": {
+          "metric": "gold_title_recall",
+          "effect": 0.050,
+          "ci": [-0.030, 0.130],
+          "significant": false,
+          "direction": "trending REAL better"
+        }
+      },
+      "summary": "2/4 cells show GENERIC significantly better; 0/4 show REAL better. Hypothesis-specific semantics do not provide retrieval advantages over generic query expansion."
+    },
+    "PV-H3": {
+      "name": "Downstream Utility Heterogeneity (retrieval helps HotpotQA but hurts SciFact accuracy)",
+      "verdict": "SUPPORTED",
+      "evidence": {
+        "scifact_gemma": {
+          "real_vs_shuffled_accuracy": -0.227,
+          "ci": [-0.318, -0.148],
+          "direction": "retrieval HURTS accuracy"
+        },
+        "scifact_llama": {
+          "real_vs_shuffled_accuracy": -0.390,
+          "ci": [-0.490, -0.300],
+          "direction": "retrieval HURTS accuracy"
+        },
+        "hotpotqa_gemma": {
+          "real_vs_shuffled_f1": 0.124,
+          "ci": [0.075, 0.175],
+          "direction": "retrieval HELPS F1"
+        },
+        "hotpotqa_llama": {
+          "real_vs_shuffled_f1": 0.086,
+          "ci": [-0.015, 0.191],
+          "direction": "trending retrieval helps F1"
+        }
+      },
+      "summary": "Clear dissociation: retrieval hurts SciFact accuracy (both models) while helping HotpotQA F1. The interaction is robust across models."
+    },
+    "PV-H4": {
+      "name": "Model Transfer",
+      "verdict": "SUPPORTED",
+      "evidence": {
+        "scifact_retrieval_effect": "Gemma +0.281, Llama +0.511 — same direction, Llama even stronger",
+        "scifact_accuracy_harm": "Gemma -0.227, Llama -0.390 — same direction, Llama even worse",
+        "hotpotqa_retrieval_effect": "Gemma +0.182, Llama +0.315 — same direction, Llama stronger",
+        "hotpotqa_f1_effect": "Gemma +0.124, Llama +0.086 (n.s.) — same direction, Llama weaker"
+      },
+      "summary": "Qualitative pattern replicates perfectly across models. Quantitative differences present but direction consistent on all 4 contrasts."
+    },
+    "PV-H5": {
+      "name": "SciFact Failure Mechanism",
+      "verdict": "CHARACTERIZED",
+      "evidence": {
+        "gemma_shuffled_accuracy": 1.000,
+        "gemma_shuffled_recall": 0.000,
+        "llama_shuffled_accuracy": 0.960,
+        "llama_shuffled_recall": 0.000,
+        "gemma_parametric_accuracy": 0.125,
+        "llama_parametric_accuracy": 0.320,
+        "artifact_exposure_gemma": -0.045,
+        "artifact_exposure_llama": -0.060
+      },
+      "mechanism": "SHUFFLED retrieves zero gold evidence because shuffled hypotheses produce irrelevant queries. Without evidence to integrate, the model defaults to high-accuracy verdict patterns. REAL retrieves real evidence (+0.28-0.51 recall) but evidence integration introduces errors. Artifact visibility slightly harms accuracy (both models) consistent with hypothesis anchoring, but the primary mechanism is evidence integration failure, not anchoring.",
+      "summary": "The failure is at the evidence-to-verdict integration step, not the artifact-to-query step."
+    }
+  },
+  "unexpected_findings": {
+    "shuffled_perfect_accuracy": "SHUFFLED achieves ~100% accuracy on SciFact by retrieving zero relevant evidence. This is a measurement artifact: without evidence, the model produces default verdicts that happen to align with ground truth in this dataset.",
+    "generic_beats_real_retrieval": "Generic query expansion without hypothesis content retrieves MORE gold evidence than hypothesis-specific queries on 3/4 dataset-model cells.",
+    "llama_stronger_retrieval_effects": "Llama shows larger retrieval effects than Gemma on both datasets, possibly because Llama's retrieval queries are more dependent on the input artifact."
+  },
+  "raw_files": {
+    "scifact_locked": "results/raw/scifact_LOCKED_gemma3_27b-it-qat.jsonl",
+    "scifact_transfer": "results/raw/scifact_TRANSFER_llama3.2-vision_11b-instruct-q8_0.jsonl",
+    "hotpotqa_locked": "results/raw/hotpotqa_LOCKED_gemma3_27b-it-qat.jsonl",
+    "hotpotqa_transfer": "results/raw/hotpotqa_TRANSFER_llama3.2-vision_11b-instruct-q8_0.jsonl"
+  },
+  "derived_files": {
+    "primary_effects": "results/derived/primary_effects.json"
+  }
+}

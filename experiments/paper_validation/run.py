@@ -192,7 +192,7 @@ async def scifact_condition(client, model, claim, corpus, condition,
         trace["calls"] += 1
         parsed = _parse_json(r)
         verdict = "NOT_ENOUGH_INFO"
-        if parsed:
+        if isinstance(parsed, dict):
             verdict = parsed.get("verdict", "NOT_ENOUGH_INFO")
         elif "support" in r.lower():
             verdict = "SUPPORTS"
@@ -233,7 +233,7 @@ async def scifact_condition(client, model, claim, corpus, condition,
         trace["calls"] += 1
         parsed = _parse_json(r)
         verdict = "NOT_ENOUGH_INFO"
-        if parsed:
+        if isinstance(parsed, dict):
             verdict = parsed.get("verdict", "NOT_ENOUGH_INFO")
         elif "support" in r.lower():
             verdict = "SUPPORTS"
@@ -303,7 +303,8 @@ async def scifact_condition(client, model, claim, corpus, condition,
         trace["calls"] += 1
 
     parsed_q = _parse_json(q_text) if q_text else None
-    query = parsed_q.get("query", q_text[:200]) if parsed_q else (q_text[:200] if q_text else question)
+    query = (parsed_q.get("query", q_text[:200]) if isinstance(parsed_q, dict)
+             else (parsed_q[:200] if isinstance(parsed_q, str) else (q_text[:200] if q_text else question)))
     trace["query"] = query[:300]
 
     # Step 3: Retrieve
@@ -345,7 +346,7 @@ async def scifact_condition(client, model, claim, corpus, condition,
 
     parsed_a = _parse_json(r)
     verdict = "NOT_ENOUGH_INFO"
-    if parsed_a:
+    if isinstance(parsed_a, dict):
         verdict = parsed_a.get("verdict", "NOT_ENOUGH_INFO")
     elif "support" in r.lower():
         verdict = "SUPPORTS"
@@ -415,7 +416,8 @@ async def hotpot_condition(client, model, task, condition,
         trace["calls"] += 1
 
     parsed_q = _parse_json(q_text) if q_text else None
-    query = parsed_q.get("query", q_text[:200]) if parsed_q else (q_text[:200] if q_text else question)
+    query = (parsed_q.get("query", q_text[:200]) if isinstance(parsed_q, dict)
+             else (parsed_q[:200] if isinstance(parsed_q, str) else (q_text[:200] if q_text else question)))
     trace["query"] = query[:300]
 
     # Step 3: Retrieve
@@ -438,7 +440,8 @@ async def hotpot_condition(client, model, task, condition,
     trace["calls"] += 1
 
     parsed_a = _parse_json(a_text)
-    predicted = parsed_a.get("answer", a_text[:100]) if parsed_a else a_text[:100]
+    predicted = (parsed_a.get("answer", a_text[:100]) if isinstance(parsed_a, dict)
+                 else (parsed_a[:100] if isinstance(parsed_a, str) else a_text[:100]))
     trace["predicted_answer"] = predicted[:200]
     trace["f1"] = _compute_f1(predicted, task["answer"])
     trace["em"] = 1.0 if predicted.strip().lower() == task["answer"].strip().lower() else 0.0

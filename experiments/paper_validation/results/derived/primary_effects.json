@@ -1,0 +1,212 @@
+{
+  "scifact_locked_gemma": {
+    "REAL_vs_shuffled_accuracy": {
+      "effect": -0.2273,
+      "ci_lo": -0.3182,
+      "ci_hi": -0.1477,
+      "n": 88
+    },
+    "REAL_vs_shuffled_doc_recall": {
+      "effect": 0.2812,
+      "ci_lo": 0.1932,
+      "ci_hi": 0.375,
+      "n": 88
+    },
+    "REAL_vs_shuffled_rat_recall": {
+      "effect": 0.2808,
+      "ci_lo": 0.1899,
+      "ci_hi": 0.375,
+      "n": 88
+    },
+    "REAL_vs_generic_accuracy": {
+      "effect": 0.0682,
+      "ci_lo": -0.0341,
+      "ci_hi": 0.1818,
+      "n": 88
+    },
+    "REAL_vs_generic_doc_recall": {
+      "effect": -0.1818,
+      "ci_lo": -0.2955,
+      "ci_hi": -0.071,
+      "n": 88
+    },
+    "REAL_vs_generic_rat_recall": {
+      "effect": -0.1788,
+      "ci_lo": -0.2876,
+      "ci_hi": -0.0652,
+      "n": 88
+    },
+    "flips_REAL": {
+      "CC": 9,
+      "CW": 2,
+      "WC": 59,
+      "WW": 18
+    },
+    "flips_SHUFFLED": {
+      "CC": 11,
+      "CW": 0,
+      "WC": 77,
+      "WW": 0
+    },
+    "flips_NEUTRAL": {
+      "CC": 11,
+      "CW": 0,
+      "WC": 69,
+      "WW": 8
+    },
+    "flips_DIRECT": {
+      "CC": 9,
+      "CW": 2,
+      "WC": 66,
+      "WW": 11
+    },
+    "flips_GENERIC_EXPANSION": {
+      "CC": 9,
+      "CW": 2,
+      "WC": 53,
+      "WW": 24
+    },
+    "flips_REAL_ARTIFACT_HIDDEN": {
+      "CC": 10,
+      "CW": 1,
+      "WC": 62,
+      "WW": 15
+    },
+    "artifact_exposure_effect": {
+      "effect": -0.0455,
+      "ci_lo": -0.1023,
+      "ci_hi": 0
+    }
+  },
+  "scifact_transfer_llama": {
+    "REAL_vs_shuffled_accuracy": {
+      "effect": -0.39,
+      "ci_lo": -0.49,
+      "ci_hi": -0.3,
+      "n": 100
+    },
+    "REAL_vs_shuffled_doc_recall": {
+      "effect": 0.5108,
+      "ci_lo": 0.4133,
+      "ci_hi": 0.6075,
+      "n": 100
+    },
+    "REAL_vs_shuffled_rat_recall": {
+      "effect": 0.5125,
+      "ci_lo": 0.4158,
+      "ci_hi": 0.61,
+      "n": 100
+    },
+    "REAL_vs_generic_accuracy": {
+      "effect": 0.11,
+      "ci_lo": 0,
+      "ci_hi": 0.22,
+      "n": 100
+    },
+    "REAL_vs_generic_doc_recall": {
+      "effect": -0.0675,
+      "ci_lo": -0.19,
+      "ci_hi": 0.0525,
+      "n": 100
+    },
+    "REAL_vs_generic_rat_recall": {
+      "effect": -0.0688,
+      "ci_lo": -0.19,
+      "ci_hi": 0.06,
+      "n": 100
+    },
+    "flips_REAL": {
+      "CC": 24,
+      "CW": 8,
+      "WC": 33,
+      "WW": 35
+    },
+    "flips_SHUFFLED": {
+      "CC": 32,
+      "CW": 0,
+      "WC": 64,
+      "WW": 4
+    },
+    "flips_NEUTRAL": {
+      "CC": 19,
+      "CW": 13,
+      "WC": 40,
+      "WW": 28
+    },
+    "flips_DIRECT": {
+      "CC": 14,
+      "CW": 18,
+      "WC": 28,
+      "WW": 40
+    },
+    "flips_GENERIC_EXPANSION": {
+      "CC": 18,
+      "CW": 14,
+      "WC": 28,
+      "WW": 40
+    },
+    "flips_REAL_ARTIFACT_HIDDEN": {
+      "CC": 25,
+      "CW": 7,
+      "WC": 38,
+      "WW": 30
+    },
+    "artifact_exposure_effect": {
+      "effect": -0.06,
+      "ci_lo": -0.12,
+      "ci_hi": 0
+    }
+  },
+  "hotpotqa_locked_gemma": {
+    "REAL_vs_shuffled_f1": {
+      "effect": 0.1243,
+      "ci_lo": 0.0748,
+      "ci_hi": 0.1746,
+      "n": 300
+    },
+    "REAL_vs_shuffled_recall": {
+      "effect": 0.1817,
+      "ci_lo": 0.1383,
+      "ci_hi": 0.2267,
+      "n": 300
+    },
+    "REAL_vs_generic_f1": {
+      "effect": 0.0213,
+      "ci_lo": -0.0296,
+      "ci_hi": 0.0716,
+      "n": 300
+    },
+    "REAL_vs_generic_recall": {
+      "effect": -0.065,
+      "ci_lo": -0.1083,
+      "ci_hi": -0.0217,
+      "n": 300
+    }
+  },
+  "hotpotqa_transfer_llama": {
+    "REAL_vs_shuffled_f1": {
+      "effect": 0.0863,
+      "ci_lo": -0.0151,
+      "ci_hi": 0.1912,
+      "n": 100
+    },
+    "REAL_vs_shuffled_recall": {
+      "effect": 0.315,
+      "ci_lo": 0.24,
+      "ci_hi": 0.39,
+      "n": 100
+    },
+    "REAL_vs_generic_f1": {
+      "effect": 0.0299,
+      "ci_lo": -0.0636,
+      "ci_hi": 0.1259,
+      "n": 100
+    },
+    "REAL_vs_generic_recall": {
+      "effect": 0.05,
+      "ci_lo": -0.03,
+      "ci_hi": 0.13,
+      "n": 100
+    }
+  }
+}
