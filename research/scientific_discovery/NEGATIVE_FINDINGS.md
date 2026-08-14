@@ -1,6 +1,6 @@
 # Negative Findings & Honest Limitations
 
-**Updated:** 2026-08-14
+**Updated:** 2026-08-14 (Stage 3 hardening)
 
 ---
 
@@ -96,10 +96,36 @@ The latter claim requires Stage 2 validation (experiment selection).
 
 ---
 
+## Finding 7: Active Science — Discrimination vs Confirmation Nearly Tied
+
+**Date:** 2026-08-14 (Stage 3)
+
+**Observation:** In active worlds, discrimination (0.900) barely outperforms confirmation (0.883) for recovery. The Δ=+0.017 with CI crossing zero.
+
+**Interpretation:** Both policies benefit from Bayesian updating with real observations. The Bayesian update itself is powerful enough that even confirmation-seeking policies eventually identify truth. The critical gap is vs RANDOM (0.700) and PASSIVE (0.267).
+
+**Implication:** The primary benefit of experiment selection is avoiding UNINFORMATIVE experiments (passive/random), not the specific distinction between confirmation and discrimination in these 3-hypothesis worlds. Harder worlds (more hypotheses, less budget) may widen the gap.
+
+---
+
+## Finding 8: Hardened Stage 2 — E3 Still Near-Optimal (69% Zero Regret)
+
+**Date:** 2026-08-14 (Stage 3)
+
+**Observation:** Even with noisy predictions, E3 achieves zero regret on 69% of tasks. The JSD heuristic remains a strong proxy even with miscalibrated predictions.
+
+**Implication:** The discrimination scoring rule is robust but may still be too strong for these world designs. Sequential experiment design (where greedy ≠ optimal) would further challenge it.
+
+---
+
 ## Future Risk Areas
 
-1. **False abandonment under noise:** Current worlds have clean decisive evidence. Noisier evidence (partial contradiction, unreliable sources) may reveal sensitivity to over-aggressive falsification.
+1. **False abandonment under noise:** Current worlds have clean decisive evidence. Noisier evidence may reveal sensitivity.
 
-2. **Stickiness near zero may mask floor effects:** B3 theory stickiness is already near zero. This may be an artifact of very strong decisive evidence rather than a stable property.
+2. **Confirmation-seeker resilience:** In active worlds, confirmation nearly matches discrimination. Harder worlds with more hypotheses needed.
 
-3. **Confirmation seeker may improve with partial evidence:** B1 is intentionally naive. A smarter confirmation policy that is selectively skeptical might narrow the gap with B3.
+3. **Sequential experiment design not yet tested:** Greedy JSD may fail when locally suboptimal experiments enable better follow-ups.
+
+4. **LLM integration may expose generation quality as bottleneck:** If LLM generates weak hypotheses, self-correction quality is secondary.
+
+5. **Self-authorship bias unknown:** Until LLM integration, we cannot measure whether systems protect their own hypotheses.
