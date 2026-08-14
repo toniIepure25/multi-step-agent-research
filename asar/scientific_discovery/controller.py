@@ -30,6 +30,7 @@ from asar.scientific_discovery.falsification_engine import FalsificationEngine, 
 from asar.scientific_discovery.state import (
     BeliefState,
     ConclusionType,
+    EvidenceDirection,
     HypothesisStatus,
     ScientificBudget,
     ScientificEvidence,
@@ -117,6 +118,7 @@ class ScientificController:
         ))
 
         rounds_completed = 0
+        active_proposal: Optional[FalsificationProposal] = None
 
         for round_data in evidence_rounds[:self._max_rounds]:
             rounds_completed += 1
@@ -127,6 +129,7 @@ class ScientificController:
                 if top:
                     proposal = self._falsifier.propose_falsification(state, top.hypothesis_id)
                     falsification_proposals.append(proposal)
+                    active_proposal = proposal
 
                     events.append(self._make_event(
                         state, ScientificEventType.FALSIFIER_PROPOSED,
@@ -134,10 +137,14 @@ class ScientificController:
                         rationale=proposal.rationale,
                         payload={"eig": proposal.expected_information_gain},
                     ))
+            else:
+                active_proposal = None
 
             # Step 2: Present evidence and update beliefs
             for evidence in round_data.evidence:
-                state, new_events, round_abandoned = self._process_evidence(state, evidence)
+                state, new_events, round_abandoned = self._process_evidence(
+                    state, evidence, active_proposal
+                )
                 events.extend(new_events)
                 abandoned.extend(round_abandoned)
 
@@ -182,8 +189,14 @@ class ScientificController:
         self,
         state: ScientificState,
         evidence: ScientificEvidence,
+        active_proposal: Optional[FalsificationProposal] = None,
     ) -> tuple[ScientificState, list[ScientificEvent], list[str]]:
-        """Process a single piece of evidence: update beliefs, check abandonment."""
+        """Process a single piece of evidence: update beliefs, check abandonment.
+        
+        When falsification is active and evidence matches the proposed falsifier
+        (contradicting + relevant to target hypothesis), the update is amplified.
+        This is what makes falsification behaviorally consequential.
+        """
         events: list[ScientificEvent] = []
         abandoned: list[str] = []
 
@@ -199,9 +212,17 @@ class ScientificController:
             payload={"direction": evidence.direction.value, "reliability": evidence.reliability},
         ))
 
+        # Compute falsification recognition boost
+        # When we've actively proposed a falsifier and incoming evidence matches,
+        # the system recognizes it as decision-relevant (higher effective relevance).
+        falsification_boost = self._compute_falsification_boost(
+            state, evidence, active_proposal
+        )
+
         # Update beliefs for all active hypotheses
         update_results = self._updater.update_ecology(
-            state.ecology, evidence, state.beliefs
+            state.ecology, evidence, state.beliefs,
+            independence_scores=falsification_boost,
         )
 
         new_beliefs = state.beliefs
@@ -262,6 +283,56 @@ class ScientificController:
         })
 
         return state, events, abandoned
+
+    def _compute_falsification_boost(
+        self,
+        state: ScientificState,
+        evidence: ScientificEvidence,
+        active_proposal: Optional[FalsificationProposal],
+    ) -> dict[str, float] | None:
+        """
+        Compute per-hypothesis independence/relevance boost based on active falsification.
+
+        When falsification is active and evidence is contradicting the target hypothesis,
+        the system recognizes it as matching the proposed falsifier — giving it elevated
+        effective weight. This is the mechanism by which falsification proposals become
+        behaviorally consequential.
+
+        Returns a dict of hypothesis_id → effective independence score,
+        or None if no boost applies.
+        """
+        if active_proposal is None:
+            return None
+
+        target_hid = active_proposal.target_hypothesis_id
+
+        # Only boost if evidence is contradicting the target hypothesis specifically
+        target_direction = evidence.direction_for(target_hid)
+        if target_direction != EvidenceDirection.CONTRADICTING:
+            return None
+
+        relevance = evidence.relevance_to_hypotheses.get(target_hid, 0.0)
+        if relevance < 0.3:
+            return None
+
+        # Evidence matches the active falsification focus:
+        # Amplify its effective independence for the target hypothesis (recognized as decisive)
+        # and slightly boost alternatives (they benefit from rival being challenged)
+        boost: dict[str, float] = {}
+        for hid in state.ecology.active_hypotheses:
+            if hid == target_hid:
+                # Amplified recognition: we were looking for this, so we treat it as
+                # more independent/decisive (effective score > 1.0 amplifies the update)
+                boost[hid] = 1.5
+            else:
+                # Alternatives benefit slightly from targeted challenge of leader
+                alt_direction = evidence.direction_for(hid)
+                if alt_direction == EvidenceDirection.SUPPORTING:
+                    boost[hid] = 1.2
+                else:
+                    boost[hid] = 1.0
+
+        return boost
 
     def _check_stopping(self, state: ScientificState) -> tuple[bool, Optional[ConclusionType]]:
         """Check if the scientific loop should stop."""

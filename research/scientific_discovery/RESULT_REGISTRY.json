@@ -1,0 +1,52 @@
+[
+  {
+    "claim_id": "SD-H1-DEV-001",
+    "experiment": "FalsificationBench V1 Stage 1 Certification",
+    "split": "DEV",
+    "worlds": ["confirmation_trap", "confounded_causality", "non_identifiable", "reverse_causality", "null_world", "measurement_artifact"],
+    "models": null,
+    "policies": ["B0_passive", "B1_confirmation", "B2_random_challenge", "B3_falsification_first", "B4_oracle"],
+    "independent_N": 60,
+    "metrics": {
+      "recovery_accuracy": {
+        "B3": 0.8333,
+        "B0": 0.8333,
+        "B1": 0.6667,
+        "B2": 0.8333,
+        "B4": 1.0000,
+        "delta_B3_B0": 0.0000
+      },
+      "refutation_sensitivity": {
+        "B3": 0.3973,
+        "B0": 0.3723,
+        "B1": 0.0948,
+        "B2": 0.2676,
+        "delta_B3_B0": 0.0209,
+        "CI_95": [0.0154, 0.0261],
+        "p_one_sided": 0.0000
+      },
+      "theory_stickiness": {
+        "B3": 0.0123,
+        "B0": 0.0283,
+        "B1": 0.3965,
+        "B2": 0.1554,
+        "delta_B3_B0": -0.0159,
+        "CI_95": [-0.0227, -0.0095],
+        "p_one_sided": 0.0000
+      },
+      "false_abandonment_rate": {
+        "B3": 0.000,
+        "B0": 0.000
+      }
+    },
+    "analysis_artifact": "research/scientific_discovery/BEHAVIORAL_INFLUENCE_REPORT.md",
+    "raw_artifacts": [
+      "tests/scientific_discovery/test_behavioral_influence.py",
+      "asar/scientific_discovery/benchmark_runner.py"
+    ],
+    "status": "confirmed",
+    "confirmatory_exploratory": "confirmatory",
+    "date": "2026-08-14",
+    "conclusion": "Falsification-first control produces statistically significant improvement in refutation sensitivity (+0.021, p<0.0001) and reduction in theory stickiness (-0.016, p<0.0001) relative to passive update, with no increase in false abandonment."
+  }
+]

@@ -213,13 +213,14 @@ class FalsificationEngine:
         relevance = evidence.relevance_to_hypotheses.get(hypothesis_id, 0.0)
         score = relevance * evidence.reliability
 
-        # Check if evidence matches any registered falsifier
-        hypothesis = state.ecology.hypotheses.get(hypothesis_id)
-        if hypothesis:
-            for fid in hypothesis.potential_falsifiers:
-                falsifier = state.falsifiers.get(fid)
-                if falsifier and not falsifier.observed:
-                    score = max(score, falsifier.impact_if_observed * evidence.reliability)
+        # Check if evidence matches any registered falsifier (only if evidence is relevant)
+        if relevance > 0:
+            hypothesis = state.ecology.hypotheses.get(hypothesis_id)
+            if hypothesis:
+                for fid in hypothesis.potential_falsifiers:
+                    falsifier = state.falsifiers.get(fid)
+                    if falsifier and not falsifier.observed:
+                        score = max(score, falsifier.impact_if_observed * evidence.reliability * relevance)
 
         return min(1.0, score)
 

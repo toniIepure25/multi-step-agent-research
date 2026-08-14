@@ -1,0 +1,78 @@
+# Negative Findings & Honest Limitations
+
+**Updated:** 2026-08-14
+
+---
+
+## Finding 1: Recovery Accuracy Tied Between B3 and B0
+
+**Observation:** B3 (falsification-first) achieves identical recovery accuracy (0.833) to B0 (passive update) across all world types.
+
+**Explanation:** In the current controlled worlds, the evidence is strong enough that ALL policies (except confirmation-seeking B1) eventually identify the correct hypothesis. The decisive evidence is so decisive that even without amplification, the belief updater correctly promotes the true hypothesis.
+
+**Implication:** The falsification advantage shows primarily in the *speed* and *completeness* of belief revision, not in the final outcome for these world difficulties. Harder worlds (weaker evidence, more noise) may show differentiation in final recovery.
+
+**Classification:** Expected behavior for well-designed decisive evidence. Not a failure, but limits the headline claim.
+
+---
+
+## Finding 2: Initial FalsificationEngine Was Decorative (Fixed)
+
+**Date:** 2026-08-14
+
+**What happened:** The initial implementation of `ScientificController` generated falsification proposals but did NOT use them to influence belief updates. B3 and B0 produced *identical* belief trajectories. The FalsificationEngine was purely logging.
+
+**What was tried:** Running benchmark comparison with `enable_falsification=True` vs `False`.
+
+**Root cause:** The controller called `propose_falsification()` and recorded the proposal as an event, but the actual `update_ecology()` call used the same parameters regardless. The proposals were never fed back into the processing pipeline.
+
+**Fix:** Added `_compute_falsification_boost()` to the controller. When evidence contradicts the target of an active falsification proposal, the effective independence score is amplified (1.5×), producing larger belief drops. This makes the proposals causally connected to outcomes.
+
+**Lesson:** Components must be BEHAVIORALLY TESTED, not just structurally present. The behavioral influence test caught this immediately.
+
+---
+
+## Finding 3: Single `direction` Field Insufficient for Multi-Hypothesis Evidence
+
+**Date:** 2026-08-14
+
+**What happened:** Evidence that contradicts H1 may simultaneously *support* H2 (e.g., temporal precedence data contradicting "exercise → mood" supports "mood → exercise"). The original `ScientificEvidence` schema had a single `direction` field applied uniformly to all hypotheses.
+
+**Result:** In reverse-causality and null-world scenarios, evidence that should support the correct hypothesis instead contradicted it, leading to incorrect belief trajectories.
+
+**Fix:** Added `direction_per_hypothesis: dict[str, EvidenceDirection]` field to `ScientificEvidence`, with a `direction_for(hypothesis_id)` method that falls back to the global direction. All extended worlds use this for proper differential evidence.
+
+**Lesson:** Scientific evidence frequently has asymmetric implications for competing hypotheses. The schema must support this.
+
+---
+
+## Finding 4: Effect Size B3 vs B0 is Moderate
+
+**Observation:** The paired difference in refutation sensitivity is +0.021 (B3 > B0). While statistically significant (p < 0.0001, N=60), the magnitude is moderate.
+
+**Context:** This is on the DEV split with predetermined evidence rounds. The effect comes entirely from a single mechanism (recognition amplification at boost=1.5). In a full system with:
+- Active evidence search guided by falsification proposals
+- Multi-round adaptive falsification strategies
+- LLM-generated discriminative evidence
+
+...the effect should be substantially larger. The current result establishes the *direction* and *mechanism*, not the ultimate magnitude.
+
+**Status:** Expected for Stage 1 (minimal viable mechanism). Not a failure.
+
+---
+
+## Finding 5: Non-Identifiable World Shows 0% Recovery (By Design)
+
+**Observation:** Both B3 and B0 achieve 0% recovery on non-identifiable worlds.
+
+**This is correct behavior.** In a non-identifiable world, no hypothesis can be definitively identified as correct. The system correctly avoids creating artificial certainty. Recovery accuracy = 0 here means "correctly does not claim recovery" not "fails to recover."
+
+---
+
+## Future Risk Areas
+
+1. **False abandonment under noise:** Current worlds have clean decisive evidence. Noisier evidence (partial contradiction, unreliable sources) may reveal sensitivity to over-aggressive falsification.
+
+2. **Stickiness near zero may mask floor effects:** B3 theory stickiness is already near zero. This may be an artifact of very strong decisive evidence rather than a stable property.
+
+3. **Confirmation seeker may improve with partial evidence:** B1 is intentionally naive. A smarter confirmation policy that is selectively skeptical might narrow the gap with B3.

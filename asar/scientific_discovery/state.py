@@ -164,8 +164,13 @@ class ScientificEvidence(BaseModel):
     reliability: float = Field(default=0.7, ge=0.0, le=1.0)
     relevance_to_hypotheses: dict[str, float] = Field(default_factory=dict)
     direction: EvidenceDirection = EvidenceDirection.NEUTRAL
+    direction_per_hypothesis: dict[str, EvidenceDirection] = Field(default_factory=dict)
     provenance: EvidenceProvenance = Field(default_factory=EvidenceProvenance)
     timestamp: UTCDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+    def direction_for(self, hypothesis_id: str) -> EvidenceDirection:
+        """Get the direction of this evidence relative to a specific hypothesis."""
+        return self.direction_per_hypothesis.get(hypothesis_id, self.direction)
 
 
 class RevisionEvent(BaseModel):

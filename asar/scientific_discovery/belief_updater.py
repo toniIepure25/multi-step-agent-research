@@ -100,15 +100,17 @@ class BeliefUpdater:
             + (1 - self._independence_weight) * 0.5
         )
 
-        # Direction determines sign
-        if evidence.direction == EvidenceDirection.CONTRADICTING:
+        # Direction determines sign — use per-hypothesis direction if available
+        direction = evidence.direction_for(hypothesis.hypothesis_id)
+
+        if direction == EvidenceDirection.CONTRADICTING:
             strength *= self._falsification_mult
             delta = -strength
             rationale = f"Contradicting evidence (reliability={evidence.reliability:.2f}) reduces belief"
-        elif evidence.direction == EvidenceDirection.SUPPORTING:
+        elif direction == EvidenceDirection.SUPPORTING:
             delta = strength
             rationale = f"Supporting evidence (reliability={evidence.reliability:.2f}) increases belief"
-        elif evidence.direction == EvidenceDirection.AMBIGUOUS:
+        elif direction == EvidenceDirection.AMBIGUOUS:
             delta = strength * 0.1  # Minimal effect
             rationale = "Ambiguous evidence has minimal effect"
         else:
