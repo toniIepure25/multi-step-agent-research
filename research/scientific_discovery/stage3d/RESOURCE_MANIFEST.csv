@@ -1,0 +1,17 @@
+resource_type,quantity,estimate_source,notes
+llm_calls_sd_h4,170,protocol,50 worlds × 3 calls + 20 protection
+llm_calls_capability_gate,200,protocol,100 tasks × 2 models (if budget allows)
+llm_calls_falsifybench,3000,estimate,100 games × 10 turns × 3 conditions
+llm_calls_ecology_gen,100,protocol,50 worlds × 2 (generate + alternatives)
+total_llm_calls,3470,sum,all conditions
+tokens_per_call_input,500,estimate,average prompt length
+tokens_per_call_output,200,estimate,average response length
+total_input_tokens,1735000,derived,3470 × 500
+total_output_tokens,694000,derived,3470 × 200
+wall_time_sd_h4_minutes,43,estimate,170 × 15s/call
+wall_time_capability_gate_minutes,50,estimate,200 × 15s/call
+wall_time_falsifybench_hours,12.5,estimate,3000 × 15s/call
+total_wall_time_hours,14.3,sum,all sessions
+inference_endpoint,https://inference.ccrolabs.com,config,Ollama-compatible
+primary_model,gemma3:27b-it-qat,config,27B parameters Q4_0
+transfer_model,llama3.2-vision:11b-instruct-q8_0,config,11B parameters Q8_0
