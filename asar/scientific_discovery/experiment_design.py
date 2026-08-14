@@ -261,6 +261,85 @@ def select_discrimination(
     )
 
 
+def compute_approx_eig(
+    experiment: ExperimentCandidate,
+    beliefs: dict[str, float],
+) -> float:
+    """
+    E4: Approximate Expected Information Gain — POLICY-SIDE ONLY.
+
+    Uses the agent's own belief-weighted predictions (no oracle truth).
+
+    EIG_hat(a) = H(P(H)) - E_{o ~ P_hat(o|a)}[H(P_hat(H|o,a))]
+
+    where P_hat(o|a) = sum_h P(o|h,a) * P(h)  [marginal predictive]
+    """
+    if not experiment.hypothesis_predictions:
+        return 0.0
+
+    hypothesis_ids = list(beliefs.keys())
+    if len(hypothesis_ids) < 2:
+        return 0.0
+
+    current_entropy = _entropy(list(beliefs.values()))
+
+    # Compute marginal outcome probabilities: P(o|a) = sum_h P(o|h,a)*P(h)
+    outcome_ids = set()
+    for pred in experiment.hypothesis_predictions:
+        outcome_ids.add(pred.outcome_id)
+
+    marginal_outcome_probs: dict[str, float] = {}
+    for oid in outcome_ids:
+        p_o = 0.0
+        for hid, prior in beliefs.items():
+            h_preds = _get_prediction_vector(experiment, hid)
+            p_o += prior * h_preds.get(oid, 0.01)
+        marginal_outcome_probs[oid] = p_o
+
+    # Normalize marginal
+    total_marginal = sum(marginal_outcome_probs.values())
+    if total_marginal < 1e-10:
+        return 0.0
+    marginal_outcome_probs = {k: v / total_marginal for k, v in marginal_outcome_probs.items()}
+
+    # Expected posterior entropy
+    expected_posterior_entropy = 0.0
+    for oid, p_o in marginal_outcome_probs.items():
+        if p_o < 1e-10:
+            continue
+
+        # Posterior: P(h|o,a) ∝ P(o|h,a) * P(h)
+        posterior = {}
+        for hid, prior in beliefs.items():
+            h_preds = _get_prediction_vector(experiment, hid)
+            likelihood = h_preds.get(oid, 0.01)
+            posterior[hid] = prior * likelihood
+
+        total = sum(posterior.values())
+        if total > 0:
+            posterior = {k: v / total for k, v in posterior.items()}
+
+        expected_posterior_entropy += p_o * _entropy(list(posterior.values()))
+
+    return max(0.0, current_entropy - expected_posterior_entropy)
+
+
+def select_approx_eig(
+    experiments: list[ExperimentCandidate],
+    beliefs: dict[str, float],
+) -> ExperimentSelection:
+    """E4: Select experiment maximizing approximate expected information gain."""
+    scored = [(e, compute_approx_eig(e, beliefs)) for e in experiments]
+    scored.sort(key=lambda x: -x[1])
+    chosen = scored[0][0]
+    return ExperimentSelection(
+        selected_experiment_id=chosen.experiment_id,
+        discrimination_score=compute_discrimination_score(chosen, beliefs),
+        policy_rationale=f"Maximizes approx EIG={scored[0][1]:.3f}",
+        alternatives_considered=[e.experiment_id for e in experiments if e != chosen],
+    )
+
+
 def select_oracle(
     experiments: list[ExperimentCandidate],
     beliefs: dict[str, float],
