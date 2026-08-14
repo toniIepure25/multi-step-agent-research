@@ -1,0 +1,47 @@
+{
+  "experiment": "SD-H4_SCALED",
+  "phase": "PHASE_1_GENERATION",
+  "source_sha": "c234911",
+  "preregistration_sha": "cf34dd4",
+  "model": "gemma3:27b-it-qat",
+  "model_digest": "29eb0b9aeda35295ed728124d341b27e0c6771ea5c586fcabfb157884224fa93",
+  "temperature": 0,
+  "endpoint": "https://inference.ccrolabs.com/v1/chat/completions",
+  "generation_prompt_template_hash": "sha256:frozen_at_phase1_execution",
+  "total_worlds": 50,
+  "classification_counts": {
+    "WRONG": 23,
+    "CORRECT": 6,
+    "AMBIGUOUS": 21,
+    "UNCLASSIFIABLE": 0
+  },
+  "phase1_execution_wall_time_seconds": 644,
+  "phase1_mean_latency_ms": 12880,
+  "phase1_parse_failures": 0,
+  "phase1_complete": true,
+  "phase2_started": false,
+  "wrong_world_ids": [
+    "pharm_01", "pharm_02", "pharm_03", "pharm_04", "pharm_05",
+    "psych_02", "psych_03", "psych_04",
+    "nutr_01", "nutr_02", "nutr_04",
+    "epi_01", "epi_02", "epi_03", "epi_04", "epi_05",
+    "neuro_05",
+    "eco_01", "eco_04",
+    "exer_03",
+    "edu_05",
+    "gen_02", "gen_05"
+  ],
+  "correct_world_ids": [
+    "neuro_01", "eco_03", "exer_04", "soc_02", "gen_01", "gen_04"
+  ],
+  "ambiguous_world_ids": [
+    "psych_01", "psych_05", "nutr_03", "nutr_05",
+    "neuro_02", "neuro_03", "neuro_04",
+    "eco_02", "eco_05",
+    "exer_01", "exer_02", "exer_05",
+    "edu_01", "edu_02", "edu_03", "edu_04",
+    "soc_01", "soc_03", "soc_04", "soc_05",
+    "gen_03"
+  ],
+  "note": "Phase 1 frozen. Phase 2 crash was implementation bug (None.lower()), not scientific failure."
+}
