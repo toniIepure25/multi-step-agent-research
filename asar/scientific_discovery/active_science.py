@@ -408,13 +408,27 @@ class ActiveBenchmarkResult:
         return sum(e.n_experiments for e in self.episodes) / len(self.episodes)
 
 
-def run_active_benchmark(seeds: list[int]) -> dict[str, ActiveBenchmarkResult]:
+def run_active_benchmark(seeds: list[int], hard: bool = False) -> dict[str, ActiveBenchmarkResult]:
     """Run active science benchmark across all policies and worlds."""
     world_factories = [
         create_active_confirmation_trap,
         create_active_reverse_causality,
         create_active_null_world,
     ]
+
+    if hard:
+        from asar.scientific_discovery.active_worlds_hard import (
+            create_confirmation_dead_end,
+            create_multi_hypothesis_branch,
+            create_null_vs_weak_effect,
+            create_sequential_active_world,
+        )
+        world_factories.extend([
+            create_confirmation_dead_end,
+            create_null_vs_weak_effect,
+            create_multi_hypothesis_branch,
+            create_sequential_active_world,
+        ])
 
     policies = {
         "passive": active_passive,
