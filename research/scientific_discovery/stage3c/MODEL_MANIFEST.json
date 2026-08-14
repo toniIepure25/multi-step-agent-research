@@ -1,0 +1,44 @@
+{
+  "frozen_date": "2026-08-14",
+  "selection_criteria": [
+    "generation-capable (not embedding)",
+    "structured scientific reasoning capability",
+    "stable API behavior (no errors during certification)",
+    "passes structured-output smoke test (JSON parsing)",
+    "materially different family from primary",
+    "feasible latency (<120s per call)"
+  ],
+  "primary_model": {
+    "model_id": "gemma3:27b-it-qat",
+    "family": "gemma3",
+    "parameter_size": "27.4B",
+    "quantization": "Q4_0",
+    "digest": "29eb0b9aeda35295ed728124d341b27e0c6771ea5c586fcabfb157884224fa93",
+    "endpoint": "https://inference.ccrolabs.com/v1/chat/completions",
+    "temperature": 0.0,
+    "max_tokens": 2048,
+    "capability_verdict": "VALID_EXPERIMENTAL_SUBSTRATE",
+    "c1_hypothesis": "PASS",
+    "c2_alternatives": "PASS",
+    "c3_prediction": "PASS",
+    "c4_falsifier": "PASS",
+    "c6_experiment": "PASS",
+    "c7_schema": "5/5 = 100%"
+  },
+  "transfer_model": {
+    "model_id": "llama3.2-vision:11b-instruct-q8_0",
+    "family": "mllama",
+    "parameter_size": "10.7B",
+    "quantization": "Q8_0",
+    "digest": "a5b7471a68aad08b09bc1e6203d895ff89410a7d04a1d04a328dcdf80576a23d",
+    "endpoint": "https://inference.ccrolabs.com/v1/chat/completions",
+    "temperature": 0.0,
+    "max_tokens": 2048,
+    "capability_verdict": "PARTIAL_EXPERIMENTAL_SUBSTRATE",
+    "c1_hypothesis": "PASS",
+    "c3_prediction": "FAIL (text preamble before JSON)",
+    "c4_falsifier": "PASS",
+    "c7_schema": "2/3 = 67%",
+    "self_correction": "PASS (confidence=0, abandons correctly)"
+  }
+}

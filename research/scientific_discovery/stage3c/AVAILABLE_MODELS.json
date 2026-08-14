@@ -1,0 +1,46 @@
+{
+  "discovery_date": "2026-08-14",
+  "endpoint": "https://inference.ccrolabs.com",
+  "models": [
+    {
+      "model_id": "gemma3:27b-it-qat",
+      "family": "gemma3",
+      "parameter_size": "27.4B",
+      "quantization": "Q4_0",
+      "format": "gguf",
+      "type": "GENERATION_TEXT",
+      "role": "PRIMARY",
+      "digest": "29eb0b9aeda35295ed728124d341b27e0c6771ea5c586fcabfb157884224fa93"
+    },
+    {
+      "model_id": "llama3.2-vision:11b-instruct-q8_0",
+      "family": "mllama",
+      "parameter_size": "10.7B",
+      "quantization": "Q8_0",
+      "format": "gguf",
+      "type": "GENERATION_MULTIMODAL",
+      "role": "TRANSFER",
+      "digest": "a5b7471a68aad08b09bc1e6203d895ff89410a7d04a1d04a328dcdf80576a23d"
+    },
+    {
+      "model_id": "nomic-embed-text:latest",
+      "family": "nomic-bert",
+      "parameter_size": "137M",
+      "quantization": "F16",
+      "format": "gguf",
+      "type": "EMBEDDING",
+      "role": "NOT_USED",
+      "digest": "0a109f422b47e3a30ba2b10eca18548e944e8a23073ee3f3e947efcf3c45e59f"
+    },
+    {
+      "model_id": "mxbai-embed-large:latest",
+      "family": "bert",
+      "parameter_size": "334M",
+      "quantization": "F16",
+      "format": "gguf",
+      "type": "EMBEDDING",
+      "role": "NOT_USED",
+      "digest": "468836162de7f81e041c43663fedbbba921dcea9b9fefea135685a39b2d83dd8"
+    }
+  ]
+}
