@@ -1,0 +1,51 @@
+{
+  "certificate_date": "2026-08-14",
+  "auditor": "automated_analysis",
+  "components_audited": [
+    {
+      "component": "FalsificationEngine.propose_falsification()",
+      "inputs": ["ScientificState (beliefs, ecology, falsifiers, predictions)", "target_hypothesis_id"],
+      "accesses_ground_truth": false,
+      "accesses_correct_hypothesis": false,
+      "accesses_world_type": false,
+      "accesses_future_evidence": false,
+      "note": "Only reads current hypothesis beliefs and registered falsifiers"
+    },
+    {
+      "component": "BeliefUpdater.update_belief()",
+      "inputs": ["hypothesis", "evidence", "current_belief", "independence_score"],
+      "accesses_ground_truth": false,
+      "accesses_correct_hypothesis": false,
+      "accesses_world_type": false,
+      "accesses_future_evidence": false,
+      "note": "Pure function of observable evidence properties"
+    },
+    {
+      "component": "ScientificController.run_episode()",
+      "inputs": ["initial_state", "evidence_rounds"],
+      "accesses_ground_truth": false,
+      "accesses_correct_hypothesis": false,
+      "accesses_world_type": false,
+      "accesses_future_evidence": false,
+      "note": "Processes evidence rounds sequentially; never receives WorldGroundTruth"
+    },
+    {
+      "component": "ScientificController._compute_falsification_boost()",
+      "inputs": ["state", "evidence", "active_proposal"],
+      "accesses_ground_truth": false,
+      "accesses_correct_hypothesis": false,
+      "accesses_world_type": false,
+      "accesses_future_evidence": false,
+      "note": "Reads only evidence.direction_for(target_hid) and relevance — same fields available to all policies"
+    }
+  ],
+  "oracle_exclusive_fields": [
+    "WorldGroundTruth.correct_hypothesis_id",
+    "WorldGroundTruth.world_type",
+    "WorldGroundTruth.decisive_round",
+    "WorldGroundTruth.expected_belief_trajectory"
+  ],
+  "oracle_access_by_non_oracle_policies": "NONE",
+  "verdict": "PASS",
+  "reasoning": "No component in the B0-B3 policy chain receives or can access evaluator-only ground truth. WorldGroundTruth is only used in evaluate_episode() and run_b4_oracle(), both of which are post-hoc evaluation or oracle-ceiling functions. The FalsificationEngine, BeliefUpdater, and Controller operate exclusively on observable state."
+}

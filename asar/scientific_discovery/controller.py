@@ -79,6 +79,8 @@ class ScientificController:
         margin_threshold: float = 0.3,
         max_rounds: int = 20,
         enable_falsification: bool = True,
+        enable_boost: bool = True,
+        boost_strength: float = 1.5,
     ) -> None:
         self._updater = belief_updater or BeliefUpdater()
         self._falsifier = falsification_engine or FalsificationEngine()
@@ -86,6 +88,8 @@ class ScientificController:
         self._margin_threshold = margin_threshold
         self._max_rounds = max_rounds
         self._enable_falsification = enable_falsification
+        self._enable_boost = enable_boost
+        self._boost_strength = boost_strength
 
     @property
     def falsification_enabled(self) -> bool:
@@ -304,6 +308,9 @@ class ScientificController:
         if active_proposal is None:
             return None
 
+        if not self._enable_boost:
+            return None
+
         target_hid = active_proposal.target_hypothesis_id
 
         # Only boost if evidence is contradicting the target hypothesis specifically
@@ -318,17 +325,15 @@ class ScientificController:
         # Evidence matches the active falsification focus:
         # Amplify its effective independence for the target hypothesis (recognized as decisive)
         # and slightly boost alternatives (they benefit from rival being challenged)
+        alt_boost = 1.0 + (self._boost_strength - 1.0) * 0.4  # Proportional alt boost
         boost: dict[str, float] = {}
         for hid in state.ecology.active_hypotheses:
             if hid == target_hid:
-                # Amplified recognition: we were looking for this, so we treat it as
-                # more independent/decisive (effective score > 1.0 amplifies the update)
-                boost[hid] = 1.5
+                boost[hid] = self._boost_strength
             else:
-                # Alternatives benefit slightly from targeted challenge of leader
                 alt_direction = evidence.direction_for(hid)
                 if alt_direction == EvidenceDirection.SUPPORTING:
-                    boost[hid] = 1.2
+                    boost[hid] = alt_boost
                 else:
                     boost[hid] = 1.0
 

@@ -115,6 +115,7 @@ def run_benchmark(seeds: list[int] | None = None) -> BenchmarkReport:
         "B0_passive": PolicyMetrics(policy_name="B0_passive"),
         "B1_confirmation": PolicyMetrics(policy_name="B1_confirmation"),
         "B2_random_challenge": PolicyMetrics(policy_name="B2_random_challenge"),
+        "B3_zero": PolicyMetrics(policy_name="B3_zero"),
         "B3_falsification_first": PolicyMetrics(policy_name="B3_falsification_first"),
         "B4_oracle": PolicyMetrics(policy_name="B4_oracle"),
     }

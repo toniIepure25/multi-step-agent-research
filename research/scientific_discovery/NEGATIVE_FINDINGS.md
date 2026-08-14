@@ -69,6 +69,33 @@
 
 ---
 
+## Finding 6: B3-ZERO = B0 (Falsification Policy Alone Has No Effect)
+
+**Date:** 2026-08-14 (Anti-tautology audit)
+
+**Observation:** B3-ZERO (falsification proposals generated but no recognition boost) produces IDENTICAL metrics to B0 (passive). The falsification policy contributes 0% of the total effect; 100% comes from the recognition boost (1.5× amplification).
+
+**Root Cause:** In controlled worlds with predetermined evidence, the falsification policy can only affect behavior through:
+1. Evidence *selection* (not available — evidence is fixed)
+2. Evidence *interpretation* (the boost mechanism)
+
+Since B3 cannot choose different evidence to observe, its proposals are computationally generated but never acted upon. The only pathway for behavioral influence is the boost.
+
+**Implication:** 
+- Stage 1 demonstrates that DIFFERENTIAL INTERPRETATION of evidence (recognition of falsification-relevant evidence as more decisive) improves belief trajectories
+- Stage 1 does NOT demonstrate that the ACTION of identifying falsifiers provides independent value when evidence is predetermined
+- Stage 2 (experiment design) is where action selection genuinely matters
+
+**Classification:** This is an honest methodological finding, not a failure. The claim must be:
+> "Recognition-enhanced belief updating improves scientific self-correction"
+
+NOT:
+> "The falsification policy improves scientific self-correction"
+
+The latter claim requires Stage 2 validation (experiment selection).
+
+---
+
 ## Future Risk Areas
 
 1. **False abandonment under noise:** Current worlds have clean decisive evidence. Noisier evidence (partial contradiction, unreliable sources) may reveal sensitivity to over-aggressive falsification.

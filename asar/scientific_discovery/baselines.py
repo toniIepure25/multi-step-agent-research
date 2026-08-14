@@ -114,6 +114,28 @@ def run_b2_random_challenge(world: ControlledWorld, seed: int = 42) -> PolicyRes
     )
 
 
+def run_b3_zero(world: ControlledWorld, seed: int = 42) -> PolicyResult:
+    """
+    B3-ZERO — FALSIFICATION POLICY WITHOUT BOOST.
+
+    Same falsification-first action policy (identifies target, proposes falsifier)
+    but the recognition boost is disabled. This isolates:
+    - B3-ZERO vs B0: Does the POLICY of seeking falsifiers add value?
+    - B3 vs B3-ZERO: Does the update amplification add value beyond the policy?
+    """
+    controller = ScientificController(
+        enable_falsification=True,
+        enable_boost=False,
+    )
+    result = controller.run_episode(world.initial_state, world.evidence_rounds)
+    return PolicyResult(
+        policy_name="B3_zero",
+        result=result,
+        world_id=world.world_id,
+        seed=seed,
+    )
+
+
 def run_b3_falsification_first(world: ControlledWorld, seed: int = 42) -> PolicyResult:
     """
     B3 — FALSIFICATION-FIRST (ASAR Stage 1 policy).
@@ -178,6 +200,7 @@ def run_all_policies(world: ControlledWorld, seed: int = 42) -> list[PolicyResul
         run_b0_passive(world, seed),
         run_b1_confirmation(world, seed),
         run_b2_random_challenge(world, seed),
+        run_b3_zero(world, seed),
         run_b3_falsification_first(world, seed),
         run_b4_oracle(world, seed),
     ]
