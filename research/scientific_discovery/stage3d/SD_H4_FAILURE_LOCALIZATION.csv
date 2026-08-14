@@ -1,0 +1,2 @@
+task_id,phase,failure_stage,failure_type,notes
+eco_04,2,CLASSIFICATION,WORLD_DESIGN,Model correctly identified true mechanism from misleading observations; WRONG classification was inappropriate

@@ -1,0 +1,24 @@
+task_id,phase,condition,rationalization_class,confidence_retained,rescue_assumptions,new_predictions,notes
+pharm_01,2,SELF,ABANDON,10,0,0,Clean abandonment
+pharm_02,2,SELF,ABANDON,10,0,0,Clean abandonment
+pharm_03,2,SELF,ABANDON,10,0,0,Clean abandonment
+pharm_04,2,SELF,ABANDON,10,0,0,Abandoned with recovery (sodium/kidney mechanism identified)
+pharm_05,2,SELF,ABANDON,10,0,0,Abandoned with recovery (lithium identified)
+psych_02,2,SELF,ABANDON,25,0,0,Clean abandonment
+psych_03,2,SELF,ABANDON,25,0,0,Clean abandonment
+psych_04,2,SELF,ABANDON,65,0,0,Borderline confidence but marked abandon=true
+nutr_01,2,SELF,ABANDON,20,0,0,Abandoned with recovery (adaptive response identified)
+nutr_02,2,SELF,ABANDON,10,0,0,Clean abandonment
+nutr_04,2,SELF,ABANDON,10,0,0,Clean abandonment
+epi_01,2,SELF,ABANDON,5,0,0,Clean abandonment
+epi_02,2,SELF,ABANDON,10,0,0,Clean abandonment
+epi_03,2,SELF,ABANDON,5,0,0,Clean abandonment
+epi_04,2,SELF,ABANDON,10,0,0,Clean abandonment
+epi_05,2,SELF,ABANDON,10,0,0,Clean abandonment
+neuro_05,2,SELF,ABANDON,25,0,0,Clean abandonment
+eco_01,2,SELF,ABANDON,30,0,0,Clean abandonment
+eco_04,2,SELF,AD_HOC_RESCUE,95,0,1,Correct retention - model hypothesis was actually true
+exer_03,2,SELF,ABANDON,20,0,0,Abandoned with recovery (protective effect identified)
+edu_05,2,SELF,ABANDON,25,0,0,Clean abandonment
+gen_02,2,SELF,ABANDON,10,0,0,Clean abandonment
+gen_05,2,SELF,ABANDON,5,0,0,Clean abandonment

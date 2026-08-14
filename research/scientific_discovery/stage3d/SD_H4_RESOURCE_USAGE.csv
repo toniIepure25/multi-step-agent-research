@@ -1,0 +1,16 @@
+phase,metric,value,unit
+2,total_calls,69,calls
+2,gen_calls,23,calls
+2,self_calls,23,calls
+2,ext_calls,23,calls
+3,total_calls,20,calls
+all,total_calls,89,calls
+all,retries,0,count
+all,input_tokens,16334,tokens
+all,output_tokens,17548,tokens
+all,total_tokens,33882,tokens
+all,total_latency,1305143,ms
+all,mean_latency_per_call,14665,ms
+all,parse_repairs,0,count
+all,unrecoverable,0,count
+all,parse_failure_rate,0.0,rate

@@ -1,0 +1,24 @@
+task_id,phase,lineage_depth,descendants,has_new_predictions,notes
+pharm_01,2,1,0,false,Single-step abandonment
+pharm_02,2,1,0,false,Single-step abandonment
+pharm_03,2,1,0,false,Single-step abandonment
+pharm_04,2,1,0,true,Recovery identifies new mechanism
+pharm_05,2,1,0,true,Recovery identifies lithium
+psych_02,2,1,0,false,Single-step abandonment
+psych_03,2,1,0,false,Single-step abandonment
+psych_04,2,1,0,false,Single-step abandonment
+nutr_01,2,1,0,true,Recovery identifies adaptive mechanism
+nutr_02,2,1,0,false,Single-step abandonment
+nutr_04,2,1,0,false,Single-step abandonment
+epi_01,2,1,0,false,Single-step abandonment
+epi_02,2,1,0,false,Single-step abandonment
+epi_03,2,1,0,false,Single-step abandonment
+epi_04,2,1,0,false,Single-step abandonment
+epi_05,2,1,0,false,Single-step abandonment
+neuro_05,2,1,0,false,Single-step abandonment
+eco_01,2,1,0,false,Single-step abandonment
+eco_04,2,1,1,true,Revision retained (correct hypothesis)
+exer_03,2,1,0,true,Recovery identifies protective effect
+edu_05,2,1,0,false,Single-step abandonment
+gen_02,2,1,0,false,Single-step abandonment
+gen_05,2,1,0,false,Single-step abandonment

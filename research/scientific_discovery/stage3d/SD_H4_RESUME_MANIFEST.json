@@ -1,0 +1,21 @@
+{
+  "experiment": "SD-H4_SCALED",
+  "resume_from_sha": "c234911",
+  "bugfix_sha": "2f5436b",
+  "phase1_frozen": true,
+  "phase1_source": "SD_H4_SCALED_RESULTS.md (committed at c234911)",
+  "phase2_started_at": "2026-08-14T19:05:00Z",
+  "phase2_completed": true,
+  "phase3_completed": true,
+  "checkpoint_file": "SD_H4_CHECKPOINT.json",
+  "manifest_file": "SD_H4_RAW_MANIFEST.json",
+  "bug_fixed": "None.lower() on nullable new_explanation",
+  "fix_description": "s.get('new_explanation') or '' — treats None as empty string",
+  "protocol_changed": false,
+  "prompts_changed": false,
+  "worlds_changed": false,
+  "classification_changed": false,
+  "phase1_rerun": false,
+  "resumption_verified": true,
+  "note": "15/23 Phase 2 cases loaded from checkpoint (prior partial run), 8 newly executed"
+}

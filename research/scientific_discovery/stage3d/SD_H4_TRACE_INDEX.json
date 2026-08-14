@@ -1,0 +1,18 @@
+{
+  "experiment": "SD-H4_SCALED",
+  "trace_count": 43,
+  "phase2_traces": 23,
+  "phase3_traces": 20,
+  "format": "JSON per-task in SD_H4_RAW_MANIFEST.json",
+  "fields_per_phase2_trace": [
+    "status", "init_conf", "claim", "mechanism",
+    "self_conf", "self_abandon", "self_rev", "self_new",
+    "ext_conf", "ext_abandon", "ext_new",
+    "recovery", "rationalization", "sab"
+  ],
+  "fields_per_phase3_trace": [
+    "status", "conf", "abandon"
+  ],
+  "byte_identity_verified": true,
+  "note": "SELF and EXTERNAL conditions use identical hypothesis payloads (same claim, mechanism). Only provenance framing differs."
+}

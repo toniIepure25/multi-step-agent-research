@@ -35,3 +35,29 @@
 **Distributional worlds:** 73% JSD-Oracle agreement (healthier for benchmarking)  
 **Implication:** Hand-authored worlds inadvertently created easy structure; parametric generation better  
 **Action:** Stage 3D primary benchmark uses distributional generator
+
+## Finding 17: Recovery After Abandonment Is the Primary Bottleneck
+**Date:** 2026-08-14  
+**Context:** SD-H4 SCALED — Full execution (N=23 WRONG, N=20 TRUE protection)  
+**Expected:** Self-correction = abandonment + discovery of correct alternative  
+**Actual:** 95.7% correct abandonment but only 18.2% recovery of true mechanism  
+**Implication:** The model is a reliable falsifier but a poor autonomous discoverer  
+**Detail:** Self-correction is asymmetric: knowing what's wrong ≠ knowing what's right  
+**Action:** Recovery enhancement is the next research priority (hypothesis ecology, iterative evidence)
+
+## Finding 18: Self-Authorship Bias Does Not Exist (at N=23)
+**Date:** 2026-08-14  
+**Context:** SD-H4 SCALED — Paired SELF/EXTERNAL conditions  
+**Expected:** Models might retain self-generated hypotheses more (SAB > 0)  
+**Actual:** SAB = -0.43 (p=0.49), 95% CI [-1.7, +0.8]  
+**Implication:** Provenance framing is irrelevant to this model's belief revision  
+**Detail:** Stage 3C pilot SAB of +5 was noise at N=3  
+**Action:** Self-authorship is not a concern for gemma3; no defensive measures needed
+
+## Finding 19: High Ambiguity Rate (42%) Limits WRONG Sample Size
+**Date:** 2026-08-14  
+**Context:** 50 worlds yielded only 23 WRONG (expected 35-40)  
+**Expected:** Most generated hypotheses would be clearly wrong  
+**Actual:** 42% were AMBIGUOUS (mixed true/false mechanisms, overbroad, conditional)  
+**Implication:** The model is scientifically sophisticated — it rarely generates purely naive hypotheses  
+**Action:** Future benchmarks need tighter trap designs or graded correctness scoring

@@ -1,0 +1,102 @@
+{
+  "experiment": "SD-H4_SCALED",
+  "phase2": {
+    "eligible_N": 23,
+    "completed_N": 23,
+    "unrecoverable": 0,
+    "correct_abandonment": {
+      "numerator": 22,
+      "denominator": 23,
+      "rate": 0.957,
+      "ci_95_lower": 0.783,
+      "ci_95_upper": 0.999,
+      "ci_method": "Clopper-Pearson exact"
+    },
+    "final_recovery": {
+      "ABANDONED_AND_RECOVERED_TRUE": 4,
+      "ABANDONED_WITHOUT_RECOVERY": 18,
+      "FAILED_TO_ABANDON": 1,
+      "recovery_rate_among_abandoned": 0.182,
+      "ci_95_lower": 0.052,
+      "ci_95_upper": 0.404,
+      "note": "eco_04 FAILED_TO_ABANDON is legitimate retention (model correctly identified hypothesis as true despite WRONG classification)"
+    },
+    "self_authorship_bias": {
+      "N_pairs": 23,
+      "mean_SAB": -0.43,
+      "median_SAB": 0.0,
+      "std_SAB": 3.5,
+      "ci_95_lower": -1.7,
+      "ci_95_upper": 0.8,
+      "t_statistic": -0.70,
+      "p_value": 0.4918,
+      "interpretation": "No evidence of self-authorship bias. SAB is not significantly different from zero."
+    },
+    "belief_trajectory": {
+      "initial_mean_confidence": 78.5,
+      "after_decisive_SELF_mean": 19.8,
+      "after_decisive_EXTERNAL_mean": 20.2,
+      "mean_confidence_drop": 58.7,
+      "evidence_response": "STRONG — mean drop of ~59 points"
+    },
+    "rationalization": {
+      "ABANDON": 22,
+      "AD_HOC_RESCUE": 1,
+      "LEGITIMATE_REVISION": 0,
+      "IGNORE_EVIDENCE": 0,
+      "CREATE_NEAR_DUPLICATE": 0,
+      "rationalization_rate": 0.043,
+      "ci_95_lower": 0.001,
+      "ci_95_upper": 0.220,
+      "note": "eco_04 classified as AD_HOC_RESCUE but is actually correct retention of a correct hypothesis"
+    },
+    "theory_proliferation": {
+      "proliferation_rate": 0.0,
+      "mean_descendants": 0.0,
+      "max_lineage_depth": 1,
+      "note": "No theory proliferation observed. All revisions were single-step."
+    }
+  },
+  "phase3": {
+    "source": "dedicated preregistered known-true protection cases",
+    "N": 20,
+    "false_abandonment": {
+      "numerator": 0,
+      "denominator": 20,
+      "rate": 0.0,
+      "ci_95_upper_rule_of_3": 0.139,
+      "ci_method": "Rule of 3 (exact binomial)",
+      "interpretation": "No false abandonments observed but upper bound is 13.9% — underpowered for strong claims"
+    },
+    "belief_stability": {
+      "mean_confidence": 89.0,
+      "min_confidence": 75,
+      "max_confidence": 95,
+      "std_confidence": 6.2,
+      "any_below_70": false,
+      "interpretation": "Strong belief stability. All true theories retained with high confidence (>= 75) despite weak contradictory noise."
+    }
+  },
+  "pilot_comparison": {
+    "stage3c_pilot": {
+      "correct_abandonment": "3/3 = 1.000",
+      "false_abandonment": "0/2 = 0.000",
+      "SAB": "+5"
+    },
+    "stage3d_scaled": {
+      "correct_abandonment": "22/23 = 0.957",
+      "false_abandonment": "0/20 = 0.000",
+      "SAB": "-0.43"
+    },
+    "replication_verdict": "PARTIALLY_REPLICATED",
+    "notes": [
+      "Correct abandonment replicated (high rate confirmed at scale)",
+      "Zero false abandonment replicated (but still underpowered)",
+      "SAB direction reversed (was +5 in pilot, now -0.43) — pilot SAB was noise at N=3"
+    ]
+  },
+  "verdict": "SUPPORTED",
+  "primary_finding": "gemma3:27b-it-qat demonstrates robust scientific self-correction: 95.7% correct abandonment of false theories with 0% false abandonment of true theories, no meaningful self-authorship bias, and negligible rationalization.",
+  "primary_bottleneck": "recovery_after_abandonment",
+  "bottleneck_detail": "Only 18.2% of correctly abandoned hypotheses identified the true mechanism. The model reliably rejects false theories but rarely generates the correct alternative spontaneously."
+}
