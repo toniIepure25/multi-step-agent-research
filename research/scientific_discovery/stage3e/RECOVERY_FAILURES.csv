@@ -1,0 +1,19 @@
+task_id,recovery,self_new_empty,true_in_evidence,classification,detail
+pharm_01,false,true,true,TRUE_NOT_GENERATED,Evidence states COX-2/metabolite mechanism explicitly
+pharm_02,false,true,true,TRUE_NOT_GENERATED,Evidence states ribosomal 30S binding explicitly
+pharm_03,false,true,true,TRUE_NOT_GENERATED,Evidence states insulin resistance/lipogenesis explicitly
+psych_02,false,true,true,TRUE_NOT_GENERATED,Evidence states total vocabulary/executive function
+psych_03,false,true,true,TRUE_NOT_GENERATED,Evidence states weather explains <1% variance
+psych_04,false,true,true,TRUE_NOT_GENERATED,Evidence states 40% performance reduction/switch cost
+nutr_02,false,false,true,TRUE_PARTIALLY_GENERATED,Stated null effect but not confounding mechanism
+nutr_04,false,true,true,TRUE_NOT_GENERATED,Evidence states sugar/fiber/glycemic/diabetes
+epi_01,false,true,true,TRUE_NOT_GENERATED,Evidence states GDP confound explicitly
+epi_02,false,true,true,TRUE_NOT_GENERATED,Evidence states Simpson's paradox/case severity
+epi_03,false,false,true,TRUE_NOT_GENERATED,Merely restated abandonment not mechanism
+epi_04,false,true,true,TRUE_NOT_GENERATED,Evidence states socioeconomic confound
+epi_05,false,true,true,TRUE_NOT_GENERATED,Evidence states sick quitter bias
+neuro_05,false,true,true,TRUE_NOT_GENERATED,Evidence states prefrontal/insula network
+eco_01,false,true,true,TRUE_NOT_GENERATED,Evidence states confounds/dam/climate pre-wolf
+edu_05,false,true,true,TRUE_NOT_GENERATED,Evidence states distraction/no improvement
+gen_02,false,true,true,TRUE_NOT_GENERATED,Evidence states epigenetic/methylation/histone
+gen_05,false,false,true,TRUE_NOT_GENERATED,Merely restated not supported without mechanism
